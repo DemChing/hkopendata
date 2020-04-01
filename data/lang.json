@@ -1,0 +1,3158 @@
+{
+    "common": {
+        "coordinate": {
+            "en": "Coordinate",
+            "tc": "座標"
+        },
+        "coordinateHK": {
+            "en": "HK80 Grid Coordinate",
+            "tc": "HK80方格座標"
+        },
+        "size": {
+            "en": "Size",
+            "tc": "大小"
+        },
+        "facility": {
+            "en": "Facility",
+            "tc": "設施"
+        },
+        "address": {
+            "en": [
+                "Address",
+                "addressEN"
+            ],
+            "tc": [
+                "地址",
+                "addressZH"
+            ]
+        },
+        "district": {
+            "en": [
+                "District",
+                "districtEN"
+            ],
+            "tc": [
+                "分區",
+                "districtZH"
+            ]
+        },
+        "street": {
+            "en": "Street",
+            "tc": "街道"
+        },
+        "buildingNo": {
+            "en": "Street No",
+            "tc": "街號"
+        },
+        "legco": {
+            "en": "LegCo Constituency",
+            "tc": "立法會選區"
+        },
+        "location": {
+            "en": "Sub District",
+            "tc": "地區"
+        },
+        "opening": {
+            "en": "Opening Hours",
+            "tc": "開放時間"
+        },
+        "tel": {
+            "en": [
+                "Telephone",
+                "Booking Tel No"
+            ],
+            "tc": [
+                "聯絡電話",
+                "預約電話"
+            ]
+        },
+        "fax": {
+            "en": "Fax Number",
+            "tc": "傳真號碼"
+        },
+        "email": {
+            "en": [
+                "Email",
+                "Email Address"
+            ],
+            "tc": [
+                "電郵",
+                "電郵地址"
+            ]
+        },
+        "website": {
+            "en": "Website",
+            "tc": "網頁"
+        },
+        "remarks": {
+            "en": [
+                "Remarks",
+                "remarksEN"
+            ],
+            "tc": [
+                "備註",
+                "remarksZH"
+            ]
+        },
+        "lastUpdate": {
+            "en": [
+                "Last Update",
+                "lastUpdateEN"
+            ],
+            "tc": [
+                "最後更新時間",
+                "lastUpdateZH"
+            ]
+        },
+        "createAt": {
+            "en": "Create At",
+            "tc": "建立日期"
+        },
+        "gender": {
+            "en": "Gender",
+            "tc": "性別"
+        },
+        "age": {
+            "en": "Age",
+            "tc": "年齡"
+        },
+        "date": {
+            "en": "Date",
+            "tc": "日期"
+        },
+        "time": {
+            "en": "Time",
+            "tc": "時間"
+        },
+        "year": {
+            "en": "Year",
+            "tc": "年"
+        },
+        "month": {
+            "en": "Month",
+            "tc": "月"
+        },
+        "day": {
+            "en": "Day",
+            "tc": "日"
+        },
+        "type": {
+            "en": "Type",
+            "tc": "類別"
+        },
+        "category": {
+            "en": "Category",
+            "tc": "範疇"
+        },
+        "name": {
+            "en": "Name",
+            "tc": "名稱"
+        },
+        "data": {
+            "en": "Data",
+            "tc": "數據"
+        },
+        "period": {
+            "en": "Period",
+            "tc": "時段"
+        },
+        "count": {
+            "en": "Count",
+            "tc": "次數"
+        },
+        "place": {
+            "en": "Location",
+            "tc": "地點"
+        },
+        "country": {
+            "en": "Country",
+            "tc": "名稱"
+        },
+        "municipality": {
+            "en": "Municipality",
+            "tc": "市"
+        },
+        "region": {
+            "en": "Region",
+            "tc": "區域"
+        },
+        "min": {
+            "en": "Min",
+            "tc": "最低"
+        },
+        "max": {
+            "en": "Max",
+            "tc": "最高"
+        },
+        "true": {
+            "en": "Yes",
+            "tc": "是"
+        },
+        "false": {
+            "en": "No",
+            "tc": "否"
+        },
+        "excludePublicHoliday": {
+            "en": "Exclude Public Holiday",
+            "tc": "公眾假期除外"
+        },
+        "description": {
+            "en": "Description",
+            "tc": "描述"
+        },
+        "facilityName": {
+            "en": "Facility Name",
+            "tc": "設施名稱"
+        },
+        "venueName": {
+            "en": "Venue Name",
+            "tc": "場地名稱"
+        },
+        "facilityDetail": {
+            "en": "Facility Details",
+            "tc": "設施詳情"
+        },
+        "others": {
+            "en": "Others",
+            "tc": "其他"
+        },
+        "height": {
+            "en": "Height",
+            "tc": "高度"
+        },
+        "value": {
+            "en": "Value",
+            "tc": "數值"
+        }
+    },
+    "geo": {
+        "gmid": "GMID",
+        "dataset": {
+            "en": "Dataset",
+            "tc": "數據集"
+        },
+        "hourRegistration": {
+            "en": "Registration Hours",
+            "tc": "登記時間"
+        },
+        "hourConsulation": {
+            "en": "Consulation Hours",
+            "tc": "診症時間"
+        },
+        "openingTeleInterp": {
+            "en": "Opening Hours - Telephone Interpretation Service",
+            "tc": "開放時間 - 電話傳譯服務"
+        },
+        "openingDropIn": {
+            "en": "Opening Hours - Drop-in Service",
+            "tc": "開放時間 - 偶到服務"
+        },
+        "openingManagementOffice": {
+            "en": "Opening Hours - Management Office",
+            "tc": "開放時間 - 管理公司"
+        },
+        "openingVisitorCentre": {
+            "en": "Opening Hours - Visitor Centre",
+            "tc": "開放時間 - 訪客中心"
+        },
+        "openingAnchorage1": {
+            "en": "Opening Hours - Harbour Control Section and Western Immigration Anchorage",
+            "tc": "開放時間 - 港口管制組及西區入境船隻認可碇泊處"
+        },
+        "openingAnchorage2": {
+            "en": "Opening Hours - Eastern Immigration Anchorage",
+            "tc": "開放時間 - 東區入境船隻認可碇泊處"
+        },
+        "openingSummerDayRace": {
+            "en": "Opening Hours - Summer Day Race",
+            "tc": "開放時間 - 夏季日間賽馬日"
+        },
+        "openingSummerNightRace": {
+            "en": "Opening Hours - Summer Night Race",
+            "tc": "開放時間 - 夏季夜間賽馬日"
+        },
+        "openingSummerNoRace": {
+            "en": "Opening Hours - Summer Non Race Race",
+            "tc": "開放時間 - 夏季非賽馬日"
+        },
+        "openingWinterDayRace": {
+            "en": "Opening Hours - Winter Day Race",
+            "tc": "開放時間 - 冬季日間賽馬日"
+        },
+        "openingWinterNightRace": {
+            "en": "Opening Hours - Winter Night Race",
+            "tc": "開放時間 - 冬季夜間賽馬日"
+        },
+        "openingWinterNoRace": {
+            "en": "Opening Hours - Winter Non Race Race",
+            "tc": "開放時間 - 冬季非賽馬日"
+        },
+        "openingExhibitionGallery": {
+            "en": "Opening Hours - Exhibition Gallery",
+            "tc": "開放時間 - 展覽館"
+        },
+        "openingOtherParkArea": {
+            "en": "Opening Hours - Other park area",
+            "tc": "開放時間 - 其他公園範圍"
+        },
+        "openingSummerPool": {
+            "en": "Opening Hours - Summer (Apr to Oct)",
+            "tc": "開放時間 - 夏季 (4至10月)"
+        },
+        "openingWinterPool": {
+            "en": "Opening Hours - Winter (Nov to Mar)",
+            "tc": "開放時間 - 冬季 (11至3月)"
+        },
+        "telEnquiry": {
+            "en": "Enquiry Hotline",
+            "tc": "查詢熱線"
+        },
+        "telSupport": {
+            "en": "Support Hotline",
+            "tc": "支援熱線"
+        },
+        "emailSupport": {
+            "en": "Support Email",
+            "tc": "支援電郵"
+        },
+        "genderOfResident": {
+            "en": "Gender of Residents",
+            "tc": "院舍住客性別"
+        },
+        "genderStudent": {
+            "en": "Students Gender",
+            "tc": "就讀學生性別"
+        },
+        "lastCollectionTime": {
+            "en": "Last collection time",
+            "tc": "最後接收箱時間"
+        },
+        "specialisedServices": {
+            "en": "Specialised Services",
+            "tc": "專門服務"
+        },
+        "services": {
+            "en": [
+                "Type of Service",
+                "Types of Services",
+                "Scope of Services"
+            ],
+            "tc": [
+                "服務類別",
+                "服務範圍"
+            ]
+        },
+        "religion": {
+            "en": "Religion",
+            "tc": "宗教"
+        },
+        "diet": {
+            "en": "Diet",
+            "tc": "膳食"
+        },
+        "schoolSession": {
+            "en": "Session",
+            "tc": "學校授課時間"
+        },
+        "schoolLevel": {
+            "en": "School Level",
+            "tc": "學校類型"
+        },
+        "schoolID": {
+            "en": "SCHOOL NO.",
+            "tc": "學校編號"
+        },
+        "financeType": {
+            "en": "Finance Type",
+            "tc": "資助種類"
+        },
+        "airMonitorType": {
+            "en": "Types of Air Quality Monitoring Station",
+            "tc": "空氣質素監測站類別"
+        },
+        "recyclingOrg": {
+            "en": "Name of Recycling Organisations",
+            "tc": "回收機構名稱"
+        },
+        "materialCollectionType": {
+            "en": "Types of Material Collection",
+            "tc": "收集物料類別"
+        },
+        "deliveryArea": {
+            "en": "Major Delivery Areas",
+            "tc": "主要派遞範圍"
+        },
+        "executionYear": {
+            "type": "number",
+            "en": [
+                "Execution Year",
+                "executionYear"
+            ],
+            "tc": "簽辦年度"
+        },
+        "executionDate": {
+            "en": [
+                "Execution Date",
+                "executionDateEN"
+            ],
+            "tc": [
+                "簽辦日期",
+                "executionDateZH"
+            ]
+        },
+        "districtCouncil": {
+            "en": [
+                "Relevant District Council",
+                "relevantDistrictCouncilEN"
+            ],
+            "tc": [
+                "所屬區議會",
+                "relevantDistrictCouncilZH"
+            ]
+        },
+        "lot": {
+            "en": [
+                "Lot Number",
+                "lotNumberEN"
+            ],
+            "tc": [
+                "地段編號",
+                "lotNumberZH"
+            ]
+        },
+        "place": {
+            "en": [
+                "Location",
+                "locationEN"
+            ],
+            "tc": [
+                "地點",
+                "locationZH"
+            ]
+        },
+        "siteArea": {
+            "type": "number",
+            "en": [
+                "Site Area (hectare)",
+                "siteAreaInHectare",
+                "newLotSiteAreaEN"
+            ],
+            "tc": [
+                "地段面積 (公頃)",
+                "newLotSiteAreaZH"
+            ]
+        },
+        "usage": {
+            "en": [
+                "Usage",
+                "userEN"
+            ],
+            "tc": [
+                "用途",
+                "userZH"
+            ]
+        },
+        "premium": {
+            "en": [
+                "Premium ($)",
+                "premiumEN"
+            ],
+            "tc": [
+                "地價 (港幣)",
+                "premiumZH"
+            ]
+        },
+        "ownership": {
+            "en": "Ownership",
+            "tc": "業權"
+        },
+        "area": {
+            "type": "number",
+            "en": [
+                "Area (m²)",
+                "Area (about) (m²)"
+            ],
+            "tc": [
+                "面積 (平方米)",
+                "面積(約)（平方米）"
+            ]
+        },
+        "residentialGFA": {
+            "en": [
+                "Residential Gross Floor Area",
+                "maxResidentialGFAEN"
+            ],
+            "tc": [
+                "住宅樓面總面積 (平方米)",
+                "maxResidentialGFAZH"
+            ]
+        },
+        "accessibility": {
+            "en": [
+                "Accessibility",
+                "Accessibility / Location"
+            ],
+            "tc": [
+                "前往方法",
+                "前往方法 / 所處位置"
+            ]
+        },
+        "shelteredSeating": {
+            "en": "Provision of Sheltered Seating",
+            "tc": "提供有蓋座位"
+        },
+        "barrierFreeAccess": {
+            "en": "Provision of Barrier-free-access Facilities",
+            "tc": "提供無障礙通道設施"
+        },
+        "locationPlan": {
+            "en": "Photos and Location Plan",
+            "tc": "相片及位置圖"
+        },
+        "category": {
+            "en": "Category",
+            "tc": "類別"
+        },
+        "developer": {
+            "en": [
+                "Parent Co. or Holding Co./Developer",
+                "developerEN"
+            ],
+            "tc": [
+                "發展商母公司或控股公司/發展商",
+                "developerZH"
+            ]
+        },
+        "developmentName": {
+            "en": [
+                "Development Name",
+                "developmentNameEN"
+            ],
+            "tc": [
+                "發展項目名稱",
+                "developmentNameZH"
+            ]
+        },
+        "vendor": {
+            "en": [
+                "Vendor",
+                "vendorEN"
+            ],
+            "tc": [
+                "賣方",
+                "vendorZH"
+            ]
+        },
+        "solicitors": {
+            "en": [
+                "Solicitors",
+                "solicitorsEN"
+            ],
+            "tc": [
+                "律師",
+                "solicitorsZH"
+            ]
+        },
+        "residentialUnitsNo": {
+            "type": "number",
+            "en": [
+                "No. of Residential Units",
+                "numOfResidentialUnits"
+            ],
+            "tc": "住宅單位數目"
+        },
+        "commercialUnitsNo": {
+            "type": "number",
+            "en": [
+                "No. of Commercial Units",
+                "numOfCommercialUnits"
+            ],
+            "tc": "商業單位數目"
+        },
+        "industrialUnitsNo": {
+            "type": "number",
+            "en": [
+                "No. of Industrial Units",
+                "numOfIndustrialUnits"
+            ],
+            "tc": "工業單位數目"
+        },
+        "otherUnitsNo": {
+            "type": "number",
+            "en": [
+                "No. of Other Units",
+                "numOfOtherUnits"
+            ],
+            "tc": "其他單位數目"
+        },
+        "rejectOrWithdraw": {
+            "en": [
+                "Rejection or Withdrawal",
+                "rejectionOrWithdrawalEN"
+            ],
+            "tc": [
+                "拒絕/撤回",
+                "rejectionOrWithdrawalZH"
+            ]
+        },
+        "rejectOrWithdrawDate": {
+            "en": [
+                "Date of Rejection or Withdrawal",
+                "rejectionOrWithdrawalDateEN"
+            ],
+            "tc": [
+                "拒絕/撤回日期",
+                "rejectionOrWithdrawalDateZH"
+            ]
+        },
+        "authPerson": {
+            "en": [
+                "Authorized Person and his/her Company",
+                "authorizedPersonEN"
+            ],
+            "tc": [
+                "認可人士及其公司",
+                "authorizedPersonZH"
+            ]
+        },
+        "mortgagee": {
+            "en": [
+                "Mortgagee",
+                "mortgageeEN"
+            ],
+            "tc": [
+                "按揭銀行",
+                "mortgageeZH"
+            ]
+        },
+        "estimateCompletionDate": {
+            "en": [
+                "Estimated Completion Date",
+                "estimatedCompletionDateEN"
+            ],
+            "tc": [
+                "預計落成日期",
+                "estimatedCompletionDateZH"
+            ]
+        },
+        "daysBeforeEstCompletionDate": {
+            "type": "number",
+            "en": [
+                "Days before Estimated Completion Date",
+                "numOfDaysBeforeEstimatedCompletionDate"
+            ],
+            "tc": [
+                "相距預計落成日期的日數"
+            ]
+        },
+        "buildingContractor": {
+            "en": [
+                "Building Contractor",
+                "buildingContractorEN"
+            ],
+            "tc": [
+                "承建商",
+                "buildingContractorZH"
+            ]
+        },
+        "holdingCompany": {
+            "en": [
+                "Holding Company",
+                "holdingCompanyEN"
+            ],
+            "tc": [
+                "控權公司",
+                "holdingCompanyZH"
+            ]
+        },
+        "undertakingBank": {
+            "en": [
+                "Undertaking Bank",
+                "undertakingBankEN"
+            ],
+            "tc": [
+                "提交承諾書之銀行",
+                "undertakingBankZH"
+            ]
+        },
+        "financier": {
+            "en": [
+                "Financier",
+                "financierEN"
+            ],
+            "tc": [
+                "融資人",
+                "financierZH"
+            ]
+        },
+        "registrationDate": {
+            "en": [
+                "Date of Registration",
+                "registrationDateEN"
+            ],
+            "tc": [
+                "註冊日期",
+                "registrationDateZH"
+            ]
+        },
+        "consentEffectiveDate": {
+            "en": [
+                "Consent Effective Date",
+                "consentEffectiveDateEN"
+            ],
+            "tc": [
+                "同意書生效日期",
+                "consentEffectiveDateZH"
+            ]
+        },
+        "consentIssueDate": {
+            "en": [
+                "Consent Issue Date",
+                "issueDateEN"
+            ],
+            "tc": [
+                "同意書發出日期",
+                "issueDateZH"
+            ]
+        },
+        "consentIssueMonth": {
+            "type": "number",
+            "en": [
+                "Consent Issue Month",
+                "issueMonth"
+            ],
+            "tc": "同意書發出月份"
+        },
+        "consentIssueYear": {
+            "type": "number",
+            "en": [
+                "Consent Issue Year",
+                "issueYear"
+            ],
+            "tc": "同意書發出年份"
+        },
+        "consentApprovalDate": {
+            "en": [
+                "Consent/Approval Date",
+                "consentApprovalDateEN"
+            ],
+            "tc": [
+                "同意書/批核公契日期",
+                "consentApprovalDateZH"
+            ]
+        },
+        "consentApprovalYear": {
+            "type": "number",
+            "en": [
+                "Consent/Approval Year",
+                "consentApprovalYear"
+            ],
+            "tc": "同意書/批核公契年度"
+        },
+        "consentApprovalType": {
+            "en": [
+                "Type of Consent / Approval",
+                "consentApprovalTypeEN"
+            ],
+            "tc": [
+                "同意書/批核公契種類",
+                "consentApprovalTypeZH"
+            ]
+        },
+        "countryPark": {
+            "en": [
+                "Country Park/Special Area",
+                "Country Park"
+            ],
+            "tc": [
+                "郊野公園/特別地區",
+                "郊野公園"
+            ]
+        },
+        "bbqPitNo": {
+            "type": "number",
+            "en": "Number of BBQ Pit",
+            "tc": "燒烤爐數目"
+        },
+        "displayBbqSite": {
+            "en": "Display Barbecue Sites",
+            "tc": "顯示燒烤場"
+        },
+        "facilityType": {
+            "en": "Facility Type",
+            "tc": "設施種類"
+        },
+        "tentNo": {
+            "type": "number",
+            "en": "Tent space",
+            "tc": "營位數目"
+        },
+        "waterSource": {
+            "en": "Source of water",
+            "tc": "水源"
+        },
+        "waterDispenserType": {
+            "en": "Type of Water Dispenser",
+            "tc": "飲水機種類"
+        },
+        "libraryType": {
+            "en": "Library Type",
+            "tc": "圖書館種類"
+        },
+        "ssid": {
+            "en": "SSID",
+            "tc": "網路名稱"
+        },
+        "digitalCertificate": {
+            "en": "Digital Certificate",
+            "tc": "數碼證書"
+        },
+        "hotspotNo": {
+            "type": "number",
+            "en": "Number of Hotspots",
+            "tc": "熱點數量"
+        },
+        "otherInfo": {
+            "en": "More Information",
+            "tc": "更多資料"
+        },
+        "otherInfoLink": {
+            "en": "More Information Link",
+            "tc": "更多資料連結"
+        },
+        "venueType": {
+            "en": "Venue Type",
+            "tc": "場所類別"
+        },
+        "organization": {
+            "en": "Organisation",
+            "tc": "參與機構"
+        }
+    },
+    "ha": {
+        "hospital": {
+            "en": "Hospital",
+            "tc": "醫院"
+        },
+        "waitingTime": {
+            "en": "Waiting Time",
+            "tc": "等候時間"
+        }
+    },
+    "dh": {
+        "confirmed": {
+            "en": "Confirmed Case",
+            "tc": "確診個案"
+        },
+        "ruledOut": {
+            "en": "Ruled Out Case",
+            "tc": "排除個案"
+        },
+        "hospitalised": {
+            "en": "Hospitalised Investigation",
+            "tc": "留院觀察"
+        },
+        "reporting": {
+            "en": "Reporting Case",
+            "tc": "呈報個案"
+        },
+        "death": {
+            "en": "Death Case",
+            "tc": "死亡個案"
+        },
+        "discharge": {
+            "en": "Discharge Case",
+            "tc": "出院個案"
+        },
+        "caseNo": {
+            "en": "Case No",
+            "tc": "個案編號"
+        },
+        "confirmDate": {
+            "en": "Date of Confirmation",
+            "tc": "確診日期"
+        },
+        "onsetDate": {
+            "en": "Date of Onset",
+            "tc": "發病日期"
+        },
+        "hospital": {
+            "en": "Hospital Admitted",
+            "tc": "入住醫院"
+        },
+        "state": {
+            "en": "Status",
+            "tc": "狀態"
+        },
+        "hkResident": {
+            "en": "HK Resident",
+            "tc": "香港居民"
+        },
+        "class": {
+            "en": "Classification",
+            "tc": "個案分類"
+        },
+        "building": {
+            "en": "Building",
+            "tc": "大廈"
+        },
+        "lastStayingDate": {
+            "en": "Last Case Staying Date",
+            "tc": "最近個案逗留日期"
+        },
+        "relatedCases": {
+            "en": "Related Cases",
+            "tc": "相關確診個案"
+        },
+        "transportNo": {
+            "en": "Flight/Train/Ship No",
+            "tc": "航班/火車/船編號"
+        },
+        "route": {
+            "en": "Route",
+            "tc": "路線"
+        },
+        "travelDate": {
+            "en": "Travel Date",
+            "tc": "乘搭日期"
+        },
+        "endQuarantineDate": {
+            "en": "Home Quarantine End Date",
+            "tc": "家居檢疫結束日期"
+        }
+    },
+    "hko": {
+        "generalSituation": {
+            "en": "General Situation",
+            "tc": "概況"
+        },
+        "tcInfo": {
+            "en": "Tropical Cyclone Information",
+            "tc": "熱帶氣旋資訊"
+        },
+        "fireDangerWarning": {
+            "en": "Fire Danger Warning Message",
+            "tc": "火災危險警告信息"
+        },
+        "weatherForecast": {
+            "en": "Weather Forecast",
+            "tc": "天氣預報"
+        },
+        "forecast": {
+            "en": "Forecast",
+            "tc": "預測"
+        },
+        "weather": {
+            "en": "Weather",
+            "tc": "天氣"
+        },
+        "maxtemp": {
+            "en": "Maximum Temperature",
+            "tc": "最高溫度"
+        },
+        "mintemp": {
+            "en": "Minimum Temperature",
+            "tc": "最低溫度"
+        },
+        "maxrh": {
+            "en": "Maximum Relative Humidity",
+            "tc": "最高相對濕度"
+        },
+        "minrh": {
+            "en": "Minimum Relative Humidity",
+            "tc": "最低相對濕度"
+        },
+        "week": {
+            "en": "Week",
+            "tc": "星期"
+        },
+        "visibility": {
+            "en": "Visibility",
+            "tc": "能見度"
+        },
+        "soilTemp": {
+            "en": "Soil Temperature",
+            "tc": "土壤溫度"
+        },
+        "seaTemp": {
+            "en": "Sea Surface Temperature",
+            "tc": "海面溫度"
+        },
+        "sunrise": {
+            "en": "Sunrise Time",
+            "tc": "日出時間"
+        },
+        "suntran": {
+            "en": "Sun Transit Time",
+            "tc": "日中天時間"
+        },
+        "sunset": {
+            "en": "Sunset Time",
+            "tc": "日落時間"
+        },
+        "moonrise": {
+            "en": "Moonrise Time",
+            "tc": "月出時間"
+        },
+        "moontran": {
+            "en": "Moon Transit Time",
+            "tc": "月中天時間"
+        },
+        "moonset": {
+            "en": "Moonset Time",
+            "tc": "月落時間"
+        },
+        "rainfall": {
+            "en": "Rainfall",
+            "tc": "雨量"
+        },
+        "lightning": {
+            "en": "Lightning",
+            "tc": "閃電"
+        },
+        "uvindex": {
+            "en": "UV Index",
+            "tc": "紫外線指數"
+        },
+        "warningMessage": {
+            "en": "Warning Message",
+            "tc": "警告信息"
+        },
+        "rainstormReminder": {
+            "en": "Rainstorm Reminder",
+            "tc": "暴雨警告提醒"
+        },
+        "specialWxTips": {
+            "en": "Special Weather Tips",
+            "tc": "特別天氣提示"
+        },
+        "tcmessage": {
+            "en": "Tropical Cyclone Position",
+            "tc": "熱帶氣旋位置"
+        },
+        "mintempFrom00To09": {
+            "en": "Minimum temperature from midnight to 9 am",
+            "tc": "午夜至上午九時的最低溫度"
+        },
+        "rainfallFrom00To12": {
+            "en": "Accumulated rainfall from midnight to noon",
+            "tc": "午夜至中午累計降雨量"
+        },
+        "rainfallLastMonth": {
+            "en": "Rainfall in last month",
+            "tc": "上月降雨量"
+        },
+        "rainfallJanuaryToLastMonth": {
+            "en": "Accumulated rainfall from January to last month",
+            "tc": "一月至上月累計降雨量"
+        },
+        "maintenance": {
+            "en": "Under Maintenance",
+            "tc": "維修中"
+        },
+        "depth": {
+            "en": "Depth",
+            "tc": "深度"
+        },
+        "ratio": {
+            "en": "Ratio",
+            "tc": "比率"
+        },
+        "desc": {
+            "en": "Description",
+            "tc": "內容"
+        },
+        "richter": {
+            "en": "Richter Magnitude Scale",
+            "tc": "黎克特制地震震級"
+        },
+        "outlook": {
+            "en": "Outlook",
+            "tc": "展望"
+        },
+        "recordTime": {
+            "en": "Record Time",
+            "tc": "紀錄時間"
+        },
+        "completeness": {
+            "en": "Data Completeness",
+            "tc": "數據完整性"
+        },
+        "complete": {
+            "en": "Complete",
+            "tc": "完整"
+        },
+        "incomplete": {
+            "en": "Incomplete",
+            "tc": "不完整"
+        },
+        "unavailable": {
+            "en": "Unavailable",
+            "tc": "沒有數據"
+        },
+        "station": {
+            "en": "Sataion",
+            "tc": "分區站"
+        },
+        "WFIRE": {
+            "en": "Fire Danger Warning",
+            "tc": "火災危險警告"
+        },
+        "WFROST": {
+            "en": "Frost Warning",
+            "tc": "霜凍警告"
+        },
+        "WHOT": {
+            "en": "Hot Weather Warning",
+            "tc": "酷熱天氣警告"
+        },
+        "WCOLD": {
+            "en": "Cold Weather Warning",
+            "tc": "寒冷天氣警告"
+        },
+        "WMSGNL": {
+            "en": "Strong Monsoon Signal",
+            "tc": "強烈季候風信號"
+        },
+        "WTCPRE8": {
+            "en": "Pre-no.8 Special Announcement",
+            "tc": "預警八號熱帶氣旋警告信號之特別報告"
+        },
+        "WRAIN": {
+            "en": "Rainstorm Warning Signal",
+            "tc": "暴雨警告信號"
+        },
+        "WFNTSA": {
+            "en": "Special Announcement on Flooding in the northern New Territories",
+            "tc": "新界北部水浸特別報告"
+        },
+        "WL": {
+            "en": "Landslip Warning",
+            "tc": "山泥傾瀉警告"
+        },
+        "WTCSGNL": {
+            "en": "Tropical Cyclone Warning Signal",
+            "tc": "熱帶氣旋警告信號"
+        },
+        "WTMW": {
+            "en": "Tsunami Warning",
+            "tc": "海嘯警告"
+        },
+        "WTS": {
+            "en": "Thunderstorm Warning",
+            "tc": "雷暴警告"
+        },
+        "WFIREY": {
+            "en": "Yellow Fire Danger Warning",
+            "tc": "黃色火災危險警告"
+        },
+        "WFIRER": {
+            "en": "Red Fire Danger Warning",
+            "tc": "紅色火災危險警告"
+        },
+        "WRAINA": {
+            "en": "Amber Rainstorm Warning Signal",
+            "tc": "黃色暴雨警告信號"
+        },
+        "WRAINR": {
+            "en": "Red Rainstorm Warning Signal",
+            "tc": "紅色暴雨警告信號"
+        },
+        "WRAINB": {
+            "en": "Black Rainstorm Warning Signal",
+            "tc": "黑色暴雨警告信號"
+        },
+        "TC1": {
+            "en": "Standby Signal No.1",
+            "tc": "一號戒備信號"
+        },
+        "TC3": {
+            "en": "Strong Wind Signal No.3",
+            "tc": "三號強風信號"
+        },
+        "TC8NE": {
+            "en": "No.8 North East Gale or Storm Signal",
+            "tc": "八號東北烈風或暴風信號"
+        },
+        "TC8SE": {
+            "en": "No.8 South East Gale or Storm Signal",
+            "tc": "八號東南烈風或暴風信號"
+        },
+        "TC8SW": {
+            "en": "No.8 South West Gale or Storm Signal",
+            "tc": "八號西南烈風或暴風信號"
+        },
+        "TC8NW": {
+            "en": "No.8 North West Gale or Storm Signal",
+            "tc": "八號西北烈風或暴風信號"
+        },
+        "TC9": {
+            "en": "Increasing Gale or Storm Signal No.9",
+            "tc": "九號烈風或暴風風力增強信號"
+        },
+        "TC10": {
+            "en": "Hurricane Signal No.10",
+            "tc": "十號颶風信號"
+        }
+    },
+    "lcsd": {
+        "gihs": "GIHS",
+        "route": {
+            "en": "Route",
+            "tc": "路徑"
+        },
+        "howToAccess": {
+            "en": "How To Access",
+            "tc": "前往方式"
+        },
+        "mapURL": {
+            "en": "Map",
+            "tc": "地圖"
+        },
+        "capacity": {
+            "en": "Capacity",
+            "tc": "可容納人數"
+        },
+        "disability": {
+            "en": "For Disabled Persons",
+            "tc": "殘障人士可用"
+        },
+        "rooms": {
+            "en": "Rooms No",
+            "tc": "房間數量"
+        },
+        "sets": {
+            "en": "Sets No",
+            "tc": "設備數量"
+        },
+        "courts": {
+            "en": "Courts No",
+            "tc": "場地數量"
+        },
+        "equipment": {
+            "en": "Equipment",
+            "tc": "設備"
+        },
+        "ceremonyLocation": {
+            "en": "Wedding Ceremony Location",
+            "tc": "婚禮專用區"
+        },
+        "dlsoApplication": {
+            "en": "District Leisure Services Offices/Park",
+            "tc": "分區康樂事務辦事處/公園"
+        },
+        "dlsoAddress": {
+            "en": "District Leisure Services Offices/Park Address",
+            "tc": "分區康樂事務辦事處/公園地址"
+        }
+    },
+    "hkma": {
+        "hotline": {
+            "en": "Hotline",
+            "tc": "熱線"
+        },
+        "organization": {
+            "en": "Organization",
+            "tc": "機構"
+        },
+        "hkmaRegCode": {
+            "en": "HKMA Reg. No.",
+            "tc": "金管局註冊號碼"
+        },
+        "fraudWebsites": {
+            "en": "Fraudulent Website",
+            "tc": "欺詐網站"
+        },
+        "personalAccount": {
+            "en": "Personal Account",
+            "tc": "個人戶口"
+        },
+        "businessAccount": {
+            "en": "Business Account",
+            "tc": "公司戶口"
+        },
+        "service": {
+            "en": "Service",
+            "tc": "服務"
+        },
+        "onlappl": {
+            "en": "Online Application",
+            "tc": "網上申請"
+        },
+        "onlappo": {
+            "en": "Online Appointment",
+            "tc": "網上預約"
+        },
+        "inforeq": {
+            "en": "Required Infomation/Documents",
+            "tc": "所需資料/文件"
+        },
+        "acctopenbh": {
+            "en": "Account Opening Branches",
+            "tc": "開戶分行"
+        },
+        "contact": {
+            "en": "Contact",
+            "tc": "聯絡資料"
+        },
+        "currentRegistration": {
+            "en": "Current Registration",
+            "tc": "現在的註冊"
+        },
+        "regInstName": {
+            "en": "Registered Institution",
+            "tc": "註冊機構名稱"
+        },
+        "regulatedActivity": {
+            "en": "Regulated Activity",
+            "tc": "受規管活動"
+        },
+        "firstDateEngage": {
+            "en": "First Date of Engagement",
+            "tc": "開始從事有關活動的日期"
+        },
+        "isEo": {
+            "en": "Is Executive Officer",
+            "tc": "是否主管人員"
+        },
+        "positionTitle": {
+            "en": "Title",
+            "tc": "職位"
+        },
+        "businessAddress": {
+            "en": "Business Address",
+            "tc": "業務地址"
+        },
+        "businessOverseaAddress": {
+            "en": "Oversea Business Address",
+            "tc": "海外業務地址"
+        },
+        "licence": {
+            "en": "Licence",
+            "tc": "牌照"
+        },
+        "secstaffRegUrl": {
+            "en": "Registered Staff",
+            "tc": "員工紀錄冊"
+        },
+        "sfcCeNum": {
+            "en": "SFC CE No.",
+            "tc": "證監會中央編號"
+        },
+        "conditions": {
+            "en": "Conditions",
+            "tc": "條件"
+        },
+        "effectiveDate": {
+            "en": "Effective Date",
+            "tc": "生效日期"
+        },
+        "registrationHistory": {
+            "en": "Registration History",
+            "tc": "註冊歷史"
+        },
+        "effectivePeriod": {
+            "en": "Effective Period",
+            "tc": "從事有關活動的日期"
+        }
+    },
+    "post": {
+        "nearByOffice": {
+            "en": "Near By Office",
+            "tc": "鄰近郵政局"
+        },
+        "boxNo": {
+            "en": "Number of Boxes",
+            "tc": "郵箱數量"
+        },
+        "rentAvailable": {
+            "en": "Available for Rental",
+            "tc": "可租用"
+        },
+        "boxCode": {
+            "en": "Box Code",
+            "tc": "郵箱編號"
+        },
+        "officeCode": {
+            "en": "Office Code",
+            "tc": "郵政局編號"
+        },
+        "mobileCode": {
+            "en": "Mobile Office Code",
+            "tc": "流動郵政局編號"
+        },
+        "ipostalCode": {
+            "en": "iPostal Station Code",
+            "tc": "智郵站編號"
+        },
+        "collectionTime": {
+            "en": "Last Collection Time",
+            "tc": "最後收信時間"
+        },
+        "mlss": {
+            "en": "Mechanised Letter Sorting",
+            "tc": "機械揀信"
+        },
+        "serviceName": {
+            "en": "Service",
+            "tc": "服務"
+        },
+        "subServiceName": {
+            "en": "Sub Service",
+            "tc": "子服務"
+        },
+        "destination": {
+            "en": "Destination",
+            "tc": "目的地"
+        },
+        "tracking": {
+            "en": "Tracking",
+            "tc": "追蹤功能"
+        },
+        "busyHour": {
+            "en": "Busy Hours",
+            "tc": "繁忙時段"
+        },
+        "postage": {
+            "en": "Postage",
+            "tc": "郵費資料"
+        },
+        "weightStep": {
+            "en": "Weight Step",
+            "tc": "重量資料"
+        },
+        "suppService": {
+            "en": "Supplementary Service",
+            "tc": "附加服務"
+        },
+        "charge": {
+            "en": "Charge",
+            "tc": "收費"
+        },
+        "serviceCharge": {
+            "en": "Service Charge",
+            "tc": "處理費"
+        },
+        "weightLimit": {
+            "en": "Weight Limit",
+            "tc": "重量限制"
+        },
+        "weight": {
+            "en": "Weight",
+            "tc": "重量"
+        },
+        "overweight": {
+            "en": "Overweight",
+            "tc": "超重"
+        }
+    },
+    "bank": {
+        "brand": {
+            "en": "Brand",
+            "tc": "品牌"
+        },
+        "currency": {
+            "en": "Currency",
+            "tc": "貨幣"
+        },
+        "amount": {
+            "en": "Amount",
+            "tc": "金額"
+        },
+        "eligibility": {
+            "en": "Eligibility",
+            "tc": "要求"
+        },
+        "income": {
+            "en": "Income",
+            "tc": "收入"
+        },
+        "annualIncome": {
+            "en": "Annual Income",
+            "tc": "年收入"
+        },
+        "documents": {
+            "en": "Supporting Documents",
+            "tc": "證明文件"
+        },
+        "file": {
+            "en": "Documents",
+            "tc": "文件"
+        },
+        "other": {
+            "en": "Others",
+            "tc": "其他"
+        },
+        "applyMethod": {
+            "en": "Application Method",
+            "tc": "申請方法"
+        },
+        "applyForm": {
+            "en": "Application Form",
+            "tc": "申請表格"
+        },
+        "creditInterest": {
+            "en": "Credit Interest",
+            "tc": "利息"
+        },
+        "initialBalance": {
+            "en": "Initial Balance",
+            "tc": "初始資金"
+        },
+        "perAmount": {
+            "en": "Per Amount",
+            "tc": "每筆金額"
+        },
+        "subType": {
+            "en": "Sub Type",
+            "tc": "子類別"
+        },
+        "referenceLoanRepayment": {
+            "en": "Repayment Detail",
+            "tc": "還款詳情"
+        },
+        "balance": {
+            "en": "Balance",
+            "tc": "賬戶結餘"
+        },
+        "chargeFrequency": {
+            "en": "Charge Frequency",
+            "tc": "收費頻率"
+        },
+        "compoundingFrequency": {
+            "en": "Compounding Frequency",
+            "tc": "計息頻率"
+        },
+        "repaymentFrequency": {
+            "en": "Repayment Frequency",
+            "tc": "還款頻率"
+        },
+        "interestFrequency": {
+            "en": "Interest Frequency",
+            "tc": "派息頻率"
+        },
+        "interestRate": {
+            "en": "Interest Rate",
+            "tc": "利率"
+        },
+        "defaultInterestRate": {
+            "en": "Default Interest Rate",
+            "tc": "預設利率"
+        },
+        "interestRateType": {
+            "en": "Interest Rate Type",
+            "tc": "利率類別"
+        },
+        "loanInterestTierBandSet": {
+            "en": "Interest Tiers",
+            "tc": "利率分級"
+        },
+        "tierBandMethod": {
+            "en": "Tier Methodology",
+            "tc": "分級方法"
+        },
+        "tierBand": {
+            "en": "Tier",
+            "tc": "分級"
+        },
+        "loanProviderInterestRate": {
+            "en": "Interest Rate (Financial Institutions)",
+            "tc": "利率 (金融機構)"
+        },
+        "loanProviderInterestRateType": {
+            "en": "Interest Rate Type (Financial Institutions)",
+            "tc": "利率類別 (金融機構)"
+        },
+        "fixedInterestRate": {
+            "en": "Fixed Interest Rate",
+            "tc": "固定利率"
+        },
+        "repAPR": {
+            "en": "Annualised Percentage Rate",
+            "tc": "年度百分率"
+        },
+        "loanPurpose": {
+            "en": "Loan Purpose",
+            "tc": "貸款目的"
+        },
+        "isFTHB": {
+            "en": "First-time Home Buyers",
+            "tc": "首次置業"
+        },
+        "issuingInstitution": {
+            "en": "Issuing Institution",
+            "tc": "發卡金融機構"
+        },
+        "applicationFrequency": {
+            "en": "Application Frequency",
+            "tc": "適用頻率"
+        },
+        "settlementDate": {
+            "en": "Settlement Date",
+            "tc": "到期日"
+        },
+        "procedure": {
+            "en": "Procedure",
+            "tc": "流程"
+        },
+        "calculateFrequency": {
+            "en": "Calculate Frequency",
+            "tc": "計算頻率"
+        },
+        "accessChannel": {
+            "en": "Apply Channel",
+            "tc": "申請方式"
+        },
+        "tradingChannel": {
+            "en": "Trading Channel",
+            "tc": "交易渠道"
+        },
+        "referenceAsset": {
+            "en": "Reference Asset",
+            "tc": "參考資產"
+        },
+        "tradingHour": {
+            "en": "Trading Hour",
+            "tc": "交易時間"
+        },
+        "currencyPair": {
+            "en": "Currency Pair",
+            "tc": "貨幣組合"
+        },
+        "calculationMethod": {
+            "en": "Calculation Method",
+            "tc": "計算方法"
+        },
+        "services": {
+            "en": "Type of Service",
+            "tc": "服務範圍"
+        },
+        "bankServices": {
+            "en": "Bank Services",
+            "tc": "銀行服務"
+        },
+        "class": {
+            "en": "Class",
+            "tc": "級別"
+        },
+        "ipoSubscription": {
+            "en": "IPO Subscription",
+            "tc": "IPO 認購"
+        },
+        "ipoFinancing": {
+            "en": "IPO Financing",
+            "tc": "IPO 融資"
+        },
+        "securityTrading": {
+            "en": "Securities Trading",
+            "tc": "證券交易"
+        },
+        "securityMarginTrading": {
+            "en": "Securities Margin Trading",
+            "tc": "證券孖展交易"
+        },
+        "monthlyStockSavingPlan": {
+            "en": "Monthly Stock Saving Plan",
+            "tc": "月供股票計劃"
+        },
+        "securityMarket": {
+            "en": "Security Market",
+            "tc": "證券市場"
+        },
+        "stockMarket": {
+            "en": "Stock Market",
+            "tc": "股票市場"
+        },
+        "sehk": {
+            "en": "Hong Kong Stock Exchange",
+            "tc": "香港聯合交易所"
+        },
+        "mamk": {
+            "en": "Shanghai Stock Exchange",
+            "tc": "上海證券交易所"
+        },
+        "szmk": {
+            "en": "Shenzhen Stock Exchange",
+            "tc": "深圳證券交易所"
+        },
+        "nyse": {
+            "en": "New York Stock Exchange",
+            "tc": "紐約證券交易所"
+        },
+        "baseCurrency": {
+            "en": "Base Currency",
+            "tc": "基準貨幣"
+        },
+        "quoteCurrency": {
+            "en": "Quote Currency",
+            "tc": "基準貨幣"
+        },
+        "rmbWithdrawal": {
+            "en": "Renminbi Withdrawal",
+            "tc": "人民幣提取"
+        },
+        "foreignCurrency": {
+            "en": "Foreign Currency",
+            "tc": "外幣提取"
+        },
+        "coinSort": {
+            "en": "Coin Sort",
+            "tc": "硬幣分類"
+        },
+        "disabledAccess": {
+            "en": "For Disabled Persons",
+            "tc": "殘障人士可用"
+        },
+        "talkATM": {
+            "en": "Voice Navigation ATM",
+            "tc": "語音導航自動櫃員機"
+        },
+        "aTMwithRMB": {
+            "en": "Renminbi ATM",
+            "tc": "人民幣提取櫃員機"
+        },
+        "aTMwithFC": {
+            "en": "Foreign Currency ATM",
+            "tc": "外幣提取櫃員機"
+        },
+        "prestigeandPreferred": {
+            "en": "Prestige & Preferred Banking Centre",
+            "tc": "優越及優進理財中心"
+        },
+        "mortgageCentre": {
+            "en": "Mortgage Centre",
+            "tc": "按揭中心"
+        },
+        "corporateCentre": {
+            "en": "Corporate Centre",
+            "tc": "商務中心"
+        },
+        "tradeServiceNetwork": {
+            "tc": "押匯服務網絡"
+        },
+        "iservice": {
+            "en": "iService",
+            "tc": "至專客服"
+        },
+        "ipoint": {
+            "en": "iPoint Personal Banking",
+            "tc": "iPoint 個人理財"
+        },
+        "personalCustomer": {
+            "en": "Personal Customer",
+            "tc": "個人客戶"
+        },
+        "corporateCustomer": {
+            "en": "Corporate Customer",
+            "tc": "企業客戶"
+        },
+        "corporatePrivilege": {
+            "en": "Corporate Privilege",
+            "tc": "商盈尊貴薈"
+        },
+        "businessAccountOpening": {
+            "en": "Business Account Opening",
+            "tc": "商業賬戶開戶"
+        },
+        "expressBank": {
+            "en": "Express Banking",
+            "tc": "理財易"
+        },
+        "indoorFacility": {
+            "en": "Indoor Facility",
+            "tc": "室內設施"
+        },
+        "counterService": {
+            "en": "Counter Services",
+            "tc": "櫃檯服務"
+        },
+        "businessSpecialist": {
+            "en": "Business Specialist",
+            "tc": "商務專員"
+        },
+        "phoneBankingTerminal": {
+            "en": "Phone Banking Terminal",
+            "tc": "電話理財終端"
+        },
+        "safeDepositBox": {
+            "en": "Safe Deposit Box",
+            "tc": "保管箱"
+        },
+        "safeDepositBoxDescription": {
+            "en": "Safe Deposit Box Info",
+            "tc": "保管箱資訊"
+        },
+        "safeDepositBoxTC": {
+            "en": "Safe Deposit Box T&C",
+            "tc": "保管箱條款"
+        },
+        "termsAndConditions": {
+            "en": "Terms and Conditions",
+            "tc": "條款"
+        },
+        "passbook": {
+            "en": "Passbook",
+            "tc": "存摺"
+        },
+        "aTMCard": {
+            "en": "ATM Card",
+            "tc": "提款卡"
+        },
+        "ebanking": {
+            "en": "Online Banking",
+            "tc": "網上理財"
+        },
+        "phoneBanking": {
+            "en": "Phone Banking",
+            "tc": "電話理財"
+        },
+        "mobileBanking": {
+            "en": "Mobile Banking",
+            "tc": "流動理財"
+        },
+        "fps": {
+            "en": "FPS",
+            "tc": "轉數快"
+        },
+        "jetcoPay": "JETCO Pay",
+        "passbookUpdate": {
+            "en": "Passbook Update Services",
+            "tc": "存摺列印服務"
+        },
+        "cHATS": {
+            "en": "HKD Clearing System",
+            "tc": "港元結算系統"
+        },
+        "rTGS": {
+            "en": "Real Time Gross Settlement",
+            "tc": "即時支付結算"
+        },
+        "tT": {
+            "en": "Telegraphic Transfer",
+            "tc": "電匯"
+        },
+        "teleTransfer": {
+            "en": "Telegraphic Transfer",
+            "tc": "電匯"
+        },
+        "rMBExchange": {
+            "en": "Renminbi Exchange",
+            "tc": "人民幣兌換"
+        },
+        "noteExchange": {
+            "en": "Note Exchange",
+            "tc": "現鈔兌換"
+        },
+        "nightDepositDropBox": {
+            "en": "Night Deposit Drop Box",
+            "tc": "夜間存票服務"
+        },
+        "notaryAvailable": {
+            "en": "Notary Services",
+            "tc": "公證人服務"
+        },
+        "24HourAccessible": {
+            "en": "24 Hour Accessible",
+            "tc": "24小時服務"
+        },
+        "24hourATM": {
+            "en": "24 Hour ATM",
+            "tc": "24小時自動櫃員機"
+        },
+        "wealthManagement": {
+            "en": "Wealth Management Services",
+            "tc": "財富管理服務"
+        },
+        "preciousMetalTrading": {
+            "en": "Precious Metal Trading",
+            "tc": "貴金屬買賣"
+        },
+        "securitiesServices": {
+            "en": "Securities Services",
+            "tc": "證券服務"
+        },
+        "applicableAccounts": {
+            "en": "Applicable Accounts",
+            "tc": "適用戶口"
+        },
+        "accountsOpeningorEnquiry": {
+            "en": "Accounts Opening/Enquiry Services",
+            "tc": "開立/查詢戶口服務"
+        },
+        "automatedBankingCentre": {
+            "en": "Automated Banking Centre",
+            "tc": "自助銀行服務"
+        },
+        "cashDepositMachine": {
+            "en": "Cash Deposit Machine",
+            "tc": "現金存款櫃員機"
+        },
+        "chequeDepositMachine": {
+            "en": "Cheque Deposit Machine",
+            "tc": "支票存款櫃員機"
+        },
+        "automatedTellerMachine": {
+            "en": "Automated Teller Machine",
+            "tc": "自動櫃員機"
+        },
+        "atm": {
+            "en": "ATM",
+            "tc": "自動櫃員機"
+        },
+        "atmNetwork": {
+            "en": "ATM Network",
+            "tc": "櫃員機網絡"
+        },
+        "statement": {
+            "en": "Statement",
+            "tc": "月結單"
+        },
+        "statementPaper": {
+            "en": "Printed Statement",
+            "tc": "紙本月結單"
+        },
+        "statementElectronic": {
+            "en": "Electronic Statement",
+            "tc": "電子月結單"
+        },
+        "chequePaper": {
+            "en": "Paper Cheque",
+            "tc": "紙張支票"
+        },
+        "chequeElectronic": {
+            "en": "Electronic Cheque",
+            "tc": "電子支票"
+        },
+        "branch": {
+            "en": "Branch",
+            "tc": "分行"
+        },
+        "branchCode": {
+            "en": "Branch Code",
+            "tc": "分行編號"
+        },
+        "mTRStationOffice": {
+            "en": "MTR Station Office",
+            "tc": "港鐵站內辦公室"
+        },
+        "mTRStationATM": {
+            "en": "MTR Station ATM",
+            "tc": "港鐵站內櫃員機"
+        },
+        "investment": {
+            "en": "Investment Services",
+            "tc": "投資服務"
+        },
+        "captialInvestment": {
+            "en": "Capital Investment Entrant Scheme",
+            "tc": "資本投資者入境計劃"
+        },
+        "fullyAutomatedManned": {
+            "en": "Fully Automated",
+            "tc": "全自助"
+        },
+        "foreignCurrencyAvailable": {
+            "en": "Foreign Currency",
+            "tc": "外幣服務"
+        },
+        "foreignCurrencyReservable": {
+            "en": "Foreign Currency Reservation",
+            "tc": "外幣預留服務"
+        },
+        "cashDeposit": {
+            "en": "Cash Deposit",
+            "tc": "現金存款"
+        },
+        "billPayment": {
+            "en": "Bill Payment",
+            "tc": "賬單繳付"
+        },
+        "cashWithdrawal": {
+            "en": "Cash Withdrawal",
+            "tc": "現金提款"
+        },
+        "chequeDeposit": {
+            "en": "Cheque Deposit",
+            "tc": "支票存入"
+        },
+        "mobileBranch": {
+            "en": "Mobile Branch",
+            "tc": "流動銀行"
+        },
+        "commercialCounter": {
+            "en": "Commercial Counter",
+            "tc": "商業客戶櫃檯服務"
+        },
+        "priorityCounters": {
+            "en": "Priority Counters",
+            "tc": "優先櫃檯服務"
+        },
+        "operatingHour": {
+            "en": "Operationg Hour",
+            "tc": "服務時間"
+        },
+        "buyRate": {
+            "en": "Buy Rate",
+            "tc": "買入價"
+        },
+        "sellRate": {
+            "en": "Sell Rate",
+            "tc": "賣出價"
+        },
+        "loanAmount": {
+            "en": "Loan Amount",
+            "tc": "貸款額"
+        },
+        "principalAmount": {
+            "en": "Principal Amount",
+            "tc": "本金"
+        },
+        "loanToValueRatio": {
+            "en": "Loan to Value Ratio",
+            "tc": "貸款價值比"
+        },
+        "loanInterest": {
+            "en": "Loan Interest",
+            "tc": "貸款利息"
+        },
+        "loanTerm": {
+            "en": "Loan Term",
+            "tc": "貸款期"
+        },
+        "termPeriod": {
+            "en": "Term Unit",
+            "tc": "期數單位"
+        },
+        "loanTenor": {
+            "en": "Loan Tenor",
+            "tc": "貸款期限"
+        },
+        "investTenor": {
+            "en": "Investment Tenor",
+            "tc": "投資期"
+        },
+        "minTermPeriod": {
+            "en": "Minimum Term Unit",
+            "tc": "最短期限單位"
+        },
+        "maxTermPeriod": {
+            "en": "Maximum Term Unit",
+            "tc": "最長期限單位"
+        },
+        "tierValueTerm": {
+            "en": "Term Value",
+            "tc": "期數"
+        },
+        "tierValueMinTerm": {
+            "en": "Minimum Term Value",
+            "tc": "最短期數"
+        },
+        "tierValueMaxTerm": {
+            "en": "Maximum Term Value",
+            "tc": "最長期數"
+        },
+        "termPeriodRange": {
+            "en": "Term Range",
+            "tc": "期限範圍"
+        },
+        "tierValueMinimum": {
+            "en": "Minimum Value",
+            "tc": "最低金額"
+        },
+        "tierValueMaximum": {
+            "en": "Maximum Value",
+            "tc": "最高金額"
+        },
+        "tierValueRange": {
+            "en": "Value Range",
+            "tc": "金額範圍"
+        },
+        "maxInterestFreeDay": {
+            "en": "Maximum Repay Interest Free Days",
+            "tc": "最長還款免息日數"
+        },
+        "overdue": {
+            "en": "Overdue",
+            "tc": "逾期費用"
+        },
+        "feesCharge": {
+            "en": "Fees",
+            "tc": "費用"
+        },
+        "priceStructure": {
+            "en": "Price Structure",
+            "tc": "價格結構"
+        },
+        "belowBalanceCharge": {
+            "en": "Below Balance Charge",
+            "tc": "低額結存服務費"
+        },
+        "earlyUpliftFee": {
+            "en": "Early Uplift Fee",
+            "tc": "提前終止收費"
+        },
+        "premiumPaymentPeriod": {
+            "en": "Premium Payment Period",
+            "tc": "供款期"
+        },
+        "coveragePeriod": {
+            "en": "Coverage Period",
+            "tc": "保障期"
+        },
+        "coverageDay": {
+            "en": "Coverage Days",
+            "tc": "保障日數"
+        },
+        "coverageRegion": {
+            "en": "Coverage Region",
+            "tc": "保障地區"
+        },
+        "chequeBookFee": {
+            "en": "Cheque Books Fee",
+            "tc": "支票簿收費"
+        },
+        "returnedChequeCharge": {
+            "en": "Returned Cheque Charges",
+            "tc": "退回支票費用"
+        },
+        "annualFee": {
+            "en": "Annual Fee",
+            "tc": "年費"
+        },
+        "foreignCurrencyTxnFee": {
+            "en": "Foreign Currency Transaction Fee",
+            "tc": "外幣交易收費"
+        },
+        "additionalCardAnnualFee": {
+            "en": "Additional Card Annual Fee",
+            "tc": "附屬卡年費"
+        },
+        "cashAdvanceHandlingFee": {
+            "en": "Cash Advance Handling Fee",
+            "tc": "現金透支手續費"
+        },"cashAdvance": {
+            "en": "Cash Advance",
+            "tc": "現金透支"
+        },"retailSpending": {
+            "en": "Retail Spending",
+            "tc": "零售消費"
+        },
+        "supplementaryFee": {
+            "en": "Supplementary Fee",
+            "tc": "附加費"
+        },
+        "suppInfo": {
+            "en": "Supplementary Information",
+            "tc": "附加資料"
+        },
+        "feeWaiver": {
+            "en": "Fee Waiver",
+            "tc": "豁免收費"
+        },
+        "serviceCharge": {
+            "en": "Service Charge",
+            "tc": "手續費"
+        },
+        "handlingFee": {
+            "en": "Service Charge",
+            "tc": "手續費"
+        },
+        "prepaymentFee": {
+            "en": "Prepayment",
+            "tc": "預付"
+        },
+        "commissionFee": {
+            "en": "Commission",
+            "tc": "佣金"
+        },
+        "initialDeposit": {
+            "en": "Initial Deposit",
+            "tc": "初始保證金"
+        },
+        "promotion": {
+            "en": "Promotion",
+            "tc": "推廣優惠"
+        },
+        "deposit": {
+            "en": "Deposit",
+            "tc": "存款"
+        },
+        "rate": {
+            "en": "Charged Rate",
+            "tc": "收費率"
+        },
+        "floatRate": {
+            "en": "Float Rate",
+            "tc": "浮動利率"
+        },
+        "rateType": {
+            "en": "Charged Rate Type",
+            "tc": "收費率類別"
+        },
+        "featureBenefit": {
+            "en": "Feature / Benefit",
+            "tc": "特色 / 優惠"
+        },
+        "cashRebate": {
+            "en": "Cash Rebate",
+            "tc": "現金回贈"
+        },
+        "startDate": {
+            "en": "Start Date",
+            "tc": "開始日期"
+        },
+        "endDate": {
+            "en": "End Date",
+            "tc": "結束日期"
+        },
+        "keyFactStatement": {
+            "en": "Key Facts Statement",
+            "tc": "產品資料概要"
+        },
+        "repayment": {
+            "en": "Repayment",
+            "tc": "還款"
+        },
+        "minRepay": {
+            "en": "Minimum Repayment Amount",
+            "tc": "最低還款額"
+        },
+        "sumInsured": {
+            "en": "Sum Insuresd",
+            "tc": "投保額"
+        },
+        "insuranceCompany": {
+            "en": "Insurance Company",
+            "tc": "保險公司"
+        },
+        "card": {
+            "en": "Credit Card",
+            "tc": "信用卡"
+        },
+        "creditLimit": {
+            "en": "Credit Limit",
+            "tc": "信用額"
+        },
+        "scheme": {
+            "en": "Scheme",
+            "tc": "計劃"
+        },
+        "assetType": {
+            "en": "Asset Type",
+            "tc": "資產類別"
+        },
+        "accountType": {
+            "en": "Account Type",
+            "tc": "戶口類別"
+        },
+        "customerType": {
+            "en": "Customer Type",
+            "tc": "顧客類別"
+        },
+        "telApply": {
+            "en": "Application Hotline",
+            "tc": "申請熱線"
+        },
+        "telCs": {
+            "en": "Customer Service Statement",
+            "tc": "客服熱線"
+        },
+        "urlAppoint": {
+            "en": "Online Appointment",
+            "tc": "網上預約"
+        },
+        "coverageType": {
+            "en": "Coverage Type",
+            "tc": "保障類別"
+        },
+        "area": {
+            "en": "Gross Floor Area",
+            "tc": "建築面積"
+        },
+        "standaloneBasis": {
+            "en": "Insured on Standalone Basis",
+            "tc": "可獨立投保"
+        },
+        "premium": {
+            "en": "Premium",
+            "tc": "保費"
+        },
+        "spendingRewards": {
+            "en": "Spending Rewards",
+            "tc": "消費獎賞"
+        },
+        "stock": {
+            "en": "Stock",
+            "tc": "股票"
+        },
+        "yellowFormEndDate": {
+            "en": "Yellow Form Application End Date",
+            "tc": "黃表申請截止日期"
+        },
+        "code": {
+            "en": "Code",
+            "tc": "編號"
+        },
+        "local": {
+            "en": "Local",
+            "tc": "本地"
+        },
+        "oversea": {
+            "en": "Oversea",
+            "tc": "海外"
+        },
+        "cashback": {
+            "en": "Cashback",
+            "tc": "現金回贈"
+        },
+        "giftPoint": {
+            "en": "Gift Point",
+            "tc": "積分"
+        },
+        "asiaMiles": {
+            "en": "Asia Miles",
+            "tc": "亞洲萬里通"
+        },
+        "img": {
+            "en": "Image",
+            "tc": "圖片"
+        },
+        "insuredType": {
+            "en": "Insured Persons",
+            "tc": "受保人"
+        },
+        "premiumType":{
+            "en": "Insurance Plan",
+            "tc": "保障計劃"
+        },
+        "monthlyPremium": {
+            "en": "Monthly Premium",
+            "tc": "月供保費"
+        },
+        "annualPremium": {
+            "en": "Annual Premium",
+            "tc": "年供保費"
+        },
+        "annualSalary": {
+            "en": "Annual Salary",
+            "tc": "年薪"
+        },
+        "optionalBenefit": {
+            "en": "Optional Benefit",
+            "tc": "自選附加保障"
+        },
+        "enhanceBenefit": {
+            "en": "Enhanced Benefit",
+            "tc": "升級保障"
+        },
+        "cruiseBenefit": {
+            "en": "Cruise Benefit",
+            "tc": "郵輪保障"
+        }
+    },
+    "coordinate": {
+        "longitude": {
+            "en": "Longitude",
+            "tc": "東經"
+        },
+        "latitude": {
+            "en": "Latitude",
+            "tc": "北緯"
+        },
+        "easting": {
+            "en": "Easting",
+            "tc": "東行線"
+        },
+        "northing": {
+            "en": "Northing",
+            "tc": "北行線"
+        }
+    },
+    "flight": {
+        "flight": {
+            "en": "Flight",
+            "tc": "航班"
+        },
+        "arrival": {
+            "en": "Arrival Flight",
+            "tc": "抵港航班"
+        },
+        "departure": {
+            "en": "Departure Flight",
+            "tc": "離港航班"
+        },
+        "destination": {
+            "en": "Destination",
+            "tc": "目的地"
+        },
+        "origin": {
+            "en": "Origin",
+            "tc": "出發地"
+        },
+        "airline": {
+            "en": "Airline",
+            "tc": "航空公司"
+        },
+        "no": {
+            "en": "Flight No",
+            "tc": "航班編號"
+        },
+        "cargo": {
+            "en": "Cargo Flight",
+            "tc": "貨機"
+        },
+        "passenger": {
+            "en": "Passenger Flight",
+            "tc": "客機"
+        },
+        "terminal": {
+            "en": "Terminal",
+            "tc": "客運大樓"
+        },
+        "status": {
+            "en": "Status",
+            "tc": "現況"
+        },
+        "aisle": {
+            "en": "Aisle",
+            "tc": "行段"
+        },
+        "gate": {
+            "en": "Gate",
+            "tc": "閘口"
+        },
+        "baggage": {
+            "en": "Belt",
+            "tc": "行李帶"
+        },
+        "hall": {
+            "en": "Hall",
+            "tc": "大堂"
+        },
+        "stand": {
+            "en": "Parking Stand",
+            "tc": "泊機位"
+        }
+    },
+    "airport": {
+        "icao": "ICAO",
+        "iata": "IATA"
+    },
+    "lamppost": {
+        "report": {
+            "en": "Report",
+            "tc": "報告"
+        },
+        "sensors": {
+            "en": "Sensors",
+            "tc": "感測器"
+        },
+        "air": {
+            "en": "Air Quality",
+            "tc": "空氣質素"
+        },
+        "vehicle": {
+            "en": "Vehicles",
+            "tc": "車輛"
+        },
+        "vehiclecount_e": {
+            "en": "Daily Cumulative Number of Vehicles (Eastbound)",
+            "tc": "每日累計車輛數量 (東行)"
+        },
+        "vehiclecount_w": {
+            "en": "Daily Cumulative Number of Vehicles (Westbound)",
+            "tc": "每日累計車輛數量 (西行)"
+        },
+        "vehiclecount_in": {
+            "en": "Daily Cumulative Number of Vehicles (In)",
+            "tc": "每日累計車輛數量 (入)"
+        },
+        "vehiclecount_out": {
+            "en": "Daily Cumulative Number of Vehicles (Out)",
+            "tc": "每日累計車輛數量 (出)"
+        },
+        "people": {
+            "en": "People",
+            "tc": "人流"
+        },
+        "peoplecount": {
+            "en": "Daily Cumulative Pedestrians Number",
+            "tc": "每日累計行人數量"
+        },
+        "camera": {
+            "en": "Camera",
+            "tc": "攝影機"
+        },
+        "connection": {
+            "en": "Wireless Connection",
+            "tc": "無線連接"
+        },
+        "atmosphere": {
+            "en": "Atmosphere",
+            "tc": "大氣"
+        },
+        "ble": {
+            "en": "Bluetooth Low Energy (BLE)",
+            "tc": "低功耗藍牙 (BLE)"
+        },
+        "ib": {
+            "en": "Bluetooth Beacon (iBeacon)",
+            "tc": "藍牙信標 (iBeacon)"
+        },
+        "eds": {
+            "en": "Bluetooth Beacon (Eddystone)",
+            "tc": "藍牙信標 (Eddystone)"
+        },
+        "rfid": {
+            "en": "Radio Frequency IDentification (RFID)",
+            "tc": "無線射頻辨識 (RFID)"
+        },
+        "gm": {
+            "en": "Geo-marker (QR-code)",
+            "tc": "地理標記 (QR碼)"
+        },
+        "nfc": {
+            "en": "Near-Field Communication (NFC)",
+            "tc": "近距離無線通訊 (NFC)"
+        }
+    },
+    "location": {
+        "floor": {
+            "en": "Floor",
+            "tc": "樓層"
+        },
+        "estate": {
+            "en": "Estate",
+            "tc": "屋邨"
+        },
+        "village": {
+            "en": "Village",
+            "tc": "鄉村"
+        },
+        "building": {
+            "en": "Building",
+            "tc": "樓宇"
+        },
+        "phase": {
+            "en": "Phase",
+            "tc": "期數"
+        },
+        "block": {
+            "en": "Block",
+            "tc": "座數"
+        }
+    },
+    "carpark": {
+        "nature": {
+            "en": "Nature",
+            "tc": "性質"
+        },
+        "government": {
+            "en": "Government",
+            "tc": "政府"
+        },
+        "commercial": {
+            "en": "Commercial",
+            "tc": "商業"
+        },
+        "multi-storey": {
+            "en": "Multi-storey Carpark Building",
+            "tc": "多層停車場"
+        },
+        "off-street": {
+            "en": "Off-street Parking",
+            "tc": "露天停車場"
+        },
+        "metered": {
+            "en": "Parking Meters",
+            "tc": "收費錶停車位"
+        },
+        "publishedDate": {
+            "en": "Published Date",
+            "tc": "發佈日期"
+        },
+        "published": {
+            "en": "Published",
+            "tc": "已發佈"
+        },
+        "heightLimits": {
+            "en": "Height Limits",
+            "tc": "高度限制"
+        },
+        "isOpened": {
+            "en": "Opened",
+            "tc": "已開放"
+        },
+        "minutes": {
+            "en": "Minute",
+            "tc": "分鐘"
+        },
+        "gracePeriods": {
+            "en": "Grace Periods",
+            "tc": "寬限時間"
+        },
+        "images": {
+            "en": "Images",
+            "tc": "相片"
+        },
+        "paymentMethods": {
+            "en": "Payment Methods",
+            "tc": "支付方式"
+        },
+        "cash": {
+            "en": "Cash",
+            "tc": "現金"
+        },
+        "octopus": {
+            "en": "Octopus",
+            "tc": "八達通"
+        },
+        "EPS": "EPS",
+        "visa": "Visa",
+        "master": "MasterCard",
+        "unionpay": {
+            "en": "UnionPay",
+            "tc": "銀聯"
+        },
+        "alipay": {
+            "en": "Alipay",
+            "tc": "支付寶"
+        },
+        "autopay-station": {
+            "en": "Autopay Station",
+            "tc": "自動繳費"
+        },
+        "carTypes": {
+            "en": "Car Types",
+            "tc": "車型"
+        },
+        "displayAddress": {
+            "en": "Display Address",
+            "tc": "顯示地址"
+        },
+        "evCharger": {
+            "en": "Electronic Vehicle Charger",
+            "tc": "電動車充電"
+        },
+        "disabilities": {
+            "en": "Disabilities",
+            "tc": "殘障人士設施"
+        },
+        "unloading": {
+            "en": "Unloading",
+            "tc": "卸貨"
+        },
+        "washing": {
+            "en": "Car Washing",
+            "tc": "洗車"
+        },
+        "valet-parking": {
+            "en": "Valet Parking",
+            "tc": "代客泊車"
+        }
+    },
+    "carparkcartype": {
+        "hourlyCharges": {
+            "en": "Hourly Charges",
+            "tc": "時租收費"
+        },
+        "monthlyCharges": {
+            "en": "Monthly Charges",
+            "tc": "月租收費"
+        },
+        "dayNightParks": {
+            "en": "Day/Night Parking",
+            "tc": "日/夜泊收費"
+        },
+        "unloadings": {
+            "en": "Unloading",
+            "tc": "卸貨收費"
+        },
+        "space": {
+            "en": "Space",
+            "tc": "車位"
+        },
+        "vacancy": {
+            "en": "Vacancy",
+            "tc": "空置車位"
+        },
+        "privateCar": {
+            "en": "Private Car",
+            "tc": "私家車"
+        },
+        "motorCycle": {
+            "en": "Motor Cycle",
+            "tc": "電單車"
+        },
+        "coach": {
+            "en": "Coach",
+            "tc": "旅遊巴"
+        },
+        "CV": {
+            "en": "Container Vehicle",
+            "tc": "貨櫃車"
+        },
+        "LGV": {
+            "en": "Light Goods Vehicle",
+            "tc": "輕型貨車"
+        },
+        "HGV": {
+            "en": "Heavy Goods Vehicle",
+            "tc": "重型貨車"
+        },
+        "privileges": {
+            "en": "Parking Privilege",
+            "tc": "泊車優惠"
+        },
+        "charges": {
+            "en": "Charges Type",
+            "tc": "收費模式"
+        },
+        "hourly": {
+            "en": "Hourly",
+            "tc": "時租"
+        },
+        "daily": {
+            "en": "Daily",
+            "tc": "日租"
+        },
+        "monthly": {
+            "en": "Monthly",
+            "tc": "月租"
+        }
+    },
+    "carparknumbers": {
+        "total": {
+            "en": "Total",
+            "tc": "總數"
+        },
+        "unl": {
+            "en": "Unloading",
+            "tc": "卸貨車位"
+        },
+        "dis": {
+            "en": "Disabled Persons",
+            "tc": "殘障人士車位"
+        },
+        "ev": {
+            "en": "Electronic Vehicle",
+            "tc": "電動車車位"
+        }
+    },
+    "carparkrule": {
+        "covered": {
+            "en": "Covered Space",
+            "tc": "有蓋車位"
+        },
+        "semi-covered": {
+            "en": "Semi-Covered Space",
+            "tc": "半有蓋車位"
+        },
+        "open-air": {
+            "en": "Open Air Space",
+            "tc": "露天車位"
+        },
+        "mixed": {
+            "en": "Covered / Open Air Space",
+            "tc": "有蓋或露天車位"
+        },
+        "reserved": {
+            "en": "Reserved",
+            "tc": "已預留"
+        },
+        "price": {
+            "en": "Price",
+            "tc": "收費"
+        },
+        "usageMinimum": {
+            "en": "Minimum Usage in Hour",
+            "tc": "最低消費時數"
+        },
+        "usageThresholds": {
+            "en": "Thresholds Usage",
+            "tc": "消費門檻"
+        },
+        "hours": {
+            "en": "Hour",
+            "tc": "小時"
+        },
+        "hourly": {
+            "en": "Charge per hour",
+            "tc": "每小時收費"
+        },
+        "half-hourly": {
+            "en": "Charge per 30 minutes",
+            "tc": "每30分鐘收費"
+        },
+        "monthly": {
+            "en": "Charge per month",
+            "tc": "每月收費"
+        },
+        "monthly-park": {
+            "en": "Monthly Parking",
+            "tc": "月泊"
+        },
+        "day-park": {
+            "en": "Day Parking",
+            "tc": "日泊"
+        },
+        "night-park": {
+            "en": "Night Parking",
+            "tc": "夜泊"
+        },
+        "6-hours-park": {
+            "en": "6 Hours Parking",
+            "tc": "6小時"
+        },
+        "12-hours-park": {
+            "en": "12 Hours Parking",
+            "tc": "12小時"
+        },
+        "24-hours-park": {
+            "en": "24 Hours Parking",
+            "tc": "24小時"
+        },
+        "validUntil": {
+            "en": "Valid Until",
+            "tc": "有效至"
+        },
+        "no-restrictions": {
+            "en": "No Restrictions",
+            "tc": "無限制"
+        },
+        "same-day": {
+            "en": "Same Day",
+            "tc": "同日"
+        },
+        "following-day": {
+            "en": "Following Day",
+            "tc": "下一日"
+        },
+        "available": {
+            "en": "Applicable Days",
+            "tc": "適用日期"
+        }
+    },
+    "weather": {
+        "temperature": {
+            "en": "Temperature",
+            "tc": "溫度"
+        },
+        "humidity": {
+            "en": "Humidity",
+            "tc": "相對濕度"
+        },
+        "wind": {
+            "en": "Wind",
+            "tc": "風向風速"
+        },
+        "particulate": {
+            "en": "Particulates",
+            "tc": "懸浮微粒"
+        },
+        "pollutant": {
+            "en": "Pollutants",
+            "tc": "污染物"
+        },
+        "radiation": {
+            "en": "Radiation",
+            "tc": "輻射"
+        },
+        "pressure": {
+            "en": "Pressure",
+            "tc": "氣壓"
+        },
+        "winddirection": {
+            "en": "Wind Direction",
+            "tc": "風向"
+        },
+        "windspeed": {
+            "en": "Wind Speed",
+            "tc": "風速"
+        },
+        "no1": {
+            "en": "Nitrogen Monoxide (NO)",
+            "tc": "一氧化氮 (NO)"
+        },
+        "no2": {
+            "en": "Nitrogen Dioxide (NO₂)",
+            "tc": "二氧化氮 (NO₂)"
+        },
+        "co": {
+            "en": "Carbon Monoxide (CO)",
+            "tc": "一氧化碳 (CO)"
+        },
+        "o3": {
+            "en": "Ozone (O₃)",
+            "tc": "臭氧 (O₃)"
+        },
+        "temperature_45": {
+            "en": "Temperature (4.5m above ground)",
+            "tc": "溫度 (距地面4.5米)"
+        },
+        "temperature_2": {
+            "en": "Temperature (2m above ground)",
+            "tc": "溫度 (距地面2米)"
+        },
+        "humidity_45": {
+            "en": "Humidity (4.5m above ground)",
+            "tc": "相對濕度 (距地面4.5米)"
+        },
+        "humidity_2": {
+            "en": "Humidity (2m above ground)",
+            "tc": "相對濕度 (距地面2米)"
+        },
+        "pm1": {
+            "en": "Particulates (PM1)",
+            "tc": "懸浮微粒 (PM1)"
+        },
+        "pm25": {
+            "en": "Particulates (PM2.5)",
+            "tc": "懸浮微粒 (PM2.5)"
+        },
+        "pm10": {
+            "en": "Particulates (PM10)",
+            "tc": "懸浮微粒 (PM10)"
+        }
+    },
+    "week": {
+        "mon": {
+            "en": "Monday",
+            "tc": "星期一"
+        },
+        "tue": {
+            "en": "Tuesday",
+            "tc": "星期二"
+        },
+        "wed": {
+            "en": "Wednesday",
+            "tc": "星期三"
+        },
+        "thu": {
+            "en": "Thursday",
+            "tc": "星期四"
+        },
+        "fri": {
+            "en": "Friday",
+            "tc": "星期五"
+        },
+        "sat": {
+            "en": "Saturday",
+            "tc": "星期六"
+        },
+        "sun": {
+            "en": "Sunday",
+            "tc": "星期日"
+        },
+        "ph": {
+            "en": "Public Holiday",
+            "tc": "公眾假期"
+        }
+    },
+    "hkoStation": {
+        "CCH": {
+            "en": "Cheung Chau",
+            "tc": "長洲"
+        },
+        "CWB": {
+            "en": "Clear Water Bay",
+            "tc": "清水灣"
+        },
+        "HKA": {
+            "en": "Hong Kong International Airport",
+            "tc": "香港國際機場"
+        },
+        "HKO": {
+            "en": "Hong Kong Observatory",
+            "tc": "香港天文台"
+        },
+        "HKP": {
+            "en": "Hong Kong Park",
+            "tc": "香港公園"
+        },
+        "HKS": {
+            "en": "Wong Chuk Hang",
+            "tc": "黃竹坑"
+        },
+        "HPV": {
+            "en": "Happy Valley",
+            "tc": "跑馬地"
+        },
+        "JKB": {
+            "en": "Tseung Kwan O",
+            "tc": "將軍澳"
+        },
+        "KLT": {
+            "en": "Kowloon City",
+            "tc": "九龍城"
+        },
+        "KP": {
+            "en": "King's Park",
+            "tc": "京士柏"
+        },
+        "KSC": {
+            "en": "Kau Sai Chau",
+            "tc": "滘西洲"
+        },
+        "KTG": {
+            "en": "Kwun Tong",
+            "tc": "觀塘"
+        },
+        "LFS": {
+            "en": "Lau Fau Shan",
+            "tc": "流浮山"
+        },
+        "NGP": {
+            "en": "Ngong Ping",
+            "tc": "昂坪"
+        },
+        "PEN": {
+            "en": "Peng Chau",
+            "tc": "坪洲"
+        },
+        "PLC": {
+            "en": "Tai Mei Tuk",
+            "tc": "大美督"
+        },
+        "SE1": {
+            "en": "Kai Tak Runway Park",
+            "tc": "啟德跑道公園"
+        },
+        "SEK": {
+            "en": "Shek Kong",
+            "tc": "石崗"
+        },
+        "SHA": {
+            "en": "Sha Tin",
+            "tc": "沙田"
+        },
+        "SKG": {
+            "en": "Sai Kung",
+            "tc": "西貢"
+        },
+        "SKW": {
+            "en": "Shau Kei Wan",
+            "tc": "筲箕灣"
+        },
+        "SSH": {
+            "en": "Sheung Shui",
+            "tc": "上水"
+        },
+        "SSP": {
+            "en": "Sham Shui Po",
+            "tc": "深水埗"
+        },
+        "STY": {
+            "en": "Stanley",
+            "tc": "赤柱"
+        },
+        "TC": {
+            "en": "Tate's Cairn",
+            "tc": "大老山"
+        },
+        "TKL": {
+            "en": "Ta Kwu Ling",
+            "tc": "打鼓嶺"
+        },
+        "TMS": {
+            "en": "Tai Mo Shan",
+            "tc": "大帽山"
+        },
+        "TPO": {
+            "en": "Tai Po",
+            "tc": "大埔"
+        },
+        "TU1": {
+            "en": "Tuen Mun Children and Juvenile Home",
+            "tc": "屯門兒童及青少年院"
+        },
+        "TW": {
+            "en": "Tsuen Wan Shing Mun Valley",
+            "tc": "荃灣城門谷"
+        },
+        "TWN": {
+            "en": "Tsuen Wan",
+            "tc": "荃灣"
+        },
+        "TY1": {
+            "en": "New Tsing Yi Station",
+            "tc": "新青衣站"
+        },
+        "TYW": {
+            "en": "Pak Tam Chung",
+            "tc": "北潭涌(鯽魚湖)"
+        },
+        "VP1": {
+            "en": "The Peak",
+            "tc": "山頂"
+        },
+        "WGL": {
+            "en": "Waglan Island",
+            "tc": "橫瀾島"
+        },
+        "WLP": {
+            "en": "Wetland Park",
+            "tc": "濕地公園"
+        },
+        "WTS": {
+            "en": "Wong Tai Sin",
+            "tc": "黃大仙"
+        },
+        "YLP": {
+            "en": "Yuen Long Park",
+            "tc": "元朗公園"
+        },
+        "CLK": {
+            "en": "Chek Lap Kok",
+            "tc": "赤鱲角"
+        },
+        "CMW": {
+            "en": "Chi Ma Wan",
+            "tc": "芝麻灣"
+        },
+        "KCT": {
+            "en": "Kwai Chung",
+            "tc": "葵涌"
+        },
+        "KLW": {
+            "en": "Ko Lau Wan",
+            "tc": "高流灣"
+        },
+        "LOP": {
+            "en": "Lok On Pai",
+            "tc": "樂安排"
+        },
+        "MWC": {
+            "en": "Ma Wan",
+            "tc": "馬灣"
+        },
+        "QUB": {
+            "en": "Quarry Bay",
+            "tc": "鰂魚涌"
+        },
+        "SPW": {
+            "en": "Shek Pik",
+            "tc": "石壁"
+        },
+        "TAO": {
+            "en": "Tai O",
+            "tc": "大澳"
+        },
+        "TBT": {
+            "en": "Tsim Bei Tsui",
+            "tc": "尖鼻咀"
+        },
+        "TMW": {
+            "en": "Tai Miu Wan",
+            "tc": "大廟灣"
+        },
+        "TPK": {
+            "en": "Tai Po Kau",
+            "tc": "大埔滘"
+        },
+        "WAG": {
+            "en": "Waglan Island",
+            "tc": "橫瀾島"
+        }
+    }
+}

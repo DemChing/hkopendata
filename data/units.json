@@ -1,0 +1,259 @@
+{
+    "types": {
+        "temperature": {
+            "celsius": {
+                "en": "Celcius",
+                "tc": "攝氏",
+                "unit": "°C"
+            },
+            "fahrenheit": {
+                "en": "Fahrenheit",
+                "tc": "華氏",
+                "unit": "°F"
+            },
+            "kelvin": {
+                "en": "Kelvin",
+                "tc": "開氏",
+                "unit": "K"
+            }
+        },
+        "length": {
+            "metre": {
+                "en": "Metre",
+                "tc": "米",
+                "unit": "m",
+                "si": true
+            }
+        },
+        "weight": {
+            "gram": {
+                "en": "Gram",
+                "tc": "克",
+                "unit": "g",
+                "si": true
+            }
+        },
+        "density": {
+            "pm": {
+                "en": "Micrometer",
+                "tc": "微米",
+                "unit": "µg/m³"
+            }
+        },
+        "speed": {
+            "ms": {
+                "en": "Metre per second",
+                "tc": "米每秒",
+                "unit": "m/s"
+            }
+        },
+        "angle": {
+            "degree": {
+                "en": "Degree",
+                "tc": "度",
+                "unit": "°"
+            }
+        },
+        "power": {
+            "dbm": {
+                "en": "Decibel Milliwatts",
+                "tc": "分貝毫瓦",
+                "unit": "dBm"
+            }
+        },
+        "pressure": {
+            "pascal": {
+                "en": "Pascal",
+                "tc": "帕斯卡",
+                "unit": "Pa",
+                "si": true
+            }
+        },
+        "flux": {
+            "wm": {
+                "en": "Watt per square metre",
+                "tc": "瓦特每平方米",
+                "unit": "W/m²"
+            }
+        },
+        "ratio": {
+            "percent": {
+                "en": "Percent",
+                "tc": "百分比",
+                "unit": "%"
+            },
+            "ppb": {
+                "en": "Parts per billion",
+                "tc": "十億分率",
+                "unit": "ppb"
+            },
+            "ppm": {
+                "en": "Parts per million",
+                "tc": "百萬分率",
+                "unit": "ppm"
+            }
+        },
+        "currency": {
+            "default": {
+                "en": "Dollar",
+                "tc": "元",
+                "unit": "$",
+                "prefix": true
+            },
+            "usd": {
+                "en": "United States Dollar",
+                "tc": "美元",
+                "unit": "$",
+                "prefix": true
+            },
+            "aud": {
+                "en": "Australian Dollar",
+                "tc": "澳元",
+                "unit": "$",
+                "prefix": true
+            },
+            "hkd": {
+                "en": "Hong Kong Dollar",
+                "tc": "港幣",
+                "unit": "$",
+                "prefix": true
+            },
+            "sgd": {
+                "en": "Singapore Dollar",
+                "tc": "新加坡元",
+                "unit": "$",
+                "prefix": true
+            },
+            "twd": {
+                "en": "New Taiwan Dollar",
+                "tc": "新台幣",
+                "unit": "$",
+                "prefix": true
+            },
+            "chf": {
+                "en": "Swiss Franc",
+                "tc": "瑞士法郎",
+                "unit": "₣",
+                "prefix": true
+            },
+            "myr": {
+                "en": "Malaysian Ringgit",
+                "tc": "馬來西亞令吉",
+                "unit": "RM",
+                "prefix": true
+            },
+            "thb": {
+                "en": "Thai Baht",
+                "tc": "泰銖",
+                "unit": "฿",
+                "prefix": true
+            },
+            "krw": {
+                "en": "Korean Hwan",
+                "tc": "韓圜",
+                "unit": "₩",
+                "prefix": true
+            },
+            "cny": {
+                "en": "Chinese Yuan",
+                "tc": "人民幣",
+                "unit": "¥",
+                "prefix": true
+            },
+            "jpy": {
+                "en": "Japanese Yen",
+                "tc": "日圓",
+                "unit": "¥",
+                "prefix": true
+            },
+            "eur": {
+                "en": "Euro",
+                "tc": "歐羅",
+                "unit": "€",
+                "prefix": true
+            },
+            "gbp": {
+                "en": "Pound Sterling",
+                "tc": "英鎊",
+                "unit": "£",
+                "prefix": true
+            },
+            "inr": {
+                "en": "Indian Rupee",
+                "tc": "印度盧比",
+                "unit": "Rs",
+                "prefix": true
+            },
+            "idr": {
+                "en": "Indonesian Rupiah",
+                "tc": "印尼盾",
+                "unit": "Rp",
+                "prefix": true
+            }
+        }
+    },
+    "scales": {
+        "si": {
+            "nano": {
+                "en": "Nano",
+                "tc": "納",
+                "prefix": "n",
+                "value": -9
+            },
+            "micro": {
+                "en": "Micro",
+                "tc": "微",
+                "prefix": "μ",
+                "value": -6
+            },
+            "milli": {
+                "en": "Milli",
+                "tc": "毫",
+                "prefix": "m",
+                "value": -3
+            },
+            "centi": {
+                "en": "Centi",
+                "tc": "厘",
+                "prefix": "c",
+                "value": -2,
+                "uncommon": [
+                    "length-metre"
+                ]
+            },
+            "hecto": {
+                "en": "Hecto",
+                "tc": "百",
+                "prefix": "h",
+                "value": 2,
+                "uncommon": [
+                    "pressure-pascal"
+                ]
+            },
+            "kilo": {
+                "en": "Kilo",
+                "tc": "千",
+                "prefix": "k",
+                "value": 3
+            },
+            "mega": {
+                "en": "Mega",
+                "tc": "兆",
+                "prefix": "M",
+                "value": 6
+            },
+            "giga": {
+                "en": "Giga",
+                "tc": "吉",
+                "prefix": "G",
+                "value": 9
+            },
+            "tera": {
+                "en": "Tera",
+                "tc": "兆",
+                "prefix": "T",
+                "value": 12
+            }
+        }
+    }
+}

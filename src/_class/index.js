@@ -1,0 +1,17 @@
+module.exports = {
+    Address: require("./Address"),
+    Airport: require("./Airport"),
+    Airline: require("./Airline"),
+    Building: require("./Building"),
+    Carpark: require("./Carpark"),
+    Coordinate: require("./Coordinate"),
+    CoordinateValue: require("./CoordinateValue"),
+    District: require("./District"),
+    Estate: require("./Estate"),
+    Flat: require("./Flat"),
+    Flight: require("./Flight"),
+    Lamppost: require("./Lamppost"),
+    Location: require("./Location"),
+    Region: require("./Region"),
+    UnitValue: require("./UnitValue"),
+}

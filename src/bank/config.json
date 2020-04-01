@@ -1,0 +1,149 @@
+{
+    "HSBC": {
+        "domain": {
+            "development": "https://developer.hsbc.com.hk/sandbox"
+        },
+        "endpoints": {
+            "atm": "/open-banking/v1.0/atms",
+            "branch": "/open-banking/v1.0/branches",
+            "saving": "/open-banking/v1.0/personal-all-in-one-and-savings-accounts[/{type}/landing-page]",
+            "current": "/open-banking/v1.0/personal-current-accounts[/{type}/landing-page]",
+            "timeDeposit": "/open-banking/v1.0/time-deposit-accounts[/{type}/landing-page]",
+            "integrated": "/open-banking/v1.0/business-integrated-accounts",
+            "foreignCurrency": "/open-banking/v1.0/personal-foreign-currency-accounts[/{type}/landing-page]",
+            "fx": "/open-banking/v1.0/personal-foreign-exchange-rates",
+            "mortgage": "/open-banking/v1.0/personal-mortgages[/{type}/landing-page]",
+            "creditCard": "/open-banking/v1.0/personal-credit-cards[/{type}/landing-page]",
+            "commercialCard": "/open-banking/v1.0/commercial-cards",
+            "securedLoan": "/open-banking/v1.0/personal-secured-loans",
+            "securedLend": "/open-banking/v1.0/commercial-secured-lending",
+            "unsecuredLoan": "/open-banking/v1.0/personal-unsecured-loans[/{type}/landing-page]",
+            "unsecuredLend": "/open-banking/v1.0/commercial-unsecured-lending"
+        },
+        "applications": [
+            "integrated"
+        ]
+    },
+    "HS": {
+        "domain": {
+            "development": "https://developer.hangseng.com/sandbox"
+        },
+        "endpoints": {
+            "atm": "/open-banking/v1.0/atms",
+            "branch": "/open-banking/v1.0/branches",
+            "accounts": "/open-banking/v1.0/personal-accounts",
+            "saving": "/open-banking/v1.0/personal-savings-accounts",
+            "current": "/open-banking/v1.0/personal-current-accounts",
+            "timeDeposit": "/open-banking/v1.0/time-deposit-accounts",
+            "foreignCurrency": "/open-banking/v1.0/personal-foreign-currency-accounts",
+            "fx": "/open-banking/v1.0/personal-foreign-exchange-rates",
+            "mortgage": "/open-banking/v1.0/personal-mortgages",
+            "creditCard": "/open-banking/v1.0/personal-credit-cards",
+            "securedLoan": "/open-banking/v1.0/personal-secured-loans",
+            "unsecuredLoan": "/open-banking/v1.0/personal-unsecured-loans"
+        },
+        "applications": [
+            "accounts",
+            "mortgage",
+            "creditCard",
+            "securedLoan",
+            "unsecuredLoan"
+        ]
+    },
+    "SC": {
+        "domain": {
+            "production": "https://api.sc.com",
+            "development": "https://developer.sc.com/sandbox"
+        },
+        "endpoints": {
+            "auth": "/retail/v1/oauth2/token",
+            "atm": "/retail/v1/bank-locations",
+            "branch": "/retail/v1/bank-locations",
+            "fx": "/retail/v1/fx-rates",
+            "saving": "/retail/v1/products",
+            "current": "/retail/v1/products",
+            "timeDeposit": "/retail/v1/products",
+            "mortgage": "/retail/v1/products",
+            "creditCard": "/retail/v1/products",
+            "loan": "/retail/v1/products",
+            "investment": "/retail/v1/products",
+            "insurance": "/retail/v1/products"
+        }
+    },
+    "JETCO": {
+        "domain": {
+            "development": "https://sandbox.apix.com.hk",
+            "production": "https://live.apix.com.hk"
+        },
+        "endpoints": {
+            "branch": "/{path}/locations/v1/branch",
+            "atm": "/{path}/locations/v1/atm",
+            "depositBox": "/{path}/locations/v1/depositbox",
+            "saving": "/{path}/deposits/v1/savings[/{product}]",
+            "current": "/{path}/deposits/v1/current[/{product}]",
+            "timeDeposit": "/{path}/deposits/v1/timedeposit[/{product}]",
+            "foreignCurrency": "/{path}/deposits/v1/fcy[/{product}]",
+            "fx": "/{path}/fx/v1/fxrate",
+            "insurance": "/{path}/insurance/v1/{subtype}[/{product}]",
+            "investment": "/{path}/investments/v1/{subtype}[/{product}]",
+            "unsecuredLoan": "/{path}/loans/v1/unsecuredloan[/{product}]",
+            "securedLoan": "/{path}/loans/v1/securedloan[/{product}]",
+            "creditCard": "/{path}/loans/v1/creditcard[/{product}]",
+            "mortgage": "/{path}/loans/v1/mortgage[/{product}]"
+        }
+    },
+    "BOCHK": {
+        "endpoints": {
+            "auth": "/auth/oauth/v2/token",
+            "branch": "/branch/branchInfo/v1",
+            "depositBox": "/safedepositbox/product/safedepositbox/v1",
+            "saving": "/deposits/product/savings/v1",
+            "timeDeposit": "/deposits/product/timedeposit/v1",
+            "current": "/deposits/product/current/v1",
+            "fx": "/fx/{subtype}/v1",
+            "loan": "/loan/product/{subtype}/v1",
+            "ipo": "/investment/ipo/v1",
+            "investment": "/investment/product/{subtype}/v1",
+            "insurance": "/insurance/product/{subtype}/v1",
+            "security": "/securities/product/{subtype}/v1",
+            "creditCard": "/creditcard/product/card/v1",
+            "mortgage": "/mortgage/product/mortgage/v1"
+        }
+    },
+    "BOC": {
+        "domain": {
+            "development": "https://apisandbox.bochk.com"
+        }
+    },
+    "CHIYU": {
+        "domain": {
+            "development": "https://apisandbox.chiyubank.com",
+            "production": "https://apigateway.chiyubank.com"
+        }
+    },
+    "NCB": {
+        "domain": {
+            "development": "https://apisandbox.ncb.com.hk"
+        }
+    },
+    "DBS": {
+        "domain": {
+            "production": "https://api.sc.com",
+            "development": "https://www.dbs.com/sandbox"
+        },
+        "endpoints": {
+            "auth": "/partner/api/hk/v1/oauth/authorize",
+            "branch": "/api/hk/v1/branches",
+            "atm": "/api/hk/v1/ATMs",
+            "saving": "/api/hk/v1/products/savingsAccounts",
+            "current": "/api/hk/v1/products/currentAccounts",
+            "foreignCurrency": "/api/hk/v1/products/foreignCurrencyAccounts",
+            "timeDeposit": "/api/hk/v1/products/timeDeposits",
+            "mortgage": "/api/hk/v1/products/mortgages",
+            "unsecuredLoan": "/api/hk/v1/products/unsecuredLoans",
+            "securedLoan": "/api/hk/v1/products/securedLoans",
+            "creditCard": "/api/hk/v1/products/creditCards",
+            "fx": "/api/hk/v1/rates/exchangeRates"
+        }
+    }
+}

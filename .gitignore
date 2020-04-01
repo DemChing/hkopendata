@@ -1,0 +1,15 @@
+#ignore folders
+/test/
+/app/
+/raw-data/
+/lib/
+/web/
+/node_modules/
+
+#ignore files
+/data/wars.json/
+/data/hk-holiday.json/
+/data/flats/
+/build.js
+/postcss.config.js
+/Gruntfile.js
