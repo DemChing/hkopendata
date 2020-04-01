@@ -2,6 +2,7 @@
 Banks in Hong Kong have provided API to access their data. They follow the timeline listed in [HKMA](https://www.hkma.gov.hk/chi/key-functions/international-financial-centre/fintech/open-application-programming-interface-api-for-the-banking-sector/phase-approach/) and publish relevant API.
 
 :warning: __WARNING__ :warning:
+
 All methods in this section are tested in sandbox environment only. Some critical error exists and may ruin the function (eg. typo of field names, actual data type not match the documentation).
 
 Since only sandbox test data can be accessed, all development in this section will not try to fix any error. Thus you should expect a smooth development under sandbox environment but __some BUGS__ in production.
@@ -9,6 +10,7 @@ Since only sandbox test data can be accessed, all development in this section wi
 Please kindly create issues to report bugs.
 
 :warning: __Notice__ :warning:
+
 Some banks already published API for public to apply their services. After digging with their API, I gave up developing those API as it is way too complicated for me to handle those request.
 
 ## Supported Banks
@@ -29,6 +31,7 @@ __BOCHK__
 
 
 __JETCO Related__
+
 :warning: All banks listed below use the same API provider. :warning:
 
 Developer Portal [LINK](https://sandboxportal.apix.com.hk/jetco/sb)
@@ -93,6 +96,7 @@ bank.init(id, secret, lang)
 ```
 
 :warning: DBS Initiation :warning:
+
 DBS uses a different way to authorize. Follow these steps to authorize correctly:
 
 1. Go to `Documentation` page and try one of the API.
@@ -162,6 +166,7 @@ Banks under JETCO does not support `security` searching.
 Data retrieved will change the field names so that the specific field name among different banks means the same thing. Then, it would try to unify the format and structure to make the final result as similar as possible among all banks.
 
 :warning: __Warning__ :warning:
+
 Same field name may refer to different thing among different banks due to:
 1. Insufficient detail in documentation to identify what the field is
 2. Mix up with very similar terms (in my point of view)
