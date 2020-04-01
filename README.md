@@ -32,7 +32,9 @@ This project mainly focus on the data from government. Yet, it also provides the
     7. Others - Hong Kong address parser, public holidays
 
 - [Bank](src/bank/README.md)
+
     :warning: __WARNING__ :warning:
+    
     All features in this section were tested under the __SANDBOX__ environment. As some banks only provide very limited info on test data, it is very likely that you may encounter bugs on production environment. Use it with caution.
 
     It supports searching:
@@ -93,7 +95,9 @@ utils.ToLocale(result);
 ```
 
 Valid `pack` are the module names of `gov`, `bank`, `org` and `Class name` in lowercase. Select the correct `pack` for more accurate result. 
+
 :warning: Same field name could refer to different thing among different `pack`
+
 ```
 const utils = require("hkopendata").utils;
 let result = {
