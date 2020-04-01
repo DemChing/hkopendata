@@ -101,7 +101,7 @@ Valid `pack` are the module names of `gov`, `bank`, `org` and `Class name` in lo
 ```
 const utils = require("hkopendata").utils;
 let result = {
-    hourly: 24
+    hourly: 14
 }
 
 utils.ToLocale(result, "en", "carparkcartype");
