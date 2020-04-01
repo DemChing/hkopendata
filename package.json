@@ -5,6 +5,7 @@
   "main": "./src/index.js",
   "scripts": {},
   "author": "Dem Ching",
+  "repository": "github:demching/hkopendata",
   "license": "MIT",
   "browserslist": [
     "Chrome >= 52",

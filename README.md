@@ -13,6 +13,11 @@ Besides, it is a waste of time to spend hours reading the "documentation" which:
 
 Here come's this repo. It tries to resolve those nightmares and help shortening the development period.
 
+## Installation
+```
+npm i hkopendata
+```
+
 ## Information
 The project is designed as a 3-layers structure:
 1. Retrieve data from different endpoints.
