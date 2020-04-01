@@ -20,8 +20,16 @@ const RENAME = {
         "handleFee": "serviceCharge",
     }
 }
+const SEARCH_CONFIG = {
+    value: {
+        type: {
+            accepted: ["local-ORD", "local-REG", "local-PAR", "local-LCP", "local-SMP", "local-bulk-LBM", "local-bulk-LPS", "intl-ORD", "intl-REG", "intl-SURPAR", "intl-AIRPAR", "intl-SPT", "intl-EXP", "intl-bulk-IML", "intl-bulk-LWA", "intl-bulk-BAM", "intl-bulk-OPS", "businessSolution"]
+        },
+    },
+};
 
 function validateParameters(params) {
+    params = cmn.ParseSearchFields(params, SEARCH_CONFIG);
     let result = cmn.ValidateParameters(params, VALID);
     if (!result.error) {
         result.data = {
