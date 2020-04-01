@@ -79,7 +79,7 @@ __Parameters__
 | `date` | true | string `YYYY-MM-DD` |  | Search date |  |
 | `days` | false | number/\[number\] | 5 | Non-office day | State 6 if it is 6-day work (start from monday)<br>State [3, 6, 7] if office is off on Wed, Sat and Sun |
 
-## Geodata
+## Geodata (geo)
 - `searchGeo(params)` Search data from [GeoData](https://geodata.gov.hk/gs/)
 
 __Parameters (General)__
@@ -110,7 +110,7 @@ __Parameters__
 | --- | --- | --- | --- | --- | --- |
 | `params.lang` | false | string (`en`/`tc`/`sc`) | en | Language of the result |  |
 
-## Hong Kong Observatory
+## Hong Kong Observatory (hko)
 - `searchWeather(params)` Get weather information
 
 __Parameters__
@@ -160,7 +160,9 @@ __Parameters__
 | `params.lang` | false | string (`en`/`tc`/`sc`) | en | Language of the result |  |
 
 - `searchFlat(params, opts)` Search public rental flat information in district
+
 :warning: __WARNING__ :warning:
+
 This function will retrieve all flats, buildings and estates information within the district. For better performance, the function will try to read the static data in `/data/flats` first. If data is not exist, it will retrieve live data. However, it may take a long time and lower the performance (Most raw data are over 10MB). Use it with caution.
 
 __Parameters__
@@ -181,7 +183,9 @@ __Parameters__
 - `searchPayment()` Online payment transactions of different Bureau/Department in the last 36 months
 
 - `searchAddress(params)` Breakdown a given address
+
 :warning: __WARNING__ :warning:
+
 The breakdown may return incorrect result if:
 1. Input address is incorrect (eg. typo)/cannot be recognized (some villages in N.T. or newly completed estate)
 2. Another similar address is found
