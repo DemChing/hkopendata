@@ -1,7 +1,11 @@
 {
   "name": "hkopendata",
-  "version": "1.0.1",
-  "keywords": ["opendata", "hong kong", "hk"],
+  "version": "1.1.0",
+  "keywords": [
+    "opendata",
+    "hong kong",
+    "hk"
+  ],
   "description": "Access different Opendata API and data in Hong Kong",
   "main": "./src/index.js",
   "scripts": {},
