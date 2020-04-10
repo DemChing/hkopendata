@@ -18,9 +18,9 @@ const FIELDS = {
         "updateTime": "lastUpdate",
         "ptime": "time",
     },
+    latitude: ["lat"],
+    longitude: ["lon"],
     number: {
-        "lat": "latitude",
-        "lon": "longitude",
         "mag": "richter"
     }
 }
@@ -70,9 +70,6 @@ function processData(data) {
     for (let key in data) {
         if (/time/i.test(key)) {
             result[key] = moment(data[key]).format("YYYY-MM-DD HH:mm")
-        } else if (/latitude|longitude/.test(key)) {
-            if (!("coordinate" in result)) result.coordinate = {};
-            result.coordinate[key] = data[key];
         } else {
             result[key] = data[key]
         }

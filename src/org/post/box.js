@@ -4,10 +4,12 @@ const cmn = require("../../common");
 const Coordinate = require("../../_class").Coordinate;
 const BASE_URL = "https://www.hongkongpost.hk/opendata/street-box.json";
 
-const RENAME = {
+const FIELDS = {
     regex: {
         "location": "place"
     },
+    latitude: ["latitude"],
+    longitude: ["longitude"],
     text: {
         "boxNo": "boxCode"
     }
@@ -27,15 +29,12 @@ function processData(data, opts) {
     let result = [];
     data.data.map(item => {
         let temp = {};
-        item = cmn.RenameFields(item, RENAME);
+        item = cmn.RenameFields(item, FIELDS);
         for (let key in item) {
             let m;
             if (m = key.match(/^([A-z]+)(TC|SC|EN)$/)) {
                 if (!(m[1] in temp)) temp[m[1]] = {};
                 temp[m[1]][m[2].toLowerCase()] = item[key];
-            } else if (/longitude|latitude/.test(key)) {
-                if (!("coordinate" in temp)) temp.coordinate = {};
-                temp.coordinate[key] = item[key];
             } else if (/CollectionTime$/.test(key)) {
                 if (!("collectionTime" in temp)) temp.collectionTime = {
                     mon: false,

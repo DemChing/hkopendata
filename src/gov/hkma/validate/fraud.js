@@ -10,7 +10,7 @@ const VALID = {
 const PARAMS = {
     lang: "en",
 }
-const RENAME = {
+const FIELDS = {
     "alleged_name": "organization",
     "scam_type": "type",
     "pr_url": "website",
@@ -60,7 +60,7 @@ function processData(data) {
             "$1": /\[([:.])\]/g,
             "": /\s/g,
         }
-    data = lib.RenameAll(data, RENAME);
+    data = lib.RenameAll(data, FIELDS);
     data.map(item => {
         let temp = {};
         for (let key in item) {

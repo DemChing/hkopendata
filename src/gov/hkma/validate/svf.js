@@ -12,7 +12,7 @@ const PARAMS = {
     lang: "en",
     segment: "SVFLic"
 }
-const RENAME = {
+const FIELDS = {
     "local_address" :"businessAddress",
     "licence_no" :"licence",
 }
@@ -48,7 +48,7 @@ function search(data, opts) {
 }
 
 function processData(data) {
-    return data && data.length > 0 ? lib.RenameAll(data, RENAME) : [];
+    return data && data.length > 0 ? lib.RenameAll(data, FIELDS) : [];
 }
 
 module.exports = search

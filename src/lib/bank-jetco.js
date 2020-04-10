@@ -52,6 +52,8 @@ function PreprocessFields(data) {
             "compoundingFreq": "compoundingFrequency",
             "cardCompany": "cardScheme",
         },
+        latitude: ["latitude"],
+        longitude: ["longitude"],
         others: {
             "atms": "atm",
             "branches": "branch",
@@ -104,10 +106,7 @@ function ParseItem(data, type) {
     else if (typeof data === "object" && data !== null) {
         let temp = {};
         for (let key in data) {
-            if (data[key] === null) {} else if (/^(latitude|longitude)$/.test(key)) {
-                if (!("coordinate" in temp)) temp.coordinate = {};
-                temp.coordinate[key] = data[key];
-            } else if (key == "others") {
+            if (data[key] === null) {} else if (key == "others") {
                 temp.others = parseOthers(data[key]);
             } else if (key == "district") {
                 temp[key] = data[key].split(/(?=[A-Z])/).map(v => v == "N" ? "&" : v).join(" ")

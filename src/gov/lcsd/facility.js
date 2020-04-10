@@ -4,14 +4,13 @@
 const cmn = require("../../common");
 const {
     Coordinate,
-    CoordinateValue
 } = require("../../_class");
 const LOCALE = require("../../locale").week;
 const BASE_URL = "https://www.lcsd.gov.hk/datagovhk/facility/facility-{type}.json";
 const VENUE_URL = "https://www.lcsd.gov.hk/datagovhk/venue/venue.json";
 
 const VALID = {
-    type: /^(bbqs|cgf|fw|fitrm|fiteqmt|mcpa|(cp|rs)r|(b|dgp|s|sb)g|hssp(5|7)|(bb|mb|s|(hga|cg(a|n)|(sp(7|11)|rp)(a|n))t)p|(bbq|w)s|ctg|ar|(jtf|rs|o(a|tt))t|(pefa|rh|s|t|tp|(bk|bv|h|n|v|g)b)c|venue)$/
+    type: /^(bbqs|scf|cgf|fw|fitrm|fiteqmt|mcpa|(cp|rs)r|(b|dgp|s|sb)g|hssp(5|7)|(bb|mb|s|(hga|cg(a|n)|(sp(7|11)|rp)(a|n))t)p|(bbq|w)s|ctg|ar|(jtf|rs|o(a|tt))t|(pefa|rh|s|t|tp|(bk|bv|h|n|v|g)b)c|venue)$/
 };
 const PARAMS = {
     type: "rst"
@@ -22,7 +21,12 @@ const FIELDS = {
         "Enquiry_no": "tel",
         "title": "name",
         "area": "size",
+        "intro": "description",
+        "conditionOfUse": "termsAndConditions",
+        "hireCharge": "charges"
     },
+    latitude: ["Latitude"],
+    longitude: ["Longitude"],
     others: {
         "facilities": "facility",
         "category": "type",
@@ -36,7 +40,7 @@ const FIELDS = {
 const SEARCH_CONFIG = {
     value: {
         type: {
-            accepted: ["venue", "rst", "fw", "fitrm", "fiteqmt", "cpr", "pefac", "ws", "bbqs", "dgpg", "jtft", "oat", "hssp5", "hssp7", "sp7atp", "sp11atp", "sp7ntp", "sp11ntp", "cgatp", "cgntp", "cgf", "vbc", "bvbc", "rpatp", "rpntp", "hgatp", "bbp", "ottt", "hbc", "nbc", "ctg", "ar", "sbg", "rsr", "rhc", "sp", "bkbc", "tc", "tpc", "bmtc", "bg", "sg", "gbc", "sc", "mbp", "mcpa", ]
+            accepted: ["venue", "rst", "fw", "fitrm", "fiteqmt", "cpr", "pefac", "ws", "bbqs", "dgpg", "jtft", "oat", "scf", "hssp5", "hssp7", "sp7atp", "sp11atp", "sp7ntp", "sp11ntp", "cgatp", "cgntp", "cgf", "vbc", "bvbc", "rpatp", "rpntp", "hgatp", "bbp", "ottt", "hbc", "nbc", "ctg", "ar", "sbg", "rsr", "rhc", "sp", "bkbc", "tc", "tpc", "bmtc", "bg", "sg", "gbc", "sc", "mbp", "mcpa", ]
         },
     },
 }
@@ -111,10 +115,11 @@ function processData(data) {
                     if (!(name in facility)) facility[name] = {}
                     facility[name][lang] = temp[key];
                 }
-            } else if (["Longitude", "Latitude"].indexOf(key) != -1) {
-                if (!("coordinate" in facility)) facility.coordinate = {};
-                facility.coordinate[key.toLowerCase()] = new CoordinateValue(temp[key]).toCoor();
-            } else if (!/photo|capacity|fax/i.test(key)) {}
+            } else if (/^Types$/.test(key) && /^(I|O)$/.test(temp[key])) {
+                facility.indoorFacility = temp[key] == "I";
+            } else if (!/photo|capacity|fax/i.test(key)) {
+                facility[key] = temp[key];
+            }
         }
         if ("openingHour" in facility) {
             facility.opening = {}

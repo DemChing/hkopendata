@@ -83,7 +83,9 @@ function GetAvailableLang(item) {
 
 function initLang(lang, package) {
     if (!package) package = "common";
+    if (/^(bus|rail)$/.test(package)) package = "transport";
     let packages = ["common", "week", "weather", package];
+    if (package == "ogcio") packages.push("geo");
     let _L = {}
     packages.filter((v, i, l) => l.indexOf(v) == i).map(pack => {
         let LANG = _LANG[pack]

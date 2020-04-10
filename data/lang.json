@@ -12,6 +12,14 @@
             "en": "Size",
             "tc": "大小"
         },
+        "images": {
+            "en": "Images",
+            "tc": "相片"
+        },
+        "code": {
+            "en": "Code",
+            "tc": "編號"
+        },
         "facility": {
             "en": "Facility",
             "tc": "設施"
@@ -25,6 +33,10 @@
                 "地址",
                 "addressZH"
             ]
+        },
+        "mailingAddress": {
+            "en": "Mailing Address",
+            "tc": "郵寄地址"
         },
         "district": {
             "en": [
@@ -219,6 +231,14 @@
         "height": {
             "en": "Height",
             "tc": "高度"
+        },
+        "cash": {
+            "en": "Cash",
+            "tc": "現金"
+        },
+        "octopus": {
+            "en": "Octopus",
+            "tc": "八達通"
         },
         "value": {
             "en": "Value",
@@ -864,6 +884,14 @@
             "en": "Discharge Case",
             "tc": "出院個案"
         },
+        "probable": {
+            "en": "Probable Case",
+            "tc": "疑似個案"
+        },
+        "critical": {
+            "en": "Critical Condition Case",
+            "tc": "危殆個案"
+        },
         "caseNo": {
             "en": "Case No",
             "tc": "個案編號"
@@ -919,6 +947,16 @@
         "endQuarantineDate": {
             "en": "Home Quarantine End Date",
             "tc": "家居檢疫結束日期"
+        }
+    },
+    "ogcio": {
+        "icon": {
+            "en": "Icon",
+            "tc": "圖標"
+        },
+        "logo": {
+            "en": "Logo",
+            "tc": "商標"
         }
     },
     "hko": {
@@ -1216,6 +1254,26 @@
         "disability": {
             "en": "For Disabled Persons",
             "tc": "殘障人士可用"
+        },
+        "charges": {
+            "en": "Charges",
+            "tc": "收費"
+        },
+        "termsAndConditions": {
+            "en": "Terms and Conditions",
+            "tc": "條款"
+        },
+        "bookingMethod": {
+            "en": "Booking Method",
+            "tc": "預訂方法"
+        },
+        "indoorFacility": {
+            "en": "Indoor Facility",
+            "tc": "室內設施"
+        },
+        "maintenanceDay": {
+            "en": "Maintenance Day",
+            "tc": "保養日"
         },
         "rooms": {
             "en": "Rooms No",
@@ -2130,10 +2188,12 @@
         "cashAdvanceHandlingFee": {
             "en": "Cash Advance Handling Fee",
             "tc": "現金透支手續費"
-        },"cashAdvance": {
+        },
+        "cashAdvance": {
             "en": "Cash Advance",
             "tc": "現金透支"
-        },"retailSpending": {
+        },
+        "retailSpending": {
             "en": "Retail Spending",
             "tc": "零售消費"
         },
@@ -2289,10 +2349,6 @@
             "en": "Yellow Form Application End Date",
             "tc": "黃表申請截止日期"
         },
-        "code": {
-            "en": "Code",
-            "tc": "編號"
-        },
         "local": {
             "en": "Local",
             "tc": "本地"
@@ -2321,7 +2377,7 @@
             "en": "Insured Persons",
             "tc": "受保人"
         },
-        "premiumType":{
+        "premiumType": {
             "en": "Insurance Plan",
             "tc": "保障計劃"
         },
@@ -2348,6 +2404,61 @@
         "cruiseBenefit": {
             "en": "Cruise Benefit",
             "tc": "郵輪保障"
+        }
+    },
+    "transport": {
+        "destination": {
+            "en": "Destination",
+            "tc": "終點"
+        },
+        "origin": {
+            "en": "Origin",
+            "tc": "起點"
+        },
+        "route": {
+            "en": "Route",
+            "tc": "路線"
+        },
+        "platform": {
+            "en": "Platform",
+            "tc": "月台"
+        },
+        "eta": {
+            "en": "Estimated Time of Arrival",
+            "tc": "預計到達時間"
+        },
+        "gps": "GPS",
+        "companyCode": {
+            "en": "Company Code",
+            "tc": "公司代號"
+        },
+        "lowFloor": {
+            "en": "Low Floor",
+            "tc": "低地台"
+        },
+        "fare": {
+            "en": "Fare",
+            "tc": "車資"
+        },
+        "disability": {
+            "en": "Persons with Disabilities",
+            "tc": "殘障人士"
+        },
+        "adult": {
+            "en": "Adult",
+            "tc": "成人"
+        },
+        "elderly": {
+            "en": "Elderly",
+            "tc": "長者"
+        },
+        "student": {
+            "en": "Student",
+            "tc": "學生"
+        },
+        "child": {
+            "en": "Child",
+            "tc": "小童"
         }
     },
     "coordinate": {
@@ -2591,21 +2702,9 @@
             "en": "Grace Periods",
             "tc": "寬限時間"
         },
-        "images": {
-            "en": "Images",
-            "tc": "相片"
-        },
         "paymentMethods": {
             "en": "Payment Methods",
             "tc": "支付方式"
-        },
-        "cash": {
-            "en": "Cash",
-            "tc": "現金"
-        },
-        "octopus": {
-            "en": "Octopus",
-            "tc": "八達通"
         },
         "EPS": "EPS",
         "visa": "Visa",
@@ -2943,6 +3042,10 @@
         "sun": {
             "en": "Sunday",
             "tc": "星期日"
+        },
+        "wd": {
+            "en": "Weekday",
+            "tc": "平日"
         },
         "ph": {
             "en": "Public Holiday",

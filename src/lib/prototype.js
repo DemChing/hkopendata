@@ -23,6 +23,13 @@ String.prototype.decodeEntities = function () {
     for (let key in replace) {
         str = str.replace(new RegExp(key, "gi"), replace[key])
     }
+    let m;
+    while (m = str.match(/&#(\d+);/)) {
+        str = str.replace(new RegExp(m[0], "g"), String.fromCharCode(m[1]))
+    }
+    while (m = str.match(/&#(x[a-f0-9]+);/i)) {
+        str = str.replace(new RegExp(m[0], "gi"), String.fromCharCode("0" + m[1]))
+    }
     return str;
 }
 
@@ -48,8 +55,9 @@ String.prototype.trimChar = function (chars) {
 String.prototype.parseNumber = function (dec) {
     let val = this.valueOf();
     let num = parseFloat(val),
-        str = typeof dec === "number" ? num.toFixed(dec) : num.toString();
-    return str == val ? num : val;
+        str = num.toString(),
+        str2 = typeof dec === "number" ? num.toFixed(dec) : str;
+    return str == val || str2 == val ? num : val;
 }
 
 Number.prototype.parseNumber = function () {

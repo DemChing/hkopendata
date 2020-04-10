@@ -25,7 +25,7 @@ The project is designed as a 3-layers structure:
 3. Provide a simple and unified way for developer to access.
 
 This project mainly focus on the data from government. Yet, it also provides the access to open API of local banks and other organizations. You can check detail documentation in these links:
-- [Government](src/gov/README.md)
+- Government [README](src/gov/README.md)
     It supports searching:
     1. Leisure and Cultural Services Department (康文署) - facilities
     2. Airport Authority Hong Kong (機管局) - flight information
@@ -34,9 +34,9 @@ This project mainly focus on the data from government. Yet, it also provides the
     5. Housing Department (房署)- estate information
     6. Office of the Government Chief Information Officer (資訊科技總監) / Development Bureau (發展局) - smart lamppost, carpark vacancies
     7. Geospatial Information - Geo Data provided in [GeoData Store](https://geodata.gov.hk/gs/)
-    7. Others - Hong Kong address parser, public holidays
+    8. Others - Hong Kong address parser, public holidays, etc.
 
-- [Bank](src/bank/README.md)
+- Bank [README](src/bank/README.md)
 
     :warning: __WARNING__ :warning:
     
@@ -51,14 +51,16 @@ This project mainly focus on the data from government. Yet, it also provides the
     6. Mortgage / Loan Products
     7. Credit Cards
 
-- [Other Organizations](src/org/README.md)
+- Other Organizations [README](src/org/README.md)
     1. Hongkong Post (香港郵政) - Postage Rate
+    2. Citybus (城巴), New World First Bus (新巴), New Lantao Bus (新大嶼山巴士), LRT Feeder (港鐵巴士)
+    3. MTR Lines (地鐵/東鐵/西鐵), Airport Express (機場快綫), LRT Lines (輕鐵), Tramways (電車), Intercity Train (城際直通車)
 
 ## Classes
 Classes are used to make the development more convenient. While not all of them are meaningful, some could be useful in development.
 
 - `Coordinate`
-You should expect all coordinate related data would convert to a `Coordinate` Class Object. There are two types of `Coordinate`: `coordinate` under standard `EPSG:4326` (Normal GPS coordinate with `latitude` and `longitude`) and `coordinateHK` under standard `EPSG:2326` (HK1980 grid system coordinate with `easting` and `longitude`)
+You should expect all coordinate related data would convert to a `Coordinate` Class Object. There are two types of `Coordinate`: `coordinate` under standard `EPSG:4326` (Normal GPS coordinate with `latitude` and `longitude`) and `coordinateHK` under standard `EPSG:2326` (HK1980 grid system coordinate with `easting` and `northing`)
 
 You can convert between `coordinate` and `coordinateHK` using appropriate method. Error(誤差) exists in the conversion. Use it only if neccessary.
 ```
@@ -152,6 +154,14 @@ obj = new Coordinate()
 - [ ] Advance process on data (eg. parse CSV/XML data)
 - [ ] Unify the way of returning data/error
 - [ ] Increase supported API/endpoints (Never ends)
+
+## Changelog
+### v1.1.0
+__ADDED__
+- [Wi-Fi HK](src/gov/README.md#office-of-the-government-chief-information-officer-ogcio) related information
+- [COVID-19](src/gov/README.md#department-of-health-dh) information
+- [Bus](src/org/README.md#bus-bus) and [Rail](src/org/README.md#rail-rail) information
+- New dependency `csv-parse` to process CSV type data.
 
 ## Support
 This is a one man project developed during free time. Bugs and inconsistence in system are expected (maybe critical).

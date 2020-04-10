@@ -10,7 +10,7 @@ const VALID = {
 const PARAMS = {
     lang: "en",
 }
-const RENAME = {
+const FIELDS = {
     "bank_info_name": "organization",
 }
 
@@ -46,7 +46,7 @@ function search(data, opts) {
 
 function processData(data) {
     let result = [];
-    data = lib.RenameAll(data, RENAME);
+    data = lib.RenameAll(data, FIELDS);
     data.map(item => {
         let temp = {};
         for (let key in item) {

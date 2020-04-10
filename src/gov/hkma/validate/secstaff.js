@@ -18,7 +18,7 @@ const VALID_OPT = {
 const PARAMS = {
     lang: "en",
 }
-const RENAME = {
+const FIELDS = {
     "reg_code" :"hkmaRegCode",
     "reg_act": "regulatedActivity",
     "eng_first_date": "firstDateEngage",
@@ -71,7 +71,7 @@ function search(data, opts) {
 
 function processData(data) {
     let result = [];
-    data = lib.RenameAll(data, RENAME);
+    data = lib.RenameAll(data, FIELDS);
     data.map(item => {
         let temp = {};
         for (let key in item) {

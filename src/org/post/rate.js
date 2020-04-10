@@ -10,7 +10,7 @@ const VALID = {
 const PARAMS = {
     type: "local-ORD"
 }
-const RENAME = {
+const FIELDS = {
     regex: {
         "destinationName": "destination"
     },
@@ -75,7 +75,7 @@ function preprocessFields(data) {
     };
     if (Array.isArray(data)) return data.map(v => preprocessFields(v))
     else if (typeof data === "object" && data !== null) {
-        data = cmn.RenameFields(data, RENAME);
+        data = cmn.RenameFields(data, FIELDS);
         let temp = {};
         for (let key in data) {
             let m;

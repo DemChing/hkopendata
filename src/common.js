@@ -12,11 +12,17 @@ function _cleanInvalidJsonString(text) {
     return text.replace(/(\r|\n)/g, "");
 }
 
-function APIRequest(url, params) {
+function APIRequest(url, params, post) {
     return new Promise((resolve, reject) => {
-        axios.get(url, {
+        let data = {
                 params,
-            })
+            },
+            method = "get";
+        if (post) {
+            data = params;
+            method = "post";
+        }
+        axios[method](url, data)
             .then((res) => {
                 if (typeof res.data === "string") {
                     try {
@@ -35,29 +41,40 @@ function APIRequest(url, params) {
     })
 }
 
-function CSVFetch(url) {
+function CSVFetch(url, opts) {
     return new Promise((resolve, reject) => {
         axios({
                 url,
                 responseType: 'blob',
             }).then((res) => {
-                let data = res.data.split(/\r\n/),
-                    header = data.shift().split(","),
-                    body = data.filter(v => v.length > 0 && v[0] != "");
-                resolve({
-                    header: header,
-                    body: body.map(v => {
-                        let temp = v,
-                            match = temp.match(/"([^"]+)"/g);
-                        if (match) {
-                            match.map((u, i) => temp = temp.replace(u.match(/"([^"]+)"/)[0], `{{match${i}}}`))
-                            return temp.split(",").map(u => match.reduce((p, c, i) => p = p.replace(`{{match${i}}}`, c.match(/"([^"]+)"/)[1]), u))
-                        }
-                        return temp.split(",")
-                    })
-                })
+                return CSVToArray(res.data, opts)
             })
+            .then(res => resolve(res))
             .catch((err) => reject(err))
+    })
+}
+
+function CSVToArray(data, opts) {
+    return new Promise((resolve, reject) => {
+        const parse = require("csv-parse");
+        opts = {
+            ...{
+                bom: true,
+            },
+            ...opts
+        }
+
+        let result = {};
+        parse(data, opts, (err, res) => {
+            if (err) reject(err);
+            else {
+                if (!opts.noHeader) {
+                    result.header = res.shift();
+                }
+                result.body = res.filter(v => v.join("") != "");
+                resolve(result);
+            }
+        })
     })
 }
 
@@ -94,10 +111,10 @@ function MatchData(src, opts, partial) {
     if (partial) match = _contains;
     if (typeof opts === "object") {
         for (let item in src) {
-            if (Array.isArray(src[item])) {
-                valid = valid && src[item].reduce((p, c) => p || MatchData(c, opts, partial), false)
-            } else if (item in opts) {
+            if (item in opts) {
                 valid = valid && match(src[item], opts[item])
+            } else if (Array.isArray(src[item])) {
+                valid = valid && src[item].reduce((p, c) => p || MatchData(c, opts, partial), false)
             }
         }
         return valid;
@@ -161,6 +178,8 @@ function RenameFields(data, config) {
     for (let type in config) {
         if (type == "regex") {
             Object.keys(config[type]).map(v => regexs.push(parseRenameRegexp(v)))
+        } else if (/latitude|longitude/.test(type)) {
+            keys = keys.concat(config[type])
         } else {
             keys = keys.concat(Object.keys(config[type]))
         }
@@ -184,8 +203,11 @@ function RenameFields(data, config) {
                     delete data[v];
                 })
             } else if (type == "latitude" || type == "longitude") {
-                if (!("coordinate" in result)) result.coordinate = {}
-                result.coordinate[type] = parseFloat(data[config[type][key]]);
+                if (config[type][key] in data) {
+                    const CoordinateValue = require("./_class/CoordinateValue");
+                    if (!("coordinate" in result)) result.coordinate = {}
+                    result.coordinate[type] = new CoordinateValue(data[config[type][key]]).toCoor();
+                }
             } else if (key in data && (data[key] === null || data[key].toString().trimChar(" -") != "")) {
                 if (type == "number") {
                     if (typeof data[key] === "string") {

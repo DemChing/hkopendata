@@ -3,4 +3,5 @@ module.exports = {
     searchAddress: require("./address"),
     searchLamppost: require("./lamppost"),
     searchCarpark: require("./carpark"),
+    searchWifi: require("./wifi"),
 }

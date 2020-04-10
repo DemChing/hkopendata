@@ -10,7 +10,7 @@ const VALID = {
 const PARAMS = {
     lang: "en",
 }
-const RENAME = {
+const FIELDS = {
     "local_address" :"businessAddress",
     "principle_address" :"businessOverseaAddress",
 }
@@ -46,7 +46,7 @@ function search(data, opts) {
 }
 
 function processData(data) {
-    return data && data.length > 0 ? lib.RenameAll(data, RENAME) : [];
+    return data && data.length > 0 ? lib.RenameAll(data, FIELDS) : [];
 }
 
 module.exports = search
