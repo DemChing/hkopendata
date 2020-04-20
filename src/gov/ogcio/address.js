@@ -50,7 +50,8 @@ function search(data, opts) {
 }
 
 function processData(data) {
-    let result = [];
+    let result = [],
+        hasJSON = cmn.HasDataJson("districts");
     data.SuggestedAddress.map((item) => {
         let temp = {
             _raw: data.RequestAddress.AddressLine[0],
@@ -100,11 +101,14 @@ function processData(data) {
                                         temp[k][k2][lang] = i[key2][key3];
                                     }
                                 }
-                            } else if (key3 == "DcDistrict" && lang == "tc") {
+                            } else if (hasJSON && key3 == "DcDistrict" && lang == "tc") {
                                 let data = cmn.SearchDataJson("districts", i[key2][key3])[0];
                                 temp.region = data.region;
                                 temp.district = data.name;
                                 temp.legco = data.legco;
+                            } else if (!hasJSON && key3 == "DcDistrict") {
+                                if (!("district" in temp)) temp.district = {};
+                                temp.district[lang] = i[key2][key3];
                             } else if (key3 == "BlockDescriptorPrecedenceIndicator" && lang == "en") {
                                 temp[k].indicator = i[key2][key3] == "Y";
                             } else {

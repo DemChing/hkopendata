@@ -1,9 +1,9 @@
 const Phone = require("awesome-phonenumber");
-const _LANG = require("../data/lang.json");
+const _LANG = require("./locale");
 
 function ToLocale(data, lang, package, html) {
     lang = lang || "en";
-    const LANG = initLang(lang, package)
+    const LANG = _LANG.GetPackage(package, lang);
 
     if (Array.isArray(data)) {
         return data.map(v => ToLocale(v, lang, package)).filter(v => !(v === "" || v === null || (Array.isArray(v) && v.length == 0) || (typeof v === "object" && Object.keys(v).length == 0)))
@@ -45,10 +45,7 @@ function ToLocale(data, lang, package, html) {
                 } else if (typeof val === "boolean") {
                     val = LANG[val.toString()];
                 } else if (typeof val === "string") { // Must be the last condition
-                    let LANG_STATION = key == "station" && package == "hko" ? initLang(lang, "hkoStation") : {};
-                    if (key == "station" && package == "hko" && val in LANG_STATION) {
-                        val = LANG_STATION[val]
-                    } else if (val in LANG) {
+                    if (val in LANG) {
                         val = LANG[val];
                     }
                 }
@@ -72,35 +69,9 @@ function ToLocale(data, lang, package, html) {
 }
 
 function GetLocale(key, lang, package) {
-    const LANG = initLang(lang, package)
+    const LANG = _LANG.Get(package, lang);
     if (key in LANG) return LANG[key];
     return key
-}
-
-function GetAvailableLang(item) {
-    return Object.keys(item).filter(v => /^(en|tc|sc)$/i.test(v));
-}
-
-function initLang(lang, package) {
-    if (!package) package = "common";
-    if (/^(bus|rail)$/.test(package)) package = "transport";
-    let packages = ["common", "week", "weather", package];
-    if (package == "ogcio") packages.push("geo");
-    let _L = {}
-    packages.filter((v, i, l) => l.indexOf(v) == i).map(pack => {
-        let LANG = _LANG[pack]
-        for (let key in LANG) {
-            let tLang = lang;
-            if (typeof LANG[key] !== "string" && !(lang in LANG[key])) {
-                tLang = GetAvailableLang(LANG[key])[0];
-            }
-            if (typeof LANG[key] === "string") _L[key] = LANG[key]
-            else if (Array.isArray(LANG[key][tLang])) _L[key] = LANG[key][tLang][0]
-            else _L[key] = LANG[key][tLang]
-        }
-    })
-
-    return _L;
 }
 
 function ToGeoJson(data, lang, package) {
@@ -174,6 +145,6 @@ function geoJsonDetail(key, data, lang, package) {
 module.exports = {
     ToLocale,
     GetLocale,
-    GetAvailableLang,
+    GetAvailableLang: _LANG.GetAvailableLang,
     ToGeoJson,
 }

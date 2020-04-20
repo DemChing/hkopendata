@@ -10,4 +10,6 @@ module.exports = {
     dh: require("./dh"),
     ha: require("./ha"),
     hkma: require("./hkma"),
+    dc: require("./dc"),
+    hkpf: require("./hkpf"),
 }

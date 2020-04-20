@@ -7,7 +7,7 @@
 /node_modules/
 
 #ignore files
-/data/hk-holiday.json
+/data/*.json
 /data/flats/
 /build.js
 /postcss.config.js

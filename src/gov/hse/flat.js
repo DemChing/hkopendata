@@ -42,11 +42,11 @@ function search(data, opts) {
             reject(processed);
         } else {
             params = processed.data;
-            try {
-                if (opts.update) throw "";
-                let res = require(`../../../data/flats/${params.type}.json`);
+
+            let res = cmn.GetDataJson(`flats/${params.type}`);
+            if (!(opts.update || Object.keys(res).length == 0)) {
                 resolve(processItem(res));
-            } catch (e) {
+            } else {
                 cmn.APIRequest(cmn.ReplaceURL(BASE_URL, processed.data))
                     .then((res) => {
                         resolve(processData(res, params.type));
@@ -114,6 +114,9 @@ function processData(data, name) {
         if (!("estate" in allItems)) allItems.estate = []
         allItems.estate.push(temp)
     }
+    if (!fs.existsSync("data/flats")) {
+        fs.mkdirSync("data/flats");
+    }
     fs.writeFile(`data/flats/${name}.json`, JSON.stringify(allItems), () => {})
     return processItem(allItems);
 }
@@ -138,7 +141,7 @@ function processItem(item) {
             let building = estate.addBuilding({
                 name: b.name
             })
-            b.flat.map(f => {
+            b.flats.map(f => {
                 let arr = f.split(" ");
                 building.addFlat({
                     name: arr[0],

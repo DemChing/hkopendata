@@ -1,7 +1,7 @@
 const cmn = require("../../common");
 const LOCALE = require("../../locale");
 const Coordinate = require("../../_class").Coordinate;
-const GEODATA = require("../../../data/geodata.json");
+const GEODATA = cmn.GetDataJson("geodata", true);
 const BASE_URL = "https://geodata.gov.hk/gs/api/v1.0.0/geoDataQuery";
 
 const VALID = {
@@ -26,7 +26,6 @@ const LANG = {
 const PARAMS = {
     lang: "ALL",
     v: "1.0.0",
-    id: Object.keys(GEODATA[4].set)[16] // 0: 0-49, 1: 0-19, 2: 0-17, 3: 0-16, 4: 0-16, 5: 0-16, 6: 0-7, 7: 0-3, 8: 0-3, 9: 0-0
 }
 const FIELDS = {}
 
@@ -85,6 +84,13 @@ function parseSearchFields(params) {
 function validateParameters(params, opts) {
     params = parseSearchFields(params);
     let result = cmn.ValidateParameters(params, VALID, VALID_OPT);
+    if ("id" in params && GEODATA.length > 0) {
+        let valid = GEODATA.filter(v => v.dataset.filter(u => u.id == params.id).length > 0).length > 0;
+        if (!valid) {
+            result.error = true;
+            result.message = "Invalid dataset id."
+        }
+    }
     if (!result.error) {
         result.data = {
             ...params

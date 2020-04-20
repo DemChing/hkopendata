@@ -43,7 +43,7 @@ function validateParameters(params) {
     }
 
     if ("station" in params) {
-        hasStation = cmn.SearchDataJson("stations", {
+        hasStation = !cmn.HasDataJson("stations") || cmn.SearchDataJson("stations", {
             "a": 1,
             "code": params.station
         }).length != 0;

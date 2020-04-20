@@ -234,3 +234,47 @@ __Parameters__
 | --- | --- | --- | --- | --- | --- |
 | `params.type` | true | number `[0-5]` | 0 | Type of information | 0 - Daily Statistics<br>1 - Cases<br>2 - Buildings which patients have been to<br>3 - Transportation which patients have taken<br>4 - Buildings with home quarantine under Cap. 599A<br>5 - Buildings with home quarantine under Cap. 599C<br><br>__*__ There should be no data for `params.type` = `4` since 2020-02-27 |
 | `params.lang` | false | string (`en`/`tc`) | en | Language of the result |  |
+
+## District Councils (dc)
+- `searchCalendar(params)` Meeting Information
+:warning: Currently only support `2016`
+
+__Parameters__
+| Name | Required | Accepted | Default | Description | Remarks |
+| --- | --- | --- | --- | --- | --- |
+| `params.year` | true | string | 2016 | Beginning year of the term of office |  |
+| `params.lang` | true | string (`en`/`tc`/`sc`) | en | Language of the result |  |
+
+- `searchMember(params)` Member List
+:warning: Currently only support `2016` and `2020`
+
+__Parameters__
+| Name | Required | Accepted | Default | Description | Remarks |
+| --- | --- | --- | --- | --- | --- |
+| `params.year` | true | string | 2016 | Beginning year of the term of office |  |
+| `params.lang` | true | string (`en`/`tc`/`sc`) | en | Language of the result |  |
+
+- `searchAttendance(params)`
+:warning: Currently only support `2019`
+
+__Parameters__
+| Name | Required | Accepted | Default | Description | Remarks |
+| --- | --- | --- | --- | --- | --- |
+| `params.year` | true | string | 2019 | Year of the record |  |
+| `params.lang` | true | string (`en`/`tc`/`sc`) | en | Language of the result |  |
+
+## Hong Kong Police Force (hkpf)
+- `searchMissing(params)` Missing Persons Notice
+
+__Parameters__
+| Name | Required | Accepted | Default | Description | Remarks |
+| --- | --- | --- | --- | --- | --- |
+| `params.lang` | true | string (`en`/`tc`/`sc`) | en | Language of the result |  |
+
+- `searchReward(params)` Reward Notice
+
+__Parameters__
+| Name | Required | Accepted | Default | Description | Remarks |
+| --- | --- | --- | --- | --- | --- |
+| `params.type` | true | number `[0-1]` | 0 | Type of information | 0 - Wanted Persons<br>1 - Other reward |
+| `params.lang` | true | string (`en`/`tc`/`sc`) | en | Language of the result |  |

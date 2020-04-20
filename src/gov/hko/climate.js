@@ -31,7 +31,7 @@ const SEARCH_CONFIG = {
 function validateParameters(params) {
     params = cmn.ParseSearchFields(params, SEARCH_CONFIG);
     let result = cmn.ValidateParameters(params, VALID, VALID_OPT),
-        hasStation = cmn.SearchDataJson("stations", {
+        hasStation = !cmn.HasDataJson("stations") || cmn.SearchDataJson("stations", {
             "w": 1,
             "code": params.station
         }).length != 0
@@ -80,9 +80,18 @@ function processData(data, opts) {
         if ("day" in opts) match = match && row[2] == opts.day;
         return match;
     }).map((row) => {
-        let temp = {};
+        let temp = {},
+            station = opts.station;
+        if (cmn.HasDataJson("stations")) {
+            let s = cmn.SearchDataJson("stations", {
+                "code": station
+            })[0];
+            if (s) {
+                station = s.name;
+            }
+        }
         temp = {
-            station: opts.station,
+            station: station,
             date: moment(`${row[0]}-${row[1]}-${row[2]}`, "YYYY-M-D").format("YYYY-MM-DD"),
             temperature: new UnitValue({
                 type: "temperature",

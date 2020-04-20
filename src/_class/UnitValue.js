@@ -1,5 +1,5 @@
 const BaseComponent = require("./BaseComponent");
-const UNITS = require("../../data/units.json");
+const UNITS = require("../units");
 const DEFAULT_UNIT = {
     "en": "",
     "tc": "",
@@ -22,15 +22,13 @@ class UnitValue extends BaseComponent {
         this.scale = this.scale || "default";
         this._unitInfo = DEFAULT_UNIT;
         this._scaleInfo = DEFAULT_SCALE;
-        if (this.type in UNITS.types || "default" in UNITS.types) {
-            if (!(this.type in UNITS.types)) this.type = "default";
-            if (this.category in UNITS.types[this.type]) {
-                this._unitInfo = UNITS.types[this.type][this.category];
-            }
-        }
+        let unit = UNITS.GetType(this.type) || UNITS.GetType("default");
+        if (unit && this.category in unit) this._unitInfo = unit[this.category];
+        else this.type = "default";
         this.si = !!this._unitInfo.si;
         if (this.scale != "default" && this.si) {
-            this._scaleInfo = UNITS.scales.si[this.scale];
+            let scales = UNITS.GetScale("si");
+            if (scales && this.scale in scales) this._scaleInfo = scales[this.scale];
         }
     }
     toBestScaleSI() {
@@ -51,9 +49,10 @@ class UnitValue extends BaseComponent {
                     power--
                 }
             }
-            for (let s in UNITS.scales.si) {
-                let d = Math.abs(UNITS.scales.si[s].value - power),
-                    common = !("uncommon" in UNITS.scales.si[s]) || UNITS.scales.si[s].uncommon.indexOf(`${this.type}-${this.category}`) != -1;
+            let SI = UNITS.GetScale("si") || {};
+            for (let s in SI) {
+                let d = Math.abs(SI[s].value - power),
+                    common = !("uncommon" in SI[s]) || SI[s].uncommon.indexOf(`${this.type}-${this.category}`) != -1;
                 if (common && d < diff) {
                     diff = d;
                     scale = s;
@@ -67,8 +66,9 @@ class UnitValue extends BaseComponent {
         if (this.si && this.scale != scale) {
             let value = this._scaleInfo.value,
                 newScale = DEFAULT_SCALE;
-            if (scale in UNITS.scales.si) {
-                newScale = UNITS.scales.si[scale];
+            let SI = UNITS.GetScale("si") || {};
+            if (scale in SI) {
+                newScale = SI[scale];
             }
             this.value *= Math.pow(10, value - newScale.value);
             if (this.value % 1 > 0.99999999999999 || this.value % 1 < 0.00000000000001) this.value = Math.round(this.value)

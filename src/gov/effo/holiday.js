@@ -4,7 +4,7 @@ const moment = require("../../moment");
 const fs = require("fs");
 const cmn = require("../../common");
 const BASE_URL = "https://www.1823.gov.hk/common/ical/{lang}.json";
-const HOLIDAY = require("../../../data/hk-holiday.json");
+const HOLIDAY = cmn.GetDataJson("hk-holiday");
 
 const VALID = {
     lang: /^(en|tc|sc)$/,
@@ -40,7 +40,7 @@ function search(data, opts) {
             reject(processed);
         } else {
             let result = [],
-                complete = true;
+                complete = false;
             params = processed.data;
             if (params.year in HOLIDAY) {
                 for (let date in HOLIDAY[params.year]) {
@@ -48,9 +48,8 @@ function search(data, opts) {
                         result.push({
                             date: date,
                             name: HOLIDAY[params.year][date][params.lang]
-                        })
-                    } else {
-                        complete = false
+                        });
+                        complete = true;
                     }
                 }
             }

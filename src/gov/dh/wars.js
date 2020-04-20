@@ -7,12 +7,12 @@ const BASE_URL = "http://www.chp.gov.hk/files/misc/{type_url}.csv";
 const PACKAGE = {
     stat: {
         dataKey: "date",
-        url: "latest_situation_of_reported_cases_wuhan_{lang}",
+        url: "latest_situation_of_reported_cases_covid_19_{lang}",
         cols: ["lastUpdate", "confirmed", "ruledOut", "hospitalised", "reporting", "death", "discharge", "probable", "critical"]
     },
     case: {
         dataKey: "caseNo",
-        url: "enhanced_sur_pneumonia_wuhan_{lang}",
+        url: "enhanced_sur_covid_19_{lang}",
         cols: ["confirmDate", "onsetDate", "gender", "age", "hospital", "state", "hkResident", "class"]
     },
     building: {

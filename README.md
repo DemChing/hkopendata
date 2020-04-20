@@ -26,6 +26,7 @@ The project is designed as a 3-layers structure:
 
 This project mainly focus on the data from government. Yet, it also provides the access to open API of local banks and other organizations. You can check detail documentation in these links:
 - Government [README](src/gov/README.md)
+
     It supports searching:
     1. Leisure and Cultural Services Department (康文署) - facilities
     2. Airport Authority Hong Kong (機管局) - flight information
@@ -34,7 +35,10 @@ This project mainly focus on the data from government. Yet, it also provides the
     5. Housing Department (房署)- estate information
     6. Office of the Government Chief Information Officer (資訊科技總監) / Development Bureau (發展局) - smart lamppost, carpark vacancies
     7. Geospatial Information - Geo Data provided in [GeoData Store](https://geodata.gov.hk/gs/)
-    8. Others - Hong Kong address parser, public holidays, etc.
+    8. Others - Hong Kong address parser, public holidays, HK WiFi, etc.
+    9. Department of Health (衞生署) - COVID-19 information
+    10. District Councils (區議會) - Attendance, meeting calendar and members
+    11. Hong Kong Police Force (香港警務處) - Missing and reward notice
 
 - Bank [README](src/bank/README.md)
 
@@ -120,8 +124,10 @@ utils.ToLocale(result, "en", "carparkrule");
 ## Static Data
 Files of static data are stored in `/data` directory. There are two types of static data:
 1. Persistent Files
+
 This project uses some external data (eg. Airlines, Airports) and data that is very unlikely to change (eg. HK Locations). They won't be updated unless there is a new version published. Please __DO NOT__ delete those files.
 2. Cache
+
 Some data are unlikely to change or only update after a long period. They are generated when running some functions (eg. public holidays). They are acted as cache or historical data. Running the function again would return the saved data instead of making ajax. They will be updated automatically.
 
 ## Accepted Input
@@ -155,13 +161,14 @@ obj = new Coordinate()
 - [ ] Unify the way of returning data/error
 - [ ] Increase supported API/endpoints (Never ends)
 
-## Changelog
-### v1.1.0
+## Changelog (Lastest Version)
+### v1.2.0
 __ADDED__
-- [Wi-Fi HK](src/gov/README.md#office-of-the-government-chief-information-officer-ogcio) related information
-- [COVID-19](src/gov/README.md#department-of-health-dh) information
-- [Bus](src/org/README.md#bus-bus) and [Rail](src/org/README.md#rail-rail) information
-- New dependency `csv-parse` to process CSV type data.
+- Add directory `downloads` to store supplementary data.
+- [District Councils](src/gov/README.md#district-councils-dc) related information
+- [Missing / Reward Persons](src/gov/README.md#hong-kong-police-force-hkpf) notice
+
+Full changelog  history available [here](/CHANGELOG.md).
 
 ## Support
 This is a one man project developed during free time. Bugs and inconsistence in system are expected (maybe critical).

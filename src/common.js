@@ -45,7 +45,7 @@ function CSVFetch(url, opts) {
     return new Promise((resolve, reject) => {
         axios({
                 url,
-                responseType: 'blob',
+                responseType: 'arraybuffer',
             }).then((res) => {
                 return CSVToArray(res.data, opts)
             })
@@ -64,6 +64,12 @@ function CSVToArray(data, opts) {
             ...opts
         }
 
+        if ("encoding" in opts) {
+            const iconv = require("iconv-lite");
+            data = iconv.decode(data, opts.encoding);
+            delete opts.encoding;
+        }
+
         let result = {};
         parse(data, opts, (err, res) => {
             if (err) reject(err);
@@ -76,6 +82,25 @@ function CSVToArray(data, opts) {
             }
         })
     })
+}
+
+function XMLFetch(url, params, opts) {
+    return new Promise((resolve, reject) => {
+        axios(url, {
+                responseType: 'text',
+                params,
+            }).then((res) => {
+                return XMLToJson(res.data, opts)
+            })
+            .then(res => resolve(res))
+            .catch((err) => reject(err))
+    })
+}
+
+function XMLToJson(data, opts) {
+    opts = opts || {};
+    const xmlParser = require("fast-xml-parser");
+    return xmlParser.parse(data, opts);
 }
 
 function _identical(src, val) {
@@ -122,18 +147,32 @@ function MatchData(src, opts, partial) {
     return false
 }
 
+function GetDataJson(type, isArray) {
+    const DATA = require("../data/");
+    let obj = isArray ? [] : {};
+    if (HasDataJson(type)) obj = DATA.Get(type);
+    return obj;
+}
+
+function HasDataJson(type) {
+    const DATA = require("../data/");
+    if (type in DATA.list) type = DATA.list[type];
+    let data = DATA.Get(type);
+    return (Array.isArray(data) && data.length > 0) || (typeof data === "object" && Object.keys(data).length > 0);
+}
+
 function SearchDataJson(type, opts) {
     const DATA = require("../data/");
     let params = {},
-        data = DATA[type];
+        data = HasDataJson(type) ? DATA.Get(type) : [];
     if (typeof opts === "undefined") {
         return false;
     } else if (typeof opts === "object") {
-        params = opts
+        params = opts;
     } else {
-        params[type in DEFAULT_SEARCH_INDEX ? DEFAULT_SEARCH_INDEX[type] : DEFAULT_SEARCH_INDEX.default] = opts
+        params[type in DEFAULT_SEARCH_INDEX ? DEFAULT_SEARCH_INDEX[type] : DEFAULT_SEARCH_INDEX.default] = opts;
     }
-    return data.filter((item) => MatchData(item, params))
+    return data.filter((item) => MatchData(item, params));
 }
 
 function ValidateParameters(params, valid, validOpt) {
@@ -560,10 +599,13 @@ function ParseSearchFields(data, config) {
 module.exports = {
     APIRequest,
     CSVFetch,
+    XMLFetch,
     MatchData,
     StrToWeekTime,
     ReplaceURL,
     RenameFields,
+    GetDataJson,
+    HasDataJson,
     SearchDataJson,
     ValidateParameters,
     ParseSearchFields,

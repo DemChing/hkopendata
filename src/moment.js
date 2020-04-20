@@ -19,20 +19,21 @@ moment.locale("yue", {
         lll: 'LLL',
         llll: 'LLddd LT'
     },
-    meridiemParse: /午夜|凌晨|早上|上午|朝早|上晝|中午|正午|下午|下晝|晏晝|晚上|夜晚/,
+    meridiemParse: /午夜|凌晨|早上|上午|朝早|上晝|中午|正午|下午|下晝|晏晝|晚上|夜晚|a\.?m\.?|p\.?m\.?|n\.n\.|m\.n\.?/i,
     meridiemHour: function (hour, meridiem) {
         if (hour === 12) {
             hour = 0;
         }
-        if (/^(凌晨|早上|上午|朝早|上晝)$/.test(meridiem)) {
+        meridiem = meridiem.replace(".", "");
+        if (/^(凌晨|早上|上午|朝早|上晝|am)$/i.test(meridiem)) {
             return hour;
         } else if (meridiem === "中午") {
             return hour >= 11 ? hour : hour + 12;
-        } else if (/^(下午|下晝|晏晝|晚上|夜晚)$/.test(meridiem)) {
+        } else if (/^(下午|下晝|晏晝|晚上|夜晚|pm?)$/i.test(meridiem)) {
             return hour + 12;
-        } else if (meridiem === "正午") {
+        } else if (/^(正午|nn?)$/i.test(meridiem)) {
             return 12;
-        } else if (meridiem === "午夜") {
+        } else if (/^(午夜|mn?)$/i.test(meridiem)) {
             return 0;
         }
     },
