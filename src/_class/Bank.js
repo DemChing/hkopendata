@@ -1,7 +1,5 @@
 const axios = require("axios");
-const curl = require("axios-curlirize");
 const qs = require("querystring");
-const cmn = require("../common");
 
 class Bank {
     constructor(params) {
@@ -9,7 +7,6 @@ class Bank {
         this._endpoints = params.endpoints;
         this._instance = axios.create(params.instance);
         this._forceUUID = params.uuid || false;
-        curl(this._instance);
     }
 
     APIRequest(endpoint, method, opts) {

@@ -1,5 +1,15 @@
 ## Changelog
 
+## Latest Version
+### v1.3.0
+__ADDED__
+- [Ferry](src/org/README.md#ferry-ferry) information
+- Add [CLI](https://github.com/DemChing/hkopendata-cli) package to manage supplementary data.
+
+__MODIFIED__
+- Update the flow of handling supplementary data.
+
+## Previous Versions
 ### v1.2.0
 __ADDED__
 - Add directory `downloads` to store supplementary data.
@@ -15,6 +25,7 @@ __REMOVED__
 - Remove JSON files in directory `data`
 
 __NOTICE__
+
 Here are the information about the update on supplementary data.
 - Since v1.2.0, directory `data` should only contains `index.js` for fresh install. All JSON files in that directory are either deleted or moved to directory `downloads`.
 - JSON files will still be generated and saved to directory `data` at runtime which is the same as previous version.

@@ -14,7 +14,13 @@ function Get(name) {
         json = {};
     if (name in list) file = list[name];
     try {
-        json = require(`./${file}.json`);
+        const fs = require("fs"),
+            localDataPath = `${process.env.PWD}/.hkopendata/data`;
+        if (fs.existsSync(`${localDataPath}/${file}.json`)) {
+            json = require(`${localDataPath}/${file}.json`);
+        } else if (fs.existsSync(`./${file}.json`)) {
+            json = require(`./${file}.json`);
+        }
     } catch (e) {};
     if (name == "regions") {
         arr = Object.keys(json.region).map(v => json.region[v]);

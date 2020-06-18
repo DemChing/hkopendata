@@ -18,6 +18,11 @@ Here come's this repo. It tries to resolve those nightmares and help shortening 
 npm i hkopendata
 ```
 
+Data can be downloaded to perfect some functions. You can download it [here](downloads/) or using the CLI tools. Check the [README](downloads/README.md) for how to handle those data.
+```
+npm i hkopendata-cli
+```
+
 ## Information
 The project is designed as a 3-layers structure:
 1. Retrieve data from different endpoints.
@@ -59,6 +64,7 @@ This project mainly focus on the data from government. Yet, it also provides the
     1. Hongkong Post (香港郵政) - Postage Rate
     2. Citybus (城巴), New World First Bus (新巴), New Lantao Bus (新大嶼山巴士), LRT Feeder (港鐵巴士)
     3. MTR Lines (地鐵/東鐵/西鐵), Airport Express (機場快綫), LRT Lines (輕鐵), Tramways (電車), Intercity Train (城際直通車)
+    4. Star Ferry (天星小輪), New World First Ferry (新渡輪), HKFF (港九小輪) and some local ferry companies
 
 ## Classes
 Classes are used to make the development more convenient. While not all of them are meaningful, some could be useful in development.
@@ -125,10 +131,13 @@ utils.ToLocale(result, "en", "carparkrule");
 Files of static data are stored in `/data` directory. There are two types of static data:
 1. Persistent Files
 
-This project uses some external data (eg. Airlines, Airports) and data that is very unlikely to change (eg. HK Locations). They won't be updated unless there is a new version published. Please __DO NOT__ delete those files.
+This project uses some external data (eg. Airlines, Airports) and data that is very unlikely to change (eg. HK Locations). They won't be updated unless there is a new version published. ~~Please __DO NOT__ delete those files. (ONLY BEFORE `v1.2.0`)~~
+
 2. Cache
 
 Some data are unlikely to change or only update after a long period. They are generated when running some functions (eg. public holidays). They are acted as cache or historical data. Running the function again would return the saved data instead of making ajax. They will be updated automatically.
+
+__UPDATE:__ Since `v1.3.0`, you need to download the file in directory `downloads` and place it to `.hkopendata/data` yourself, and you could update/delete the file if you want. Check [here](downloads/README.md) for detail.
 
 ## Accepted Input
 There are some functions that accept input with various data types. It will mark as `{Sth Like}` object (eg. `Coordinate Like`)
@@ -162,13 +171,12 @@ obj = new Coordinate()
 - [ ] Increase supported API/endpoints (Never ends)
 
 ## Changelog (Lastest Version)
-### v1.2.0
+### v1.3.0
 __ADDED__
-- Add directory `downloads` to store supplementary data.
-- [District Councils](src/gov/README.md#district-councils-dc) related information
-- [Missing / Reward Persons](src/gov/README.md#hong-kong-police-force-hkpf) notice
+- [Ferry](src/org/README.md#ferry-ferry) information
+- Add [CLI](https://github.com/DemChing/hkopendata-cli) package to manage supplementary data.
 
-Full changelog  history available [here](/CHANGELOG.md).
+Full changelog history available [here](/CHANGELOG.md#latest-version).
 
 ## Support
 This is a one man project developed during free time. Bugs and inconsistence in system are expected (maybe critical).

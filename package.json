@@ -3,13 +3,17 @@
   "version": "1.2.0",
   "keywords": [
     "opendata",
+    "opendata",
+    "open data",
+    "bank",
+    "government",
     "hong kong",
     "hk"
   ],
   "description": "Access different Opendata API and data in Hong Kong",
   "main": "./src/index.js",
   "scripts": {
-    "build": "grunt break",
+    "build": "grunt break && node downloads/index.js",
     "release": "np --yolo"
   },
   "author": "Dem Ching",
@@ -24,7 +28,8 @@
   ],
   "files": [
     "src/*",
-    "data/index.js"
+    "data/index.js",
+    "data/downloads.json"
   ],
   "devDependencies": {
     "autoprefixer": "^9.7.4",

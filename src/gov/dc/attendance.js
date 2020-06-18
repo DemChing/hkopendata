@@ -55,7 +55,6 @@ function search(data, opts) {
 }
 
 function processData(data) {
-    console.writeLog(data.body.filter(v => v[2] != "Elected member").join("\n"))
     let body = data.body,
         result = [],
         header = ["district", "period", "meeting", "type", "name", "rate", "remarks"];

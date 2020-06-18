@@ -5,10 +5,15 @@
 /lib/
 /web/
 /node_modules/
+/.hkopendata/
 
 #ignore files
 /data/*.json
+/downloads/index.js
 /data/flats/
 /build.js
 /postcss.config.js
 /Gruntfile.js
+
+#excepetion
+!/data/downloads.json

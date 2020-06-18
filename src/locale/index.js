@@ -31,7 +31,7 @@ function Get(name, lang) {
 
 function GetPackage(name, lang) {
     name = name || "common";
-    if (/^(bus|rail)$/.test(name)) name = "transport";
+    if (/^(bus|rail|ferry)$/.test(name)) name = "transport";
     if (/^airline$/.test(name)) name = "airport";
     let arr = ["common", "week", "weather", name];
     if (name == "ogcio") arr.push("geo");

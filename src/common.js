@@ -70,6 +70,8 @@ function CSVToArray(data, opts) {
             delete opts.encoding;
         }
 
+        if (typeof opts.preprocess === "function") data = opts.preprocess(data);
+
         let result = {};
         parse(data, opts, (err, res) => {
             if (err) reject(err);

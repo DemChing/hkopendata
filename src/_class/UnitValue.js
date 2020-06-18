@@ -1,4 +1,5 @@
 const BaseComponent = require("./BaseComponent");
+const utils = require("../utils");
 const UNITS = require("../units");
 const DEFAULT_UNIT = {
     "en": "",
@@ -30,6 +31,7 @@ class UnitValue extends BaseComponent {
             let scales = UNITS.GetScale("si");
             if (scales && this.scale in scales) this._scaleInfo = scales[this.scale];
         }
+        this.every = this.every || false;
     }
     toBestScaleSI() {
         if (this.si && this.value != 0) {
@@ -81,8 +83,12 @@ class UnitValue extends BaseComponent {
             ...this
         });
         unitValue.toBestScaleSI();
+        if (unitValue.every) text = true;
         let scale = "_scaleInfo" in unitValue ? unitValue._scaleInfo[text ? lang : "prefix"] : "",
             unit = unitValue._unitInfo[text ? lang : "unit"];
+        if (unitValue.every) {
+            return `${utils.ToLocale("every", lang)} ${unitValue.value} ${scale}${unit}`
+        }
         return unitValue._unitInfo.prefix ? `${unit}${unitValue.value}${scale}` : `${unitValue.value}${scale}${unit}`;
     }
 }
