@@ -12,4 +12,5 @@ module.exports = {
     hkma: require("./hkma"),
     dc: require("./dc"),
     hkpf: require("./hkpf"),
+    legco: require("./legco"),
 }

@@ -24,8 +24,28 @@ const FIELDS = {
     "eng_first_date": "firstDateEngage",
     "capacity": "positionTitle",
 }
+const SEARCH_CONFIG = {
+    value: {
+        type: {
+            name: "searchtype",
+            accepted: ["engName", "chiName", "regNo"]
+        },
+        former: {
+            name: "is_curr_rel_indiv",
+            accepted: {
+                false: 0,
+                true: 1,
+            }
+        }
+    },
+    rename: {
+        code: "reg_code",
+        chineseName: "chinesename",
+    }
+}
 
 function validateParameters(params) {
+    params = cmn.ParseSearchFields(params, SEARCH_CONFIG);
     let result = cmn.ValidateParameters(params, VALID, VALID_OPT);
 
     if (params.searchtype == "engName" && !("surname" in params) && !("forename" in params)) {

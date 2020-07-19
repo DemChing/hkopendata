@@ -7,4 +7,5 @@ module.exports = {
     bank: require("./bank"),
     org: require("./org"),
     class: require("./_class"),
+    middleware: require("./middleware"),
 }

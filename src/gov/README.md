@@ -278,3 +278,131 @@ __Parameters__
 | --- | --- | --- | --- | --- | --- |
 | `params.type` | true | number `[0-1]` | 0 | Type of information | 0 - Wanted Persons<br>1 - Other reward |
 | `params.lang` | true | string (`en`/`tc`/`sc`) | en | Language of the result |  |
+
+## Legislative Council (legco)
+All the functions below can be accessed under the Web API standard of Open Data Protocol ([OData](https://www.odata.org/)). To get more, check [here](legco/README.md).
+
+- `searchBill(params)` Amendment history of bills since 1906
+
+__Parameters__
+| Name | Required | Accepted | Default | Description | Remarks |
+| --- | --- | --- | --- | --- | --- |
+| `params.filter` | false | object |  | Filtering the result |  |
+| `params.filter.id` | false | string |  | Resource ID | Contains string in column `internal_key` |
+| `params.filter.ordinance` | false | string |  | Title of ordinance | Contains string in column `ordinance_title_chi` or `ordinance_title_eng` |
+| `params.filter.bill` | false | string |  | Title of bill | Contains string in column `bill_title_chi` or `bill_title_eng` |
+| `params.filter.from` | false | string |  | Gazette date of the ordinance | Date in column `ordinance_gazette_date` as start date |
+| `params.filter.to` | false | string |  | Gazette date of the ordinance | Date in column `ordinance_gazette_date` as end date |
+
+`params.expand` is not applicable in this function.
+
+- `searchCommittee(params)` Committees of the Legislative Council
+
+__Parameters__
+| Name | Required | Accepted | Default | Description | Remarks |
+| --- | --- | --- | --- | --- | --- |
+| `params.filter` | false | object |  | Filtering the result |  |
+| `params.filter.id` | false | number |  | Resource ID | Matches value exactly in column `committee_id` |
+| `params.filter.code` | false | string |  | Code of committee | Contains string in column `committee_code_chi` or `committee_code_eng` |
+| `params.filter.name` | false | string |  | Name of committee | Contains string in column `name_chi` or `name_eng` |
+| `params.filter.term` | false | number |  | Term of LegCo | Matches value exactly in column `term_id`<br>`params.filter.term` is subtracted by 1 before matching. (i.e. The 6th term is with `term_id` = 5) |
+| `params.expand` | false | object |  | Expanding the result |  |
+| `params.expand.term` | false | boolean |  | Include term details | Resource `Tterm` |
+
+- `searchMeeting(params)` Meeting information
+
+__Parameters__
+| Name | Required | Accepted | Default | Description | Remarks |
+| --- | --- | --- | --- | --- | --- |
+| `params.filter` | false | object |  | Filtering the result |  |
+| `params.filter.id` | false | number |  | Resource ID | Matches value exactly in column `meet_id` |
+| `params.filter.slot` | false | number |  | Slot ID | Matches value exactly in column `slot_id` |
+| `params.filter.room` | false | string |  | Room of meeting | Contains string in column `venue_name_chi` or `venue_name_eng` |
+| `params.filter.name` | false | string |  | Subject of meeting | Contains string in column `subject_chi` or `subject_eng` |
+| `params.filter.type` | false | string |  | Type of meeting | Contains string in column `meeting_type_chi` or `meeting_type_eng` |
+| `params.filter.term` | false | number |  | Term of LegCo | Matches value exactly in column `term_id`<br>`params.filter.term` is subtracted by 1 before matching. (i.e. The 6th term is with `term_id` = 5) |
+| `params.filter.from` | false | string |  | Date of meeting | Date in column `start_date_time` as start date |
+| `params.filter.to` | false | string |  | Date of meeting | Date in column `start_date_time` as end date |
+| `params.expand` | false | object |  | Expanding the result |  |
+| `params.expand.committee` | false | boolean |  | Include committee details | Resource `Tmeeting_committee/Tcommittee` |
+
+- `searchMember(params)` Member information
+
+__Parameters__
+| Name | Required | Accepted | Default | Description | Remarks |
+| --- | --- | --- | --- | --- | --- |
+| `params.filter` | false | object |  | Filtering the result |  |
+| `params.filter.id` | false | number |  | Resource ID | Matches value exactly in column `member_id` |
+| `params.filter.name` | false | string |  | Name of member | Matches value exactly in column `surname_chi` + `firstname_chi` or `surname_eng` + `firstname_eng` |
+| `params.filter.surname` | false | string |  | Surame of member | Contains string in column `surname_chi` or `surname_eng` |
+| `params.filter.forename` | false | string |  | Foreame of member | Contains string in column `firstname_chi` or `firstname_eng` |
+| `params.filter.latestTerm` | false | number |  | Latest term that member belongs to | Matches value exactly in column `latest_term_id`<br>`params.filter.latestTerm` is subtracted by 1 before matching. (i.e. The 6th term is with `latest_term_id` = 5) |
+| `params.expand` | false | object |  | Expanding the result |  |
+| `params.expand.memberTerm` | false | boolean |  | Include member term details | Resource `Tmember_term` |
+
+- `searchMembership(params)` Membership of committees
+
+__Parameters__
+| Name | Required | Accepted | Default | Description | Remarks |
+| --- | --- | --- | --- | --- | --- |
+| `params.filter` | false | object |  | Filtering the result |  |
+| `params.filter.id` | false | number |  | Resource ID | Matches value exactly in column `membership_id` |
+| `params.filter.member` | false | number |  | Member ID | Matches value exactly in column `member_id` |
+| `params.filter.committee` | false | number |  | Committee ID | Matches value exactly in column `committee_id` |
+| `params.filter.term` | false | number |  | Term of LegCo | Matches value exactly in column `term_id`<br>`params.filter.term` is subtracted by 1 before matching. (i.e. The 6th term is with `term_id` = 5) |
+| `params.expand` | false | object |  | Expanding the result |  |
+| `params.expand.member` | false | boolean |  | Include member details | Resource `Tmember` |
+| `params.expand.committee` | false | boolean |  | Include committee details | Resource `Tcommittee` |
+| `params.expand.term` | false | boolean |  | Include term details | Resource `Tterm` |
+
+- `searchPolicy(params)` Policy issues
+
+__Parameters__
+| Name | Required | Accepted | Default | Description | Remarks |
+| --- | --- | --- | --- | --- | --- |
+| `params.filter` | false | object |  | Filtering the result |  |
+| `params.filter.id` | false | number |  | Resource ID | Matches value exactly in column `event_key` |
+| `params.filter.area` | false | string |  | Area of policy | Contains string in column `area_name_chi` or `area_name_eng` |
+| `params.filter.issue` | false | string |  | Issue of policy | Contains string in column `issue_name_chi` or `issue_name_eng` |
+| `params.filter.from` | false | string |  | Date of event | Date in column `event_date` as start date.<br>Since this column is not in type `Datetime` and it contains date in different format, it may not return accurate result. |
+| `params.filter.to` | false | string |  | Date of event | Date in column `event_date` as end date.<br>Since this column is not in type `Datetime` and it contains date in different format, it may not return accurate result. |
+
+`params.expand` is not applicable in this function.
+
+- `searchVote(params)` Vote information
+
+:warning: __WARNING__ :warning:
+
+The api returns tons of redundant data. If you only care the final vote result, please keep `params.detail` as `false`. If you want to know the vote of each member, you better specify
+`params.filter.date`, `params.filter.type` and `params.filter.vote` together to target a specific vote. Searching data without limiting maximum number of returning records is __DANGEROUS__ in this function.
+
+__Parameters__
+| Name | Required | Accepted | Default | Description | Remarks |
+| --- | --- | --- | --- | --- | --- |
+| `params.detail` | true | boolean | false | Vote result of each member | Add filter condition `display_order eq 1` to prevent getting redundant data |
+| `params.filter` | false | object |  | Filtering the result |  |
+| `params.filter.motion` | false | string |  | Name of motion | Contains string in column `motion_chi` or `motion_eng` |
+| `params.filter.mover` | false | string |  | Name of mover | Contains string in column `mover_chi` or `mover_eng` |
+| `params.filter.member` | false | string |  | Name of member | Contains string in column `name_chi` or `name_eng` |
+| `params.filter.from` | false | string |  | Date of vote | Date in column `vote_date` as start date |
+| `params.filter.to` | false | string |  | Date of vote | Date in column `vote_date` as end date |
+| `params.filter.date` | false | string |  | Date of vote | Matches date exactly in column `vote_date` |
+| `params.filter.type` | false | string |  | Type of meeting | Matches value exactly in column `type` |
+| `params.filter.vote` | false | number |  | Vote number in the meeting | Matches value exactly in column `vote_number` |
+
+`params.expand` is not applicable in this function.
+
+- `searchWebcast(params)` Webcast information
+
+__Parameters__
+| Name | Required | Accepted | Default | Description | Remarks |
+| --- | --- | --- | --- | --- | --- |
+| `type` | true | number `[0-2]` | 0 | Type of information | 0 - Live Meeting<br>1 - Archived Meeting<br>2 - Meeting Information |
+| `params.filter` | false | object |  | Filtering the result |  |
+| `params.filter.id` | false | string |  | Resource ID | Contains string in column `MeetingID` |
+| `params.filter.name` | false | string |  | Name of meeting | Contains string in column `ChiMeetName` or `MeetName` |
+| `params.filter.room` | false | string |  | Room of meeting | Contains string in column `ChiMeetRoomName` or `MeetRoomName` |
+| `params.filter.from` | false | string |  | Date of meeting | Date in column `MeetDate` as start date |
+| `params.filter.to` | false | string |  | Date of meeting | Date in column `MeetDate` as end date |
+
+`params.expand` is not applicable in this function.

@@ -17,9 +17,23 @@ function init() {
         code: "dbs",
     }
     BANK.init = (id, secret, app, jwt, lang) => {
+        return BANK.connect({
+            id: id,
+            secret: secret,
+            app: app,
+            jwt: jwt,
+        }, lang);
+    }
+    BANK.connect = (credential, lang) => {
         return new Promise((resolve, reject) => {
+            let {
+                id,
+                secret,
+                app,
+                jwt
+            } = credential || {};
             if (BANK.bank) return resolve()
-            if (!id || !secret || !app || !jwt) return reject();
+            if (!id || !secret || !app || !jwt) return reject("Missing ID, secret, app, or jwt");
             lang = lang || "en";
             if (!(lang in ACCEPT_LANG)) lang = "en";
             BANK._lang = ACCEPT_LANG[lang];

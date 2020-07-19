@@ -16,8 +16,16 @@ const FIELDS = {
     "local_address" :"businessAddress",
     "licence_no" :"licence",
 }
+const SEARCH_CONFIG = {
+    value: {
+        segment: {
+            accepted: ["SVFLic", "LBIssuingSVF", "LBNotIssuingSVF"]
+        },
+    },
+}
 
 function validateParameters(params) {
+    params = cmn.ParseSearchFields(params, SEARCH_CONFIG);
     let result = cmn.ValidateParameters(params, VALID);
     if (!result.error) {
         result.data = {

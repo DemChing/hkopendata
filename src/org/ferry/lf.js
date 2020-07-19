@@ -5,7 +5,7 @@ const UnitValue = require("../../_class").UnitValue;
 const BASE_URL = "https://www.td.gov.hk/filemanager/{lang}/content_1408/opendata/ferry_{route}_{type}table_{langFile}.csv";
 const FERRY = cmn.GetDataJson("hk-ferry");
 
-const ROUTES = ["central_skw", "central_ysw", "central_pc", "central_mw", "pc_mw_cmw_cc", "central_cc", "central_db", "mawan_c", "mawan_tw", "np_hh", "np_klnc", "np_ktak"]
+const ROUTES = ["central_skw", "central_ysw", "central_pc", "central_mw", "pc_mw_cmw_cc", "central_cc", "central_db", "mawan_c", "mawan_tw", "np_hh", "np_klnc", "np_ktak", "swh_kt", "swh_skt"]
 
 if ("route" in FERRY) {
     FERRY.route.filter(v => ROUTES.indexOf(v.code) == -1).map(v => ROUTES.push(v.code));
@@ -209,7 +209,7 @@ function processData(data, params) {
             let dir = row[0].replace("Chueung Chau", "Cheung Chau");
             if (!(dir in temp)) temp[dir] = {};
             if (!(row[1] in temp[dir])) temp[dir][row[1]] = [];
-            temp[dir][row[1]].push(moment(row[2].replace(/\./g, ""), "HH:mm A").format("HH:mm") + (row[3].trim() == "" ? "" : `[${row[3]}]`))
+            temp[dir][row[1]].push(moment(row[2].replace(/\./g, ""), ["HH:mm A", "Hmm A"]).format("HH:mm") + (row[3].trim() == "" ? "" : `[${row[3]}]`))
             remarks.push(row[3]);
         })
         remarks = remarks.filter((v, i, l) => v != "" && l.indexOf(v) == i).sort()
@@ -244,8 +244,12 @@ function processData(data, params) {
             for (let days in temp[dir]) {
                 let available = strToWeekday(days);
                 for (let d in available) {
-                    if (available[d]) timetable[d] = temp[dir][days];
+                    if (available[d]) timetable[d] = timetable[d].concat(temp[dir][days]);
                 }
+            }
+
+            for (let d in timetable) {
+                timetable[d] = timetable[d].sort();
             }
 
             let tkey = `${origin.en}-${destination.en}`;

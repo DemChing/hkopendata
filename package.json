@@ -12,6 +12,7 @@
   ],
   "description": "Access different Opendata API and data in Hong Kong",
   "main": "./src/index.js",
+  "types": "./src/index.d.ts",
   "scripts": {
     "build": "grunt break && node downloads/index.js",
     "release": "np --yolo"

@@ -1,5 +1,14 @@
 {
     "common": {
+        "id": "ID",
+        "surname": {
+            "en": "Surname",
+            "tc": "姓氏"
+        },
+        "forename": {
+            "en": "Forename",
+            "tc": "名字"
+        },
         "coordinate": {
             "en": "Coordinate",
             "tc": "座標"
@@ -1498,6 +1507,280 @@
             "tc": "國籍"
         }
     },
+    "legco": {
+        "meetRoom": {
+            "en": "Meeting Location",
+            "tc": "會議地點"
+        },
+        "roomCode": {
+            "en": "Location Code",
+            "tc": "地點編號"
+        },
+        "committee": {
+            "en": "委員會",
+            "tc": "委員會"
+        },
+        "committeeId": {
+            "en": "Committee Identifier",
+            "tc": "委員會識別碼"
+        },
+        "committeeCode": {
+            "en": "Committee Code",
+            "tc": "委員會代碼"
+        },
+        "bill": {
+            "en": "Bill",
+            "tc": "法案"
+        },
+        "ordinance": {
+            "en": "Ordinance",
+            "tc": "條例"
+        },
+        "gazette": {
+            "en": "Gazette",
+            "tc": "憲報"
+        },
+        "firstReading": {
+            "en": "First Reading",
+            "tc": "首讀"
+        },
+        "secondReading": {
+            "en": "Second Reading",
+            "tc": "二讀"
+        },
+        "thirdReading": {
+            "en": "Third Reading",
+            "tc": "三讀"
+        },
+        "hansard": {
+            "en": "Hansard",
+            "tc": "議事錄"
+        },
+        "yearNumber": {
+            "en": "Ordinance Number",
+            "tc": "條例號碼"
+        },
+        "legcoBrief": {
+            "en": "Legislative Council Brief",
+            "tc": "立法會參考資料摘要"
+        },
+        "fileReference": {
+            "en": "File Reference",
+            "tc": "檔案編號"
+        },
+        "billsCommittee": {
+            "en": "Bills Committee",
+            "tc": "法案委員會"
+        },
+        "formationDate": {
+            "en": "Formation Date",
+            "tc": "成立日期"
+        },
+        "reportWebsite": {
+            "en": "Report Website",
+            "tc": "報告網址"
+        },
+        "proposedBy": {
+            "en": "Proposor",
+            "tc": "法案提交人"
+        },
+        "meetCommitteeId": {
+            "en": "Record Identifier",
+            "tc": "紀錄識別碼"
+        },
+        "meet": {
+            "en": "Meeting",
+            "tc": "會議"
+        },
+        "motion": {
+            "en": "Motion",
+            "tc": "議案"
+        },
+        "mover": {
+            "en": "Mover",
+            "tc": "動議人"
+        },
+        "moverType": {
+            "en": "Mover Type",
+            "tc": "動議人類別"
+        },
+        "publicOfficer": {
+            "en": "Public Officer",
+            "tc": "公職人員"
+        },
+        "councilMeeting": {
+            "en": "Council Meeting",
+            "tc": "立法會會議"
+        },
+        "houseCommittee": {
+            "en": "House Committee",
+            "tc": "內務委員會"
+        },
+        "financeCommittee": {
+            "en": "Finance Committee",
+            "tc": "財務委員會"
+        },
+        "publicWorksSubcommittee": {
+            "en": "Public Works Subcommittee",
+            "tc": "工務小組委員會"
+        },
+        "establishmentSubcommittee": {
+            "en": "Establishment Subcommittee",
+            "tc": "人事編制小組委員會"
+        },
+        "voteNumber": {
+            "en": "Vote Sequence",
+            "tc": "投票編號"
+        },
+        "present": {
+            "en": "Present",
+            "tc": "出席"
+        },
+        "absent": {
+            "en": "Absent",
+            "tc": "缺席"
+        },
+        "voted": {
+            "en": "Casted Vote",
+            "tc": "有投票"
+        },
+        "inFavor": {
+            "en": "In Favor",
+            "tc": "贊成"
+        },
+        "against": {
+            "en": "Against",
+            "tc": "反對"
+        },
+        "abstain": {
+            "en": "Abstain",
+            "tc": "棄權"
+        },
+        "isPass": {
+            "en": "Motion Passed",
+            "tc": "通過議案"
+        },
+        "voteData": {
+            "en": "Vote Data",
+            "tc": "投票數據"
+        },
+        "isSeparate": {
+            "en": "Separate Voting",
+            "tc": "分組點票"
+        },
+        "fc": {
+            "en": "Functional Constituency",
+            "tc": "功能組別"
+        },
+        "gc": {
+            "en": "Geographical Constituency",
+            "tc": "地區直選"
+        },
+        "member": {
+            "en": "Member",
+            "tc": "議員"
+        },
+        "memberId": {
+            "en": "Member Identifier",
+            "tc": "議員識別碼"
+        },
+        "isGeographical": {
+            "en": "Member of Geographical Constituency",
+            "tc": "地區直選議員"
+        },
+        "overall": {
+            "en": "All Constituency",
+            "tc": "全體議員"
+        },
+        "count": {
+            "en": "Count",
+            "tc": "人數"
+        },
+        "additionalInformation": {
+            "en": "Additional Information",
+            "tc": "補充資料"
+        },
+        "agenda": {
+            "en": "Agenda",
+            "tc": "議程"
+        },
+        "actualTime": {
+            "en": "Actual Time",
+            "tc": "實際時間"
+        },
+        "elapsedTime": {
+            "en": "Time Elapsed",
+            "tc": "歷時"
+        },
+        "thumbnail": {
+            "en": "Thumbnail",
+            "tc": "縮圖"
+        },
+        "term": {
+            "en": "LegCo Term",
+            "tc": "立法會任期"
+        },
+        "termStartDate": {
+            "en": "Start Date of LegCo Term",
+            "tc": "立法會任期開始日期"
+        },
+        "termEndDate": {
+            "en": "End Date of LegCo Term",
+            "tc": "立法會任期結束日期"
+        },
+        "latestTerm": {
+            "en": "Latest Term",
+            "tc": "最近的任期"
+        },
+        "area": {
+            "en": "Area of Policy",
+            "tc": "政策範疇"
+        },
+        "issue": {
+            "en": "Area of Issue",
+            "tc": "政策事宜"
+        },
+        "action": {
+            "en": "Action",
+            "tc": "行動"
+        },
+        "origin": {
+            "en": "Origin",
+            "tc": "來源"
+        },
+        "originCode": {
+            "en": "Origin Code",
+            "tc": "來源代碼"
+        },
+        "post": {
+            "en": "Post Name",
+            "tc": "職銜"
+        },
+        "postStartDate": {
+            "en": "Start Date of the Post",
+            "tc": "任職日期"
+        },
+        "postEndDate": {
+            "en": "End Date of the Post",
+            "tc": "離職日期"
+        },
+        "slot": {
+            "en": "Meeting Slot",
+            "tc": "會議時段"
+        },
+        "englishName": {
+            "en": "English Name",
+            "tc": "英文名稱"
+        },
+        "honourable": {
+            "en": "Honorific",
+            "tc": "榮譽頭銜"
+        },
+        "title": {
+            "en": "Title",
+            "tc": "稱謂"
+        }
+    },
     "post": {
         "nearByOffice": {
             "en": "Near By Office",
@@ -2523,6 +2806,10 @@
         "fare": {
             "en": "Fare",
             "tc": "收費"
+        },
+        "timetable": {
+            "en": "Timetable",
+            "tc": "時間表"
         },
         "monthlyTicket": {
             "en": "Monthly Ticket",

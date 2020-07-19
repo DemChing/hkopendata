@@ -115,6 +115,7 @@ __Parameters__
 | `params.lang` | false | string (`en`/`tc`/`sc`) | en | Language of the result |  |
 
 - `searchLF(params)` Ferry information of local licensed ferry
+
 __IMPORTANT:__ This method uses data in `/downloads/hk-ferry.json`. It is __COMPULSORY__ to download the file. It would __NOT__ function if the file does not exist.
 
 __IMPORTANT:__ The route information does not update automatically as it is copied from the source documentation PDF. Make a pull request or notify me to update if anything has changed.
@@ -123,5 +124,5 @@ __Parameters__
 | Name | Required | Accepted | Default | Description | Remarks |
 | --- | --- | --- | --- | --- | --- |
 | `params.type` | true | number `[0-3]` | 0 | Type of information | 0 - Route Info<br>1 - Stops of Route<br>2 - Timetable<br>3 - Fare |
-| `params.route` | true | number `[0-11]` | 0 | Route | 0 - Central to Sok Kwu Wan<br>1 - Central to Yung Shue Wan<br>2 - Central to Peng Chau<br>3 - Central to Mui Wo<br>4 - Peng Chau to Mui Wo to Chi Ma Wan to Cheung Chau<br>5 - Central to Cheung Chau<br>6 - Central to Discovery Bay<br>7 - Ma Wan to Central<br>8 - Ma Wan to Tsuen Wan<br>9 - North Point to Hung Hum<br>10 - North Point to Kowloon City<br>11 - North Point to Kwun Tong to Kai Tak |
+| `params.route` | true | number `[0-11]` | 0 | Route | 0 - Central to Sok Kwu Wan<br>1 - Central to Yung Shue Wan<br>2 - Central to Peng Chau<br>3 - Central to Mui Wo<br>4 - Peng Chau to Mui Wo to Chi Ma Wan to Cheung Chau<br>5 - Central to Cheung Chau<br>6 - Central to Discovery Bay<br>7 - Ma Wan to Central<br>8 - Ma Wan to Tsuen Wan<br>9 - North Point to Hung Hum<br>10 - North Point to Kowloon City<br>11 - North Point to Kwun Tong to Kai Tak<br>12 - Sai Wan Ho to Kwun Tong<br>13 - Sai Wan Ho to Sam Ka Tsuen |
 | `params.lang` | false | string (`en`/`tc`/`sc`) | en | Language of the result |  |

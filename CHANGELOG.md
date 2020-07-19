@@ -1,6 +1,17 @@
 ## Changelog
 
 ## Latest Version
+### v1.4.0
+__ADDED__
+- [LegCo](src/gov/README.md#legislative-council-legco) information
+- Typescript declaration files `index.d.ts`
+- Simple [middleware](src/middleware/README.md) to handle success and fail response
+
+__MODIFIED__
+- [Bank](src/bank/README.md#initiation-v140) Initiation method updated
+- [Ferry](src/org/README.md#ferry-ferry) local licensed ferry added 2 routes
+
+## Previous Versions
 ### v1.3.0
 __ADDED__
 - [Ferry](src/org/README.md#ferry-ferry) information
@@ -9,7 +20,6 @@ __ADDED__
 __MODIFIED__
 - Update the flow of handling supplementary data.
 
-## Previous Versions
 ### v1.2.0
 __ADDED__
 - Add directory `downloads` to store supplementary data.

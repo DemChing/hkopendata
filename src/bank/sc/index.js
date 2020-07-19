@@ -12,10 +12,21 @@ function init() {
         bank: false,
         code: "sc"
     }
-    BANK.init = (id, secret) => {
+    BANK.init = (id, secret, lang) => {
+        return BANK.connect({
+            id: id,
+            secret: secret,
+        }, lang);
+    }
+    BANK.connect = (credential, lang) => {
         return new Promise((resolve, reject) => {
+            let {
+                id,
+                secret
+            } = credential || {};
             if (BANK.bank) return resolve()
-            if (!id || !secret) return reject();
+            if (!id || !secret) return reject("Missing ID or secret");
+            lang = lang || "en";
 
             BANK.bank = bankInit(BANK._type, {
                 headers: {

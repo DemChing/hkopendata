@@ -83,6 +83,8 @@ hsbc.init([params])
 ```
 
 ## Initiation
+> __WARNING__: The initiation method below is deprecated since `v1.4.0`. Check [this](#initiation-v140) for latest method.
+
 Most of the banks requires these fields.
 | Name | Description | Accepted | Remarks |
 | --- | --- | --- |
@@ -107,6 +109,26 @@ DBS uses a different way to authorize. Follow these steps to authorize correctly
 ```
 // Use the credentials obtained above to initiate
 dbs.init(id, secret, user, jwt, lang)
+```
+
+### Initiation v1.4.0+
+From `v1.4.0`, use `bank.connect()` instead of `bank.init()`.
+```
+// For most banks
+let credential = {
+    id: YOUR_ID,
+    secret: YOUR_SECRET
+}
+
+// For DBS
+let credential = {
+    id: YOUR_ID,
+    secret: YOUR_SECRET,
+    app: YOUR_USERNAME,
+    jwt: YOUR_JWT,
+}
+
+bank.connect(credential, lang)
 ```
 
 ## Search

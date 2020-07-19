@@ -37,9 +37,12 @@ function ToLocale(data, lang, package, html) {
                     else if (lang in val) {
                         val = val[lang];
                     } else {
-                        let validTemp = {};
+                        let validTemp = {},
+                            available = [];
                         Object.keys(val).filter(v => !(/^_/.test(v) || val[v] === "" || typeof val[v] === "undefined")).map(v => validTemp[v] = val[v])
+                        available = _LANG.GetAvailableLang(validTemp);
                         if (lang in validTemp) val = validTemp[lang];
+                        else if (available.length > 0) val = validTemp[available[0]];
                         else val = ToLocale(validTemp, lang, package);
                     }
                 } else if (typeof val === "boolean") {

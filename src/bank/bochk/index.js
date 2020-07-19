@@ -19,9 +19,19 @@ function init(code) {
         code: code
     }
     BANK.init = (id, secret, lang) => {
+        return BANK.connect({
+            id: id,
+            secret: secret,
+        }, lang);
+    }
+    BANK.connect = (credential, lang) => {
         return new Promise((resolve, reject) => {
+            let {
+                id,
+                secret
+            } = credential || {};
             if (BANK.bank) return resolve()
-            if (!id || !secret) return reject();
+            if (!id || !secret) return reject("Missing ID or secret");
             lang = lang || "en";
             if (!(lang in ACCEPT_LANG)) lang = "en";
             BANK._lang = ACCEPT_LANG[lang];

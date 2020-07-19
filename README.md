@@ -171,10 +171,11 @@ obj = new Coordinate()
 - [ ] Increase supported API/endpoints (Never ends)
 
 ## Changelog (Lastest Version)
-### v1.3.0
+### v1.4.0
 __ADDED__
-- [Ferry](src/org/README.md#ferry-ferry) information
-- Add [CLI](https://github.com/DemChing/hkopendata-cli) package to manage supplementary data.
+- [LegCo](src/gov/README.md#legislative-council-legco) information
+- Typescript declaration files `index.d.ts`
+- Simple [middleware](src/middleware/README.md) to handle success and fail response
 
 Full changelog history available [here](/CHANGELOG.md#latest-version).
 
