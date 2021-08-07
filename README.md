@@ -8,7 +8,7 @@ There are some serious problems among these data:
 
 Besides, it is a waste of time to spend hours reading the "documentation" which:
 - fails to list the correct endpoint or field name
-- returns data with different data type 
+- returns data with different data type
 - does not specified parameter restriction on request
 
 Here come's this repo. It tries to resolve those nightmares and help shortening the development period.
@@ -48,7 +48,7 @@ This project mainly focus on the data from government. Yet, it also provides the
 - Bank [README](src/bank/README.md)
 
     :warning: __WARNING__ :warning:
-    
+
     All features in this section were tested under the __SANDBOX__ environment. As some banks only provide very limited info on test data, it is very likely that you may encounter bugs on production environment. Use it with caution.
 
     It supports searching:
@@ -84,6 +84,74 @@ You can check the distance (in kilometer) between a `Coordinate` Class object an
 coordinate.distance(coordinate_like)
 ```
 
+- `UnitValue`
+You should expect all measurement related data would convert to a `UnitValue` Class Object.
+
+```
+// Source data (in metre)
+{ length: 11 }
+
+// Converted data
+UnitValue {
+    type: 'length',
+    category: 'metre',
+    value: 11,
+    alterSI: false,
+    si: true,
+    every: false
+}
+```
+
+For the units that support SI prefixes, you can alter its scale.
+```
+// 1cm
+let lengthCM = new UnitValue({
+    type: 'length',
+    category: 'metre',
+    scale: 'centi',
+    value: 1,
+});
+
+
+// 1km
+let lengthKM = new UnitValue({
+    type: 'length',
+    category: 'metre',
+    scale: 'kilo',
+    value: 1,
+});
+```
+
+You can also use `UnitValue.toLocale(lang)` to format it. If you provide a second parameter, it will use locale units instead of just units.
+```
+let length = new UnitValue({
+    type: 'length',
+    category: 'metre',
+    scale: 'kilo',
+    value: 1,
+});
+length.toLocale();              // 1km
+length.toLocale('en', true);    // 1Kilometre
+```
+`UnitValue` will convert the value to a better scale if applicable. For example, `10000cm` will change to `0.1km`. If you don't like it, you can use `UnitValue.scaleSI(scale)` to change it.
+```
+// 10,000cm
+let length = new UnitValue({
+    type: 'length',
+    category: 'metre',
+    scale: 'centi',
+    value: 10000,
+});
+
+length.toLocale();              // 0.1km
+
+// change to metre
+length.scaleSI();               // or
+length.scaleSI('default');
+
+length.toLocale();              // 100m
+```
+
 ## Locale
 Using `utils.ToLocale(data[, lang, pack])` to turn the result into more human readable.
 
@@ -111,7 +179,7 @@ utils.ToLocale(result);
 // { District: 'Eastern', Coordinate: { Latitude: 41, Longitude: 114 } }
 ```
 
-Valid `pack` are the module names of `gov`, `bank`, `org` and `Class name` in lowercase. Select the correct `pack` for more accurate result. 
+Valid `pack` are the module names of `gov`, `bank`, `org` and `Class name` in lowercase. Select the correct `pack` for more accurate result.
 
 :warning: Same field name could refer to different thing among different `pack`
 
@@ -127,8 +195,26 @@ utils.ToLocale(result, "en", "carparkrule");
 // { 'Charge per hour': 14 }
 ```
 
+## Request Configuration
+> This feature is added since `v1.5.0`.
+
+This repo uses NPM package `axios` to handle all the request. Sometimes you may need to override the default configuration.
+
+```
+const utils = require("hkopendata").utils;
+utils.CreateAxiosInstance(AxiosRequestConfig);
+
+// change httpsAgent
+const https = require("https");
+utils.CreateAxiosInstance({
+    httpsAgent: new https.Agent({
+        // <Your setup>
+    })
+});
+```
+
 ## Static Data
-Files of static data are stored in `/data` directory. There are two types of static data:
+Files of static data are stored in `<project-root>/.hkopendata/data` directory (or `<this-repo-root>/data` before `v1.3.0`). There are two types of static data:
 1. Persistent Files
 
 This project uses some external data (eg. Airlines, Airports) and data that is very unlikely to change (eg. HK Locations). They won't be updated unless there is a new version published. ~~Please __DO NOT__ delete those files. (ONLY BEFORE `v1.2.0`)~~
@@ -167,15 +253,19 @@ obj = new Coordinate()
 - [x] Design general flow to access and process data
 - [x] Functions to retrieve and process data
 - [ ] Advance process on data (eg. parse CSV/XML data)
+    - [x] CSV
+    - [ ] XML
 - [ ] Unify the way of returning data/error
+    - [x] Middleware
 - [ ] Increase supported API/endpoints (Never ends)
 
 ## Changelog (Lastest Version)
 ### v1.4.0
 __ADDED__
-- [LegCo](src/gov/README.md#legislative-council-legco) information
-- Typescript declaration files `index.d.ts`
-- Simple [middleware](src/middleware/README.md) to handle success and fail response
+- [HKO](src/gov/README.md#hong-kong-observatory-hko) latest weather information
+- [MD](src/gov/README.md#marine-department-md) latest weather information
+- Allow user to customize `axios` request configuration [See](#request-configuration)
+- Locale support: Simplified Chinese (`sc`)
 
 Full changelog history available [here](/CHANGELOG.md#latest-version).
 

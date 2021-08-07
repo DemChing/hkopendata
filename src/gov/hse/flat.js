@@ -1,6 +1,5 @@
 // https://data.housingauthority.gov.hk/dataset/emms/emms_housing_stock_data_dictionary.pdf
 
-const fs = require("fs");
 const cmn = require("../../common");
 const Region = require("../../_class").Region;
 const Coordinate = require("../../_class").Coordinate;
@@ -114,10 +113,7 @@ function processData(data, name) {
         if (!("estate" in allItems)) allItems.estate = []
         allItems.estate.push(temp)
     }
-    if (!fs.existsSync("data/flats")) {
-        fs.mkdirSync("data/flats");
-    }
-    fs.writeFile(`data/flats/${name}.json`, JSON.stringify(allItems), () => {})
+    cmn.UpdateDataJson(`flats/${name}`, allItems);
     return processItem(allItems);
 }
 

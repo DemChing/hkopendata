@@ -1,1 +1,1 @@
-{"percent":{"en":"Percent","tc":"百分比","unit":"%"},"ppb":{"en":"Parts per billion","tc":"十億分率","unit":"ppb"},"ppm":{"en":"Parts per million","tc":"百萬分率","unit":"ppm"}}
+{"percent":{"en":"Percent","tc":"百分比","sc":"百分比","unit":"%"},"ppb":{"en":"Parts per billion","tc":"十億分率","sc":"十亿分率","unit":"ppb"},"ppm":{"en":"Parts per million","tc":"百萬分率","sc":"百万分率","unit":"ppm"}}

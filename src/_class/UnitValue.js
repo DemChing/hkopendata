@@ -17,6 +17,7 @@ class UnitValue extends BaseComponent {
     constructor(params) {
         super();
         this.assignClass(this, params);
+        this.alterSI = false;
         if (typeof this.value === "string" && !isNaN(parseFloat(this.value))) {
             this.value = parseFloat(this.value);
         }
@@ -73,23 +74,27 @@ class UnitValue extends BaseComponent {
                 newScale = SI[scale];
             }
             this.value *= Math.pow(10, value - newScale.value);
-            if (this.value % 1 > 0.99999999999999 || this.value % 1 < 0.00000000000001) this.value = Math.round(this.value)
+            this.value = parseFloat(this.value.toFixed(4));
             this.scale = scale;
             this._scaleInfo = newScale;
         }
+        if (this.si) this.alterSI = true;
     }
     toLocale(lang, text) {
         let unitValue = new UnitValue({
             ...this
         });
-        unitValue.toBestScaleSI();
+        if (!this.alterSI) unitValue.toBestScaleSI();
         if (unitValue.every) text = true;
-        let scale = "_scaleInfo" in unitValue ? unitValue._scaleInfo[text ? lang : "prefix"] : "",
-            unit = unitValue._unitInfo[text ? lang : "unit"];
+        lang = lang || "en";
+        let scale = ("_scaleInfo" in unitValue ? unitValue._scaleInfo[text ? lang : "prefix"] : "") || "",
+            unit = unitValue._unitInfo[text ? lang : "unit"] || "",
+            scaleUnit = `${scale}${unit}`;
+        if (text) scaleUnit = scaleUnit.toCapitalCase();
         if (unitValue.every) {
-            return `${utils.ToLocale("every", lang)} ${unitValue.value} ${scale}${unit}`
+            return `${utils.ToLocale("every", lang)} ${unitValue.value} ${scaleUnit}`
         }
-        return unitValue._unitInfo.prefix ? `${unit}${unitValue.value}${scale}` : `${unitValue.value}${scale}${unit}`;
+        return unitValue._unitInfo.prefix ? `${unit}${unitValue.value}${scale}` : `${unitValue.value}${scaleUnit}`;
     }
 }
 

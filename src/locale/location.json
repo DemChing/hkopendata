@@ -1,1 +1,1 @@
-{"floor":{"en":"Floor","tc":"樓層"},"estate":{"en":"Estate","tc":"屋邨"},"village":{"en":"Village","tc":"鄉村"},"building":{"en":"Building","tc":"樓宇"},"phase":{"en":"Phase","tc":"期數"},"block":{"en":"Block","tc":"座數"}}
+{"floor":{"en":"Floor","tc":"樓層","sc":"楼层"},"estate":{"en":"Estate","tc":"屋邨","sc":"屋邨"},"village":{"en":"Village","tc":"鄉村","sc":"乡村"},"building":{"en":"Building","tc":"樓宇","sc":"楼宇"},"phase":{"en":"Phase","tc":"期數","sc":"期数"},"block":{"en":"Block","tc":"座數","sc":"座数"}}

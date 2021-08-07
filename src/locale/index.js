@@ -33,7 +33,7 @@ function GetPackage(name, lang) {
     name = name || "common";
     if (/^(bus|rail|ferry)$/.test(name)) name = "transport";
     if (/^airline$/.test(name)) name = "airport";
-    let arr = ["common", "week", "weather", name];
+    let arr = ["common", "week", "weather", "coordinate", name];
     if (name == "ogcio") arr.push("geo");
     return GetMulti(arr.filter((v, i, l) => l.indexOf(v) == i), lang);
 }

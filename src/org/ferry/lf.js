@@ -3,13 +3,9 @@ const cmn = require("../../common");
 const moment = require("../../moment");
 const UnitValue = require("../../_class").UnitValue;
 const BASE_URL = "https://www.td.gov.hk/filemanager/{lang}/content_1408/opendata/ferry_{route}_{type}table_{langFile}.csv";
-const FERRY = cmn.GetDataJson("hk-ferry");
+const FERRY = {};
 
 const ROUTES = ["central_skw", "central_ysw", "central_pc", "central_mw", "pc_mw_cmw_cc", "central_cc", "central_db", "mawan_c", "mawan_tw", "np_hh", "np_klnc", "np_ktak", "swh_kt", "swh_skt"]
-
-if ("route" in FERRY) {
-    FERRY.route.filter(v => ROUTES.indexOf(v.code) == -1).map(v => ROUTES.push(v.code));
-}
 
 const VALID = {
     type: /^(route|route-stop|time|fare)$/,
@@ -17,7 +13,6 @@ const VALID = {
 }
 const VALID_OPT = {
     stop: /^[A-z0-9]{6}$/,
-    route: new RegExp(`^(${ROUTES.join("|")})$`),
 }
 const PARAMS = {
     type: "route",
@@ -34,11 +29,24 @@ const SEARCH_CONFIG = {
                 sc: "sc",
                 en: "en"
             }
-        },
-        route: {
-            accepted: ROUTES
         }
     },
+}
+
+function beforeSearch() {
+    if (Object.keys(FERRY).length === 0) {
+        let _ferry = cmn.GetDataJson("hk-ferry");
+        for (let key in _ferry) FERRY[key] = _ferry[key];
+
+        if ("route" in FERRY) {
+            FERRY.route.filter(v => ROUTES.indexOf(v.code) == -1).map(v => ROUTES.push(v.code));
+        }
+
+        VALID_OPT.route = new RegExp(`^(${ROUTES.join("|")})$`);
+        SEARCH_CONFIG.value.route = {
+            accepted: ROUTES
+        }
+    }
 }
 
 function validateParameters(params) {
@@ -65,6 +73,7 @@ function validateParameters(params) {
 }
 
 function search(data, opts) {
+    beforeSearch();
     return new Promise((resolve, reject) => {
         let processed = validateParameters({
                 ...PARAMS,

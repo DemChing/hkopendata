@@ -1,10 +1,9 @@
 // https://www.1823.gov.hk/f/upload/1229/1823_cal_dictionary.pdf
 
 const moment = require("../../moment");
-const fs = require("fs");
 const cmn = require("../../common");
 const BASE_URL = "https://www.1823.gov.hk/common/ical/{lang}.json";
-const HOLIDAY = cmn.GetDataJson("hk-holiday");
+const HOLIDAY = {};
 
 const VALID = {
     lang: /^(en|tc|sc)$/,
@@ -13,6 +12,13 @@ const VALID = {
 const PARAMS = {
     lang: "en",
     year: moment().format("YYYY")
+}
+
+function beforeSearch() {
+    if (Object.keys(HOLIDAY).length === 0) {
+        let _holiday = cmn.GetDataJson("hk-holiday");
+        for (let key in _holiday) HOLIDAY[key] = _holiday[key];
+    }
 }
 
 function validateParameters(params) {
@@ -30,6 +36,7 @@ function validateParameters(params) {
 }
 
 function search(data, opts) {
+    beforeSearch();
     return new Promise((resolve, reject) => {
         let processed = validateParameters({
                 ...PARAMS,
@@ -101,7 +108,7 @@ function processData(data, opts) {
         })
     })
     if (updated) {
-        fs.writeFile("data/hk-holiday.json", JSON.stringify(HOLIDAY), (err) => {});
+        cmn.UpdateDataJson("hk-holiday", HOLIDAY);
     }
     return result;
 }

@@ -3,12 +3,13 @@
 const moment = require("../../moment");
 const cmn = require("../../common");
 const UnitValue = require("../../_class").UnitValue;
+const HKOStation = require("../../_class").HKOStation;
 const BASE_URL = "https://data.weather.gov.hk/weatherAPI/opendata/opendata.php";
 
 const VALID = {
     dataType: /^(CLMTEMP|CLMMAXT|CLMMINT)$/,
     rformat: /^(json|csv)$/,
-    station: /^[A-z]+$/,
+    station: /^[A-Z0-9]{2,3}$/,
 };
 const VALID_OPT = {
     year: /^[0-9]{4}$/,
@@ -38,6 +39,16 @@ function validateParameters(params) {
     if (!hasStation) {
         result.error = true;
         result.message = "Invalid station code"
+    }
+    if ("year" in params) {
+        let y = parseInt(params.year),
+            m = parseInt(params.month) || 1,
+            date = moment([y, m - 1]),
+            before = moment().subtract(1, 'M').startOf('M');
+        if (date.isSameOrAfter(before)) {
+            result.error = true;
+            result.message = "Invalid `year` or `month`";
+        }
     }
     if (!result.error) {
         result.data = {
@@ -80,18 +91,9 @@ function processData(data, opts) {
         if ("day" in opts) match = match && row[2] == opts.day;
         return match;
     }).map((row) => {
-        let temp = {},
-            station = opts.station;
-        if (cmn.HasDataJson("stations")) {
-            let s = cmn.SearchDataJson("stations", {
-                "code": station
-            })[0];
-            if (s) {
-                station = s.name;
-            }
-        }
+        let temp = {};
         temp = {
-            station: station,
+            station: new HKOStation(opts.station),
             date: moment(`${row[0]}-${row[1]}-${row[2]}`, "YYYY-M-D").format("YYYY-MM-DD"),
             temperature: new UnitValue({
                 type: "temperature",

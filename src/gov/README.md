@@ -50,6 +50,8 @@ __Parameters__
 ## Efficiency Office (effo)
 - `searchHoliday(params)` Search public holiday in year. Static files will be generated. [See](/README.md#static-data)
 
+> If you encounter `Error: unable to verify the first certificate`, you may want to check [this](https://stackoverflow.com/questions/31673587/error-unable-to-verify-the-first-certificate-in-nodejs). If you want to modify the configuration of `axios`, check [this](/README.md#request-configuration).
+
 __Parameters__
 | Name | Required | Accepted | Default | Description | Remarks |
 | --- | --- | --- | --- | --- | --- |
@@ -85,7 +87,7 @@ __Parameters__
 __Parameters (General)__
 | Name | Required | Accepted | Default | Description | Remarks |
 | --- | --- | --- | --- | --- | --- |
-| `params.id` | true | string |  | Dataset UUID | Go to official website or check file `/data/geodata.json` |
+| `params.id` | true | string |  | Dataset UUID | Go to official website or check file `/downloads/geodata.json` |
 | `params.v` | false | string | 1.0.0 | GeoData API version |  |
 | `params.boundary` | false | string/\[Corrdinate Like\] |  | Bottom-left and top-right coordinate (in WGS84) (longitude & latitude) | [Corrdinate Like Object](/README.md#coordinate-like) |
 | `params.boundaryHK` | false | string/\[Corrdinate Like\] |  | Bottom-left and top-right coordinate (in HK1980) (easting & northing) | [Corrdinate Like Object](/README.md#coordinate-like) |
@@ -137,7 +139,7 @@ __Parameters__
 | `params.month` | false | string `MM` `[01-12]` |  | Month of the result | Only applicable to `tides`, `sun` and `moon` related details. Must specify `params.year` together. |
 | `params.day` | false | string `DD` `[01-31]` |  | Day of the result | Only applicable to `tides`, `sun` and `moon` details. Must specify `params.year` and `params.month` together. |
 | `params.hour` | false | string `HH` `[01-24]` |  | Hour of the result | Only applicable to `tides` details.  Must specify `params.year`, `params.month` and `params.day` together. |
-| `params.station` | false | string |  | Target station | Only applicable to `tides` details. Station code can be found in file `/data/hko-station.json` with parameter `a=1` |
+| `params.station` | false | string |  | Target station | Only applicable to `tides` details. Station code can be found in file `/downloads/hko-station.json` with parameter `a=1` |
 | `params.lang` | false | string (`en`/`tc`/`sc`) | en | Language of the result | Only applicable to type `lightning` and `visibility` |
 
 - `searchClimate(params)` Get climate information
@@ -146,9 +148,86 @@ __Parameters__
 | Name | Required | Accepted | Default | Description | Remarks |
 | --- | --- | --- | --- | --- | --- |
 | `params.type` | true | number `[0-2]` | 0 | Type of information | 0 - Daily Mean Temperature<br>1 - Daily Minimum Temperature<br>2 - Daily Maximum Temperature |
-| `params.year` | false | string `YYYY` |  | Year of the result | Depends on each station |
+| `params.year` | false | string `YYYY` |  | Year of the result | Depends on each station [Official](https://data.weather.gov.hk/weatherAPI/doc/HKO_Open_Data_API_Documentation.pdf#page=28) |
 | `params.month` | false | string `MM` `[01-12]` |  | Month of the result | Must specify `params.year` together. |
-| `params.station` | false | string |  | Target station | Station code can be found in file `/data/hko-station.json` with parameter `w=1` |
+| `params.station` | false | string |  | Target station | Station code can be found in file `/downloads/hko-station.json` with parameter `w=1` |
+
+> Functions below are added since `v1.5.0`. To validate `params.station`, you need to download the latest `hko-station.json`. You also need to update it if you have an older version.
+
+- `latest.searchGrassTemperature(params)` Get mean grass temperature in latest 1 minute
+
+__Parameters__
+| Name | Required | Accepted | Default | Description | Remarks |
+| --- | --- | --- | --- | --- | --- |
+| `params.lang` | false | string (`en`/`tc`/`sc`) | en | Language of the result |  |
+| `params.station` | false | string |  | Target station | Station code can be found in file `/downloads/hko-station.json` with parameter `type="a"` |
+
+- `latest.searchHumidity(params)` Get relative humidity in latest 1 minute
+
+__Parameters__
+| Name | Required | Accepted | Default | Description | Remarks |
+| --- | --- | --- | --- | --- | --- |
+| `params.lang` | false | string (`en`/`tc`/`sc`) | en | Language of the result |  |
+| `params.station` | false | string |  | Target station | Station code can be found in file `/downloads/hko-station.json` with parameter `type="a"` |
+
+- `latest.searchLightning(params)` Get lightning count in latest 1 hour (Same as `searchAstronomy(type=4)`)
+
+__Parameters__
+| Name | Required | Accepted | Default | Description | Remarks |
+| --- | --- | --- | --- | --- | --- |
+| `params.lang` | false | string (`en`/`tc`/`sc`) | en | Language of the result |  |
+
+- `latest.searchPressure(params)` Get sea mean level pressure in latest 1 minute
+
+__Parameters__
+| Name | Required | Accepted | Default | Description | Remarks |
+| --- | --- | --- | --- | --- | --- |
+| `params.lang` | false | string (`en`/`tc`/`sc`) | en | Language of the result |  |
+| `params.station` | false | string |  | Target station | Station code can be found in file `/downloads/hko-station.json` with parameter `type="a"` |
+
+- `latest.searchSolar(params)` Get solar radiation in latest 1 minute
+
+__Parameters__
+| Name | Required | Accepted | Default | Description | Remarks |
+| --- | --- | --- | --- | --- | --- |
+| `params.lang` | false | string (`en`/`tc`/`sc`) | en | Language of the result |  |
+| `params.station` | false | string |  | Target station | Station code can be found in file `/downloads/hko-station.json` with parameter `type="a"` |
+
+- `latest.searchTemperature(params)` Get mean air temperature in latest 1 minute
+
+__Parameters__
+| Name | Required | Accepted | Default | Description | Remarks |
+| --- | --- | --- | --- | --- | --- |
+| `params.lang` | false | string (`en`/`tc`/`sc`) | en | Language of the result |  |
+| `params.station` | false | string |  | Target station | Station code can be found in file `/downloads/hko-station.json` with parameter `type="a"` |
+
+- `latest.searchTide(params)` Get latest tidal information
+
+__Parameters__
+| Name | Required | Accepted | Default | Description | Remarks |
+| --- | --- | --- | --- | --- | --- |
+| `params.lang` | false | string (`en`/`tc`/`sc`) | en | Language of the result |  |
+| `params.station` | false | string |  | Target station | Station code can be found in file `/downloads/hko-station.json` with parameter `type="t"` |
+
+- `latest.searchUV()` Get UV index in latest 15 minutes
+
+__Parameters__
+> Nothing
+
+- `latest.searchVisibility(params)` Get mean visibility in latest 10 minutes (Same as `searchAstronomy(type=5)`)
+
+__Parameters__
+| Name | Required | Accepted | Default | Description | Remarks |
+| --- | --- | --- | --- | --- | --- |
+| `params.lang` | false | string (`en`/`tc`/`sc`) | en | Language of the result |  |
+
+- `latest.searchWind(params)` Get wind speed and direction in latest 10 minutes
+
+__Parameters__
+| Name | Required | Accepted | Default | Description | Remarks |
+| --- | --- | --- | --- | --- | --- |
+| `params.lang` | false | string (`en`/`tc`/`sc`) | en | Language of the result |  |
+| `params.station` | false | string |  | Target station | Station code can be found in file `/downloads/hko-station.json` with parameter `type="t"` or `type="w"` |
 
 ## Housing Authority (hse)
 - `searchHousing(params)` Search location data of housings or buildings under Housing Authority
@@ -163,7 +242,7 @@ __Parameters__
 
 :warning: __WARNING__ :warning:
 
-This function will retrieve all flats, buildings and estates information within the district. For better performance, the function will try to read the static data in `/data/flats` first. If data is not exist, it will retrieve live data. However, it may take a long time and lower the performance (Most raw data are over 10MB). Use it with caution.
+This function will retrieve all flats, buildings and estates information within the district. For better performance, the function will try to read the static data in `/downloads/flats` first. If data is not exist, it will retrieve live data. However, it may take a long time and lower the performance (Most raw data are over 10MB). Use it with caution.
 
 __Parameters__
 | Name | Required | Accepted | Default | Description | Remarks |
@@ -406,3 +485,11 @@ __Parameters__
 | `params.filter.to` | false | string |  | Date of meeting | Date in column `MeetDate` as end date |
 
 `params.expand` is not applicable in this function.
+
+## Marine Department (md)
+- `latest.searchTide(params)` Get latest tidal information
+
+__Parameters__
+| Name | Required | Accepted | Default | Description | Remarks |
+| --- | --- | --- | --- | --- | --- |
+| `params.lang` | false | string (`en`/`tc`/`sc`) | en | Language of the result |  |

@@ -1,3 +1,6 @@
+import moment from "moment";
+import axios, { AxiosRequestConfig } from 'axios';
+
 type AvailableLanguage = "en" | "tc" | "sc";
 type AvailablePackage = "aahk" | "hko" | "ogcio" | "devb" | "lcsd" | "hse" | "effo" | "geo" | "dh" | "ha" | "hkma" | "dc" | "hkpf";
 type BochkGroup = "boc" | "chiyu" | "ncb";
@@ -16,6 +19,8 @@ type FailResponse = {
     error: false;
     message: any;
 }
+type GeneralPromise = Promise<GeneralResponse | GeneralResponse[]>;
+type SuccessFailPromise = Promise<SuccessResponse | FailResponse>;
 
 type BankCredential = {
     id: string;
@@ -129,6 +134,19 @@ type HkoSearchClimate = HkoSearch & {
     station: string;
     year?: NumberOrNumericString;
     month?: NumberOrNumericString;
+};
+
+type HkoLatestSearch = {
+    lang?: AvailableLanguage;
+    station?: string;
+};
+
+type HkoLatestSearchLightning = {
+    lang?: AvailableLanguage;
+};
+
+type HkoLatestSearchVisibility = {
+    lang?: AvailableLanguage;
 };
 
 type HkpfSearchMissing = {
@@ -261,6 +279,10 @@ type LegcoSearchWebcast = LegcoSearch & {
     type?: NumberOrNumericString;
 };
 
+type MdLatestSearchTide = {
+    lang?: AvailableLanguage;
+};
+
 type OgcioSearchAddress = {
     query: string;
     limit?: NumberOrNumericString;
@@ -301,104 +323,122 @@ type PostSearchRate = {
 type BankInstance = {
     init: (id: string, secret: string, lang?: AvailableLanguage) => Promise<any>;
     connect: (credential: BankCredential, lang?: AvailableLanguage) => Promise<any>;
-    search: (target: string, queryData: any) => Promise<GeneralResponse | GeneralResponse[]>;
+    search: (target: string, queryData: any) => GeneralPromise;
 };
 type BankInstanceDbs = {
     init: (id: string, secret: string, app: string, jwt: string, lang?: AvailableLanguage) => Promise<any>;
     connect: (credential: BankCredential, lang?: AvailableLanguage) => Promise<any>;
-    search: (target: string, queryData: any) => Promise<GeneralResponse | GeneralResponse[]>;
+    search: (target: string, queryData: any) => GeneralPromise;
 }
 
 type MBankInstance = {
-    init: (id: string, secret: string, lang?: AvailableLanguage) => Promise<SuccessResponse | FailResponse>;
-    connect: (credential: BankCredential, lang?: AvailableLanguage) => Promise<SuccessResponse | FailResponse>;
-    search: (target: string, queryData: any) => Promise<SuccessResponse | FailResponse>;
+    init: (id: string, secret: string, lang?: AvailableLanguage) => SuccessFailPromise;
+    connect: (credential: BankCredential, lang?: AvailableLanguage) => SuccessFailPromise;
+    search: (target: string, queryData: any) => SuccessFailPromise;
 };
 type MBankInstanceDbs = {
-    init: (id: string, secret: string, app: string, jwt: string, lang?: AvailableLanguage) => Promise<SuccessResponse | FailResponse>;
-    connect: (credential: BankCredential, lang?: AvailableLanguage) => Promise<SuccessResponse | FailResponse>;
-    search: (target: string, queryData: any) => Promise<SuccessResponse | FailResponse>;
+    init: (id: string, secret: string, app: string, jwt: string, lang?: AvailableLanguage) => SuccessFailPromise;
+    connect: (credential: BankCredential, lang?: AvailableLanguage) => SuccessFailPromise;
+    search: (target: string, queryData: any) => SuccessFailPromise;
 };
 
 // utils
 export var utils: {
     ToLocale: (data: any, lang?: AvailableLanguage, package?: AvailableLanguage, html?: boolean) => any,
     GetLocale: (key: string, lang?: AvailableLanguage, package?: AvailableLanguage) => string,
+    CreateAxiosInstance: (opts?: AxiosRequestConfig) => typeof axios,
 }
 
 // gov
 export var gov: {
     aahk: {
-        searchFlight: (data?: AahkSearchFlight, opts?: any) => Promise<GeneralResponse | GeneralResponse[]>;
+        searchFlight: (data?: AahkSearchFlight, opts?: any) => GeneralPromise;
     };
     dc: {
-        searchAttendance: (data?: DcSearch, opts?: any) => Promise<GeneralResponse | GeneralResponse[]>;
-        searchCalendar: (data?: DcSearch, opts?: any) => Promise<GeneralResponse | GeneralResponse[]>;
-        searchMember: (data?: DcSearch, opts?: any) => Promise<GeneralResponse | GeneralResponse[]>;
+        searchAttendance: (data?: DcSearch, opts?: any) => GeneralPromise;
+        searchCalendar: (data?: DcSearch, opts?: any) => GeneralPromise;
+        searchMember: (data?: DcSearch, opts?: any) => GeneralPromise;
     };
     devb: {
-        searchCarpark: (data?: DevbSearchCarpark, opts?: any) => Promise<GeneralResponse | GeneralResponse[]>;
-        searchLamppost: () => Promise<GeneralResponse | GeneralResponse[]>;
+        searchCarpark: (data?: DevbSearchCarpark, opts?: any) => GeneralPromise;
+        searchLamppost: () => GeneralPromise;
     };
     dh: {
-        searchWars: (data?: DhSearchWars, opts?: any) => Promise<GeneralResponse | GeneralResponse[]>;
+        searchWars: (data?: DhSearchWars, opts?: any) => GeneralPromise;
     };
     effo: {
-        searchHoliday: (data?: EffoSearchHoliday, opts?: any) => Promise<GeneralResponse | GeneralResponse[]>;
-        isPublicHoliday: () => Promise<GeneralResponse | GeneralResponse[]>;
-        isHoliday: () => Promise<GeneralResponse | GeneralResponse[]>;
-        isNonOfficeDay: () => Promise<GeneralResponse | GeneralResponse[]>;
+        searchHoliday: (data?: EffoSearchHoliday, opts?: any) => GeneralPromise;
+        isPublicHoliday: () => GeneralPromise;
+        isHoliday: () => GeneralPromise;
+        isNonOfficeDay: () => GeneralPromise;
     };
     geo: {
-        searchGeo: (data?: GeodataSearch, opts?: any) => Promise<GeneralResponse | GeneralResponse[]>;
+        searchGeo: (data?: GeodataSearch, opts?: any) => GeneralPromise;
     };
     ha: {
-        aedWaitingTime: (data?: HaSearchWaitingTime, opts?: any) => Promise<GeneralResponse | GeneralResponse[]>;
-        sopWaitingTime: (data?: HaSearchWaitingTime, opts?: any) => Promise<GeneralResponse | GeneralResponse[]>;
+        aedWaitingTime: (data?: HaSearchWaitingTime, opts?: any) => GeneralPromise;
+        sopWaitingTime: (data?: HaSearchWaitingTime, opts?: any) => GeneralPromise;
     };
     hkma: {
         validate: {
-            bankInfo: (data?: HkmaSearch, opts?: any) => Promise<GeneralResponse | GeneralResponse[]>;
-            bankStaff: (data?: HkmaSearch, opts?: any) => Promise<GeneralResponse | GeneralResponse[]>;
-            fraud: (data?: HkmaSearch, opts?: any) => Promise<GeneralResponse | GeneralResponse[]>;
-            lros: (data?: HkmaSearch, opts?: any) => Promise<GeneralResponse | GeneralResponse[]>;
-            secStaff: (data?: HkmaSearch, opts?: any) => Promise<GeneralResponse | GeneralResponse[]>;
-            svf: (data?: HkmaSearch, opts?: any) => Promise<GeneralResponse | GeneralResponse[]>;
+            bankInfo: (data?: HkmaSearch, opts?: any) => GeneralPromise;
+            bankStaff: (data?: HkmaSearch, opts?: any) => GeneralPromise;
+            fraud: (data?: HkmaSearch, opts?: any) => GeneralPromise;
+            lros: (data?: HkmaSearch, opts?: any) => GeneralPromise;
+            secStaff: (data?: HkmaSearch, opts?: any) => GeneralPromise;
+            svf: (data?: HkmaSearch, opts?: any) => GeneralPromise;
         };
     };
     hko: {
-        searchAstronomy: (data?: HkoSearchAstronomy, opts?: any) => Promise<GeneralResponse | GeneralResponse[]>;
-        searchClimate: (data?: HkoSearchClimate, opts?: any) => Promise<GeneralResponse | GeneralResponse[]>;
-        searchEarthquake: (data?: HkoSearch, opts?: any) => Promise<GeneralResponse | GeneralResponse[]>;
-        searchWeather: (data?: HkoSearch, opts?: any) => Promise<GeneralResponse | GeneralResponse[]>;
+        searchAstronomy: (data?: HkoSearchAstronomy, opts?: any) => GeneralPromise;
+        searchClimate: (data?: HkoSearchClimate, opts?: any) => GeneralPromise;
+        searchEarthquake: (data?: HkoSearch, opts?: any) => GeneralPromise;
+        searchWeather: (data?: HkoSearch, opts?: any) => GeneralPromise;
+        latest: {
+            searchGrassTemperature: (data?: HkoLatestSearch, opts?: any) => GeneralPromise;
+            searchHumidity: (data?: HkoLatestSearch, opts?: any) => GeneralPromise;
+            searchLightning: (data?: HkoLatestSearchLightning, opts?: any) => GeneralPromise;
+            searchPressure: (data?: HkoLatestSearch, opts?: any) => GeneralPromise;
+            searchSolar: (data?: HkoLatestSearch, opts?: any) => GeneralPromise;
+            searchTemperature: (data?: HkoLatestSearch, opts?: any) => GeneralPromise;
+            searchTide: (data?: HkoLatestSearch, opts?: any) => GeneralPromise;
+            searchUV: (opts?: any) => GeneralPromise;
+            searchVisibility: (data?: HkoLatestSearchVisibility, opts?: any) => GeneralPromise;
+            searchWind: (data?: HkoLatestSearch, opts?: any) => GeneralPromise;
+        }
     };
     hkpf: {
-        searchMissing: (data?: HkpfSearchMissing, opts?: any) => Promise<GeneralResponse | GeneralResponse[]>;
-        searchReward: (data?: HkpfSearchReward, opts?: any) => Promise<GeneralResponse | GeneralResponse[]>;
+        searchMissing: (data?: HkpfSearchMissing, opts?: any) => GeneralPromise;
+        searchReward: (data?: HkpfSearchReward, opts?: any) => GeneralPromise;
     };
     hse: {
-        searchHousing: (data?: HseSearch, opts?: any) => Promise<GeneralResponse | GeneralResponse[]>;
-        searchFlat: (data?: HseSearch, opts?: any) => Promise<GeneralResponse | GeneralResponse[]>;
+        searchHousing: (data?: HseSearch, opts?: any) => GeneralPromise;
+        searchFlat: (data?: HseSearch, opts?: any) => GeneralPromise;
     };
     lcsd: {
-        searchFacility: (data?: LcsdSearchFacility, opts?: any) => Promise<GeneralResponse | GeneralResponse[]>;
+        searchFacility: (data?: LcsdSearchFacility, opts?: any) => GeneralPromise;
     };
     legco: {
-        searchBill: (data?: LegcoSearchBill, opts?: any) => Promise<GeneralResponse | GeneralResponse[]>;
-        searchCommittee: (data?: LegcoSearchCommittee, opts?: any) => Promise<GeneralResponse | GeneralResponse[]>;
-        searchMeeting: (data?: LegcoSearchMeeting, opts?: any) => Promise<GeneralResponse | GeneralResponse[]>;
-        searchMember: (data?: LegcoSearchMember, opts?: any) => Promise<GeneralResponse | GeneralResponse[]>;
-        searchMembership: (data?: LegcoSearchMembership, opts?: any) => Promise<GeneralResponse | GeneralResponse[]>;
-        searchPolicy: (data?: LegcoSearchPolicy, opts?: any) => Promise<GeneralResponse | GeneralResponse[]>;
-        searchVote: (data?: LegcoSearchVote, opts?: any) => Promise<GeneralResponse | GeneralResponse[]>;
-        searchWebcast: (data?: LegcoSearchWebcast, opts?: any) => Promise<GeneralResponse | GeneralResponse[]>;
+        searchBill: (data?: LegcoSearchBill, opts?: any) => GeneralPromise;
+        searchCommittee: (data?: LegcoSearchCommittee, opts?: any) => GeneralPromise;
+        searchMeeting: (data?: LegcoSearchMeeting, opts?: any) => GeneralPromise;
+        searchMember: (data?: LegcoSearchMember, opts?: any) => GeneralPromise;
+        searchMembership: (data?: LegcoSearchMembership, opts?: any) => GeneralPromise;
+        searchPolicy: (data?: LegcoSearchPolicy, opts?: any) => GeneralPromise;
+        searchVote: (data?: LegcoSearchVote, opts?: any) => GeneralPromise;
+        searchWebcast: (data?: LegcoSearchWebcast, opts?: any) => GeneralPromise;
+    };
+    md: {
+        latest: {
+            searchTide: (data?: MdLatestSearchTide, opts?: any) => GeneralPromise;
+        }
     };
     ogcio: {
-        searchAddress: (data?: OgcioSearchAddress, opts?: any) => Promise<GeneralResponse | GeneralResponse[]>;
-        searchCarpark: (data?: OgcioSearchCarpark, opts?: any) => Promise<GeneralResponse | GeneralResponse[]>;
-        searchLamppost: (data?: OgcioSearchLamppost, opts?: any) => Promise<GeneralResponse | GeneralResponse[]>;
-        searchPayment: () => Promise<GeneralResponse | GeneralResponse[]>;
-        searchWifi: (data?: OgcioSearchWifi, opts?: any) => Promise<GeneralResponse | GeneralResponse[]>;
+        searchAddress: (data?: OgcioSearchAddress, opts?: any) => GeneralPromise;
+        searchCarpark: (data?: OgcioSearchCarpark, opts?: any) => GeneralPromise;
+        searchLamppost: (data?: OgcioSearchLamppost, opts?: any) => GeneralPromise;
+        searchPayment: () => GeneralPromise;
+        searchWifi: (data?: OgcioSearchWifi, opts?: any) => GeneralPromise;
     };
 }
 
@@ -431,157 +471,34 @@ export var bank: {
 // org
 export var org: {
     bus: {
-        searchCTB: (data?: TransportSearch, opts?: any) => Promise<GeneralResponse | GeneralResponse[]>;
-        searchMTR: (data?: TransportSearch, opts?: any) => Promise<GeneralResponse | GeneralResponse[]>;
-        searchNLB: (data?: TransportSearch, opts?: any) => Promise<GeneralResponse | GeneralResponse[]>;
-        searchNWFB: (data?: TransportSearch, opts?: any) => Promise<GeneralResponse | GeneralResponse[]>;
+        searchCTB: (data?: TransportSearch, opts?: any) => GeneralPromise;
+        searchMTR: (data?: TransportSearch, opts?: any) => GeneralPromise;
+        searchNLB: (data?: TransportSearch, opts?: any) => GeneralPromise;
+        searchNWFB: (data?: TransportSearch, opts?: any) => GeneralPromise;
     };
     ferry: {
-        searchCB: (data?: TransportSearch, opts?: any) => Promise<GeneralResponse | GeneralResponse[]>;
-        searchLF: (data?: TransportSearch, opts?: any) => Promise<GeneralResponse | GeneralResponse[]>;
-        searchSF: (data?: TransportSearch, opts?: any) => Promise<GeneralResponse | GeneralResponse[]>;
+        searchCB: (data?: TransportSearch, opts?: any) => GeneralPromise;
+        searchLF: (data?: TransportSearch, opts?: any) => GeneralPromise;
+        searchSF: (data?: TransportSearch, opts?: any) => GeneralPromise;
     };
     post: {
-        searchBox: () => Promise<GeneralResponse | GeneralResponse[]>;
-        searchMobileOffice: () => Promise<GeneralResponse | GeneralResponse[]>;
-        searchOffice: () => Promise<GeneralResponse | GeneralResponse[]>;
-        searchPOBox: () => Promise<GeneralResponse | GeneralResponse[]>;
-        searchRate: (data?: PostSearchRate, opts?: any) => Promise<GeneralResponse | GeneralResponse[]>;
-        searchStation: () => Promise<GeneralResponse | GeneralResponse[]>;
+        searchBox: () => GeneralPromise;
+        searchMobileOffice: () => GeneralPromise;
+        searchOffice: () => GeneralPromise;
+        searchPOBox: () => GeneralPromise;
+        searchRate: (data?: PostSearchRate, opts?: any) => GeneralPromise;
+        searchStation: () => GeneralPromise;
     };
     rail: {
-        searchIC: () => Promise<GeneralResponse | GeneralResponse[]>;
-        searchLRT: (data?: MTRSearchRail, opts?: any) => Promise<GeneralResponse | GeneralResponse[]>;
-        searchMTR: (data?: MTRSearchRail, opts?: any) => Promise<GeneralResponse | GeneralResponse[]>;
-        searchTram: (data?: TransportSearch, opts?: any) => Promise<GeneralResponse | GeneralResponse[]>;
+        searchIC: () => GeneralPromise;
+        searchLRT: (data?: MTRSearchRail, opts?: any) => GeneralPromise;
+        searchMTR: (data?: MTRSearchRail, opts?: any) => GeneralPromise;
+        searchTram: (data?: TransportSearch, opts?: any) => GeneralPromise;
     };
 }
 
 export var middleware: {
-    gov: {
-        aahk: {
-            searchFlight: (data?: AahkSearchFlight, opts?: any) => Promise<SuccessResponse | FailResponse>;
-        };
-        dc: {
-            searchAttendance: (data?: DcSearch, opts?: any) => Promise<SuccessResponse | FailResponse>;
-            searchCalendar: (data?: DcSearch, opts?: any) => Promise<SuccessResponse | FailResponse>;
-            searchMember: (data?: DcSearch, opts?: any) => Promise<SuccessResponse | FailResponse>;
-        };
-        devb: {
-            searchCarpark: (data?: DevbSearchCarpark, opts?: any) => Promise<SuccessResponse | FailResponse>;
-            searchLamppost: () => Promise<SuccessResponse | FailResponse>;
-        };
-        dh: {
-            searchWars: (data?: DhSearchWars, opts?: any) => Promise<SuccessResponse | FailResponse>;
-        };
-        effo: {
-            searchHoliday: (data?: EffoSearchHoliday, opts?: any) => Promise<SuccessResponse | FailResponse>;
-            isPublicHoliday: () => Promise<SuccessResponse | FailResponse>;
-            isHoliday: () => Promise<SuccessResponse | FailResponse>;
-            isNonOfficeDay: () => Promise<SuccessResponse | FailResponse>;
-        };
-        geo: {
-            searchGeo: (data?: GeodataSearch, opts?: any) => Promise<SuccessResponse | FailResponse>;
-        };
-        ha: {
-            aedWaitingTime: (data?: HaSearchWaitingTime, opts?: any) => Promise<SuccessResponse | FailResponse>;
-            sopWaitingTime: (data?: HaSearchWaitingTime, opts?: any) => Promise<SuccessResponse | FailResponse>;
-        };
-        hkma: {
-            validate: {
-                bankInfo: (data?: HkmaSearch, opts?: any) => Promise<SuccessResponse | FailResponse>;
-                bankStaff: (data?: HkmaSearch, opts?: any) => Promise<SuccessResponse | FailResponse>;
-                fraud: (data?: HkmaSearch, opts?: any) => Promise<SuccessResponse | FailResponse>;
-                lros: (data?: HkmaSearch, opts?: any) => Promise<SuccessResponse | FailResponse>;
-                secStaff: (data?: HkmaSearch, opts?: any) => Promise<SuccessResponse | FailResponse>;
-                svf: (data?: HkmaSearch, opts?: any) => Promise<SuccessResponse | FailResponse>;
-            };
-        };
-        hko: {
-            searchAstronomy: (data?: HkoSearch, opts?: any) => Promise<SuccessResponse | FailResponse>;
-            searchClimate: (data?: HkoSearch, opts?: any) => Promise<SuccessResponse | FailResponse>;
-            searchEarthquake: (data?: HkoSearch, opts?: any) => Promise<SuccessResponse | FailResponse>;
-            searchWeather: (data?: HkoSearch, opts?: any) => Promise<SuccessResponse | FailResponse>;
-        };
-        hkpf: {
-            searchMissing: (data?: HkpfSearchMissing, opts?: any) => Promise<SuccessResponse | FailResponse>;
-            searchReward: (data?: HkpfSearchReward, opts?: any) => Promise<SuccessResponse | FailResponse>;
-        };
-        hse: {
-            searchHousing: (data?: HseSearch, opts?: any) => Promise<SuccessResponse | FailResponse>;
-            searchFlat: (data?: HseSearch, opts?: any) => Promise<SuccessResponse | FailResponse>;
-        };
-        lcsd: {
-            searchFacility: (data?: LcsdSearchFacility, opts?: any) => Promise<SuccessResponse | FailResponse>;
-        };
-        legco: {
-            searchBill: (data?: LegcoSearchBill, opts?: any) => Promise<SuccessResponse | FailResponse>;
-            searchCommittee: (data?: LegcoSearchCommittee, opts?: any) => Promise<SuccessResponse | FailResponse>;
-            searchMeeting: (data?: LegcoSearchMeeting, opts?: any) => Promise<SuccessResponse | FailResponse>;
-            searchMember: (data?: LegcoSearchMember, opts?: any) => Promise<SuccessResponse | FailResponse>;
-            searchMembership: (data?: LegcoSearchMembership, opts?: any) => Promise<SuccessResponse | FailResponse>;
-            searchPolicy: (data?: LegcoSearchPolicy, opts?: any) => Promise<SuccessResponse | FailResponse>;
-            searchVote: (data?: LegcoSearchVote, opts?: any) => Promise<SuccessResponse | FailResponse>;
-            searchWebcast: (data?: LegcoSearchWebcast, opts?: any) => Promise<SuccessResponse | FailResponse>;
-        };
-        ogcio: {
-            searchAddress: (data?: OgcioSearchAddress, opts?: any) => Promise<SuccessResponse | FailResponse>;
-            searchCarpark: (data?: OgcioSearchCarpark, opts?: any) => Promise<SuccessResponse | FailResponse>;
-            searchLamppost: (data?: OgcioSearchLamppost, opts?: any) => Promise<SuccessResponse | FailResponse>;
-            searchPayment: () => Promise<SuccessResponse | FailResponse>;
-            searchWifi: (data?: OgcioSearchWifi, opts?: any) => Promise<SuccessResponse | FailResponse>;
-        };
-    };
-    bank: {
-        bch: MBankInstance;
-        bea: MBankInstance;
-        boc: MBankInstance;
-        cal: MBankInstance;
-        cbi: MBankInstance;
-        chb: MBankInstance;
-        chiyu: MBankInstance;
-        ctn: MBankInstance;
-        dbs: MBankInstanceDbs;
-        dsb: MBankInstance;
-        fbb: MBankInstance;
-        hs: MBankInstance;
-        hsbc: MBankInstance;
-        icb: MBankInstance;
-        ncb: MBankInstance;
-        pbl: MBankInstance;
-        sc: MBankInstance;
-        scb: MBankInstance;
-        whb: MBankInstance;
-        wlb: MBankInstance;
-        bochk: (code: BochkGroup) => MBankInstance;
-        hsbcgp: (code: HsbcGroup) => MBankInstance;
-        jetco: (code: JetcoGroup) => MBankInstance;
-    };
-    org: {
-        bus: {
-            searchCTB: (data?: TransportSearch, opts?: any) => Promise<SuccessResponse | FailResponse>;
-            searchMTR: (data?: TransportSearch, opts?: any) => Promise<SuccessResponse | FailResponse>;
-            searchNLB: (data?: TransportSearch, opts?: any) => Promise<SuccessResponse | FailResponse>;
-            searchNWFB: (data?: TransportSearch, opts?: any) => Promise<SuccessResponse | FailResponse>;
-        };
-        ferry: {
-            searchCB: (data?: TransportSearch, opts?: any) => Promise<SuccessResponse | FailResponse>;
-            searchLF: (data?: TransportSearch, opts?: any) => Promise<SuccessResponse | FailResponse>;
-            searchSF: (data?: TransportSearch, opts?: any) => Promise<SuccessResponse | FailResponse>;
-        };
-        post: {
-            searchBox: () => Promise<SuccessResponse | FailResponse>;
-            searchMobileOffice: () => Promise<SuccessResponse | FailResponse>;
-            searchOffice: () => Promise<SuccessResponse | FailResponse>;
-            searchPOBox: () => Promise<SuccessResponse | FailResponse>;
-            searchRate: (data?: PostSearchRate, opts?: any) => Promise<SuccessResponse | FailResponse>;
-            searchStation: () => Promise<SuccessResponse | FailResponse>;
-        };
-        rail: {
-            searchIC: () => Promise<SuccessResponse | FailResponse>;
-            searchLRT: (data?: MTRSearchRail, opts?: any) => Promise<SuccessResponse | FailResponse>;
-            searchMTR: (data?: MTRSearchRail, opts?: any) => Promise<SuccessResponse | FailResponse>;
-            searchTram: (data?: TransportSearch, opts?: any) => Promise<SuccessResponse | FailResponse>;
-        };
-    }
+    gov: typeof gov;
+    bank: typeof bank;
+    org: typeof org;
 }

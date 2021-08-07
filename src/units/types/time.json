@@ -1,1 +1,1 @@
-{"sec":{"en":"Seconds","tc":"秒","unit":"sec"},"min":{"en":"Minutes","tc":"分鐘","unit":"min"},"hr":{"en":"Hours","tc":"小時","unit":"hr"}}
+{"sec":{"en":"Seconds","tc":"秒","sc":"秒","unit":"sec"},"min":{"en":"Minutes","tc":"分鐘","sc":"分钟","unit":"min"},"hr":{"en":"Hours","tc":"小時","sc":"小时","unit":"hr"}}

@@ -1,10 +1,13 @@
 require("./lib/prototype");
-const axios = require("axios");
 const DEFAULT_SEARCH_INDEX = {
     airports: "iata",
     airlines: "icao",
     stations: "code",
     default: "name",
+}
+
+function _getAxiosInstance() {
+    return global.axiosInstance || require("./utils").CreateAxiosInstance();
 }
 
 function _cleanInvalidJsonString(text) {
@@ -22,7 +25,7 @@ function APIRequest(url, params, post) {
             data = params;
             method = "post";
         }
-        axios[method](url, data)
+        _getAxiosInstance()[method](url, data)
             .then((res) => {
                 if (typeof res.data === "string") {
                     try {
@@ -43,7 +46,7 @@ function APIRequest(url, params, post) {
 
 function CSVFetch(url, opts) {
     return new Promise((resolve, reject) => {
-        axios({
+        _getAxiosInstance()({
                 url,
                 responseType: 'arraybuffer',
             }).then((res) => {
@@ -88,7 +91,7 @@ function CSVToArray(data, opts) {
 
 function XMLFetch(url, params, opts) {
     return new Promise((resolve, reject) => {
-        axios(url, {
+        _getAxiosInstance()(url, {
                 responseType: 'text',
                 params,
             }).then((res) => {
@@ -150,9 +153,9 @@ function MatchData(src, opts, partial) {
 }
 
 function GetDataJson(type, isArray) {
-    const DATA = require("../data/");
-    let obj = isArray ? [] : {};
-    if (HasDataJson(type)) obj = DATA.Get(type);
+    let obj = isArray ? [] : {},
+        data = HasDataJson(type);
+    if (data !== false) obj = data;
     return obj;
 }
 
@@ -160,13 +163,17 @@ function HasDataJson(type) {
     const DATA = require("../data/");
     if (type in DATA.list) type = DATA.list[type];
     let data = DATA.Get(type);
-    return (Array.isArray(data) && data.length > 0) || (typeof data === "object" && Object.keys(data).length > 0);
+    return (Array.isArray(data) && data.length > 0) || (typeof data === "object" && Object.keys(data).length > 0) ? data : false;
+}
+
+function UpdateDataJson(type, data) {
+    const DATA = require("../data/");
+    DATA.Set(type, data);
 }
 
 function SearchDataJson(type, opts) {
-    const DATA = require("../data/");
     let params = {},
-        data = HasDataJson(type) ? DATA.Get(type) : [];
+        data = HasDataJson(type) || [];
     if (typeof opts === "undefined") {
         return false;
     } else if (typeof opts === "object") {
@@ -512,8 +519,9 @@ function ParseSearchFields(data, config) {
         if (config.value) {
             for (let key in config.value) {
                 if (key in data) {
-                    let name = config.value[key].name || key;
-                    temp[name] = config.value[key].accepted[data[key]] || data[key];
+                    let name = config.value[key].name || key,
+                        value = config.value[key].accepted[data[key]];
+                    temp[name] = typeof value !== "undefined" ? value : data[key];
                     if (name in data) delete data[name];
                     delete data[key];
                 }
@@ -607,6 +615,7 @@ module.exports = {
     ReplaceURL,
     RenameFields,
     GetDataJson,
+    UpdateDataJson,
     HasDataJson,
     SearchDataJson,
     ValidateParameters,

@@ -13,4 +13,5 @@ module.exports = {
     dc: require("./dc"),
     hkpf: require("./hkpf"),
     legco: require("./legco"),
+    md: require("./md"),
 }

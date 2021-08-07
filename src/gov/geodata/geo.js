@@ -1,7 +1,7 @@
 const cmn = require("../../common");
 const LOCALE = require("../../locale");
 const Coordinate = require("../../_class").Coordinate;
-const GEODATA = cmn.GetDataJson("geodata", true);
+const GEODATA = [];
 const BASE_URL = "https://geodata.gov.hk/gs/api/v1.0.0/geoDataQuery";
 
 const VALID = {
@@ -63,6 +63,13 @@ const SEARCH_CONFIG = {
     boundary: ["boundary", "boundaryHK"]
 }
 
+function beforeSearch() {
+    if (GEODATA.length === 0) {
+        let _geodata = cmn.GetDataJson("geodata", true);
+        _geodata.map(item => GEODATA.push(item));
+    }
+}
+
 function parseSearchFields(params) {
     let temp = cmn.ParseSearchFields(params, SEARCH_CONFIG);
     if ("boundary" in temp) {
@@ -85,7 +92,7 @@ function validateParameters(params, opts) {
     params = parseSearchFields(params);
     let result = cmn.ValidateParameters(params, VALID, VALID_OPT);
     if ("id" in params && GEODATA.length > 0) {
-        let valid = GEODATA.filter(v => v.dataset.filter(u => u.id == params.id).length > 0).length > 0;
+        let valid = GEODATA.filter(v => (v.set || v.dataset).filter(u => u.id == params.id).length > 0).length > 0;
         if (!valid) {
             result.error = true;
             result.message = "Invalid dataset id."
@@ -100,6 +107,7 @@ function validateParameters(params, opts) {
 }
 
 function search(data, opts) {
+    beforeSearch();
     return new Promise((resolve, reject) => {
         let processed = validateParameters({
                 ...PARAMS,

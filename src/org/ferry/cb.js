@@ -1,7 +1,7 @@
 // https://www.mardep.gov.hk/datagovhk/Dataspec_crossboundary_ferry_services_arrive_depart_en.pdf
 const cmn = require("../../common");
 const BASE_URL = "https://www.mardep.gov.hk/e_files/{langDir}/opendata/{dir}_{lang}.csv";
-const FERRY = cmn.GetDataJson("hk-ferry");
+const FERRY = {};
 
 const VALID = {
     dir: /^(arrival|depart)$/,
@@ -26,6 +26,13 @@ const SEARCH_CONFIG = {
     },
 }
 
+function beforeSearch() {
+    if (Object.keys(FERRY).length === 0) {
+        let _ferry = cmn.GetDataJson("hk-ferry");
+        for (let key in _ferry) FERRY[key] = _ferry[key];
+    }
+}
+
 function validateParameters(params) {
     params = cmn.ParseSearchFields(params, SEARCH_CONFIG);
     let result = cmn.ValidateParameters(params, VALID);
@@ -42,6 +49,7 @@ function validateParameters(params) {
 }
 
 function search(data, opts) {
+    beforeSearch();
     return new Promise((resolve, reject) => {
         let processed = validateParameters({
                 ...PARAMS,

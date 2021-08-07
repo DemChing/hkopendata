@@ -1,4 +1,5 @@
 const Phone = require("awesome-phonenumber");
+const Axios = require("axios");
 const _LANG = require("./locale");
 
 function ToLocale(data, lang, package, html) {
@@ -145,8 +146,19 @@ function geoJsonDetail(key, data, lang, package) {
     }
 }
 
+function CreateAxiosInstance(opts, debug) {
+    global.axiosInstance = Axios.create(opts || {});
+    if (debug) {
+        try {
+            require("axios-curlirize")(global.axiosInstance)
+        } catch (e) {}
+    }
+    return global.axiosInstance;
+}
+
 module.exports = {
     ToLocale,
+    CreateAxiosInstance,
     GetLocale,
     GetAvailableLang: _LANG.GetAvailableLang,
     ToGeoJson,

@@ -137,7 +137,7 @@ class Location extends BaseComponent {
     }
     toLocale(lang) {
         let locale = super.toLocale(lang), item = {};
-        if (!("street" in item || "block" in item)) return locale;
+        if (!("street" in this || "block" in this)) return locale;
         if ("street" in item) {
             item.street = this.formatStreet(lang);
         }

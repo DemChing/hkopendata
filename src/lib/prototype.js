@@ -3,12 +3,17 @@ String.prototype.toCamelCase = function () {
         arr = str.split(/(?=[A-Z])/);
     if (!/[A-z]/.test(str)) return str;
     if (arr.length == str.length) return str.toLowerCase();
-    return arr.join("_").toLowerCase().match(/([a-z0-9]+)/g).reduce((p, c, i) => p += i == 0 ? c : (c[0].toUpperCase() + c.slice(1)), "")
+    return arr.join("_").toLowerCase().match(/([a-z0-9]+)/g).reduce((p, c, i) => p += i == 0 ? c : (c.charAt(0).toUpperCase() + c.slice(1)), "")
 }
 
 String.prototype.toPascalCase = function () {
     let str = this.valueOf().toCamelCase();
-    return str[0].toUpperCase() + str.slice(1);
+    return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+String.prototype.toCapitalCase = function () {
+    let str = this.valueOf();
+    return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
 }
 
 String.prototype.decodeEntities = function () {

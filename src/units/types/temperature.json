@@ -1,1 +1,1 @@
-{"celsius":{"en":"Celcius","tc":"攝氏","unit":"°C"},"fahrenheit":{"en":"Fahrenheit","tc":"華氏","unit":"°F"},"kelvin":{"en":"Kelvin","tc":"開氏","unit":"K"}}
+{"celsius":{"en":"Celcius","tc":"攝氏","sc":"摄氏","unit":"°C"},"fahrenheit":{"en":"Fahrenheit","tc":"華氏","sc":"华氏","unit":"°F"},"kelvin":{"en":"Kelvin","tc":"開氏","sc":"开氏","unit":"K"}}

@@ -4,6 +4,7 @@ const moment = require("../../moment");
 const cmn = require("../../common");
 const BASE_URL = "https://data.weather.gov.hk/weatherAPI/opendata/opendata.php";
 const UnitValue = require("../../_class").UnitValue;
+const HKOStation = require("../../_class").HKOStation;
 
 const VALID = {
     dataType: /^(HHOT|HLT|SRS|MRS|LHL|LTMV)$/,
@@ -14,7 +15,7 @@ const VALID_OPT = {
     month: /^[0-9]{1,2}$/,
     day: /^[0-9]{1,2}$/,
     hour: /^[0-9]{1,2}$/,
-    station: /^[A-z]+$/,
+    station: /^[A-Z0-9]{2,3}$/,
     lang: /^(en|tc|sc)$/
 };
 const PARAMS = {
@@ -51,6 +52,9 @@ function validateParameters(params) {
             result.error = true;
             result.message = "Invalid station code";
         }
+    } else if (params.dataType == "HHOT") {
+        result.error = true;
+        result.message = "Missing station code";
     }
     if (!("year" in params) && "month" in params) delete params.month;
     if (!("month" in params) && "day" in params) delete params.day;
@@ -68,8 +72,8 @@ function validateParameters(params) {
             h = parseInt(params.hour) || 1,
             date = moment([y, m - 1, d, h]),
             after = moment([params.dataType == "HHOT" || params.dataType == "HLT" ? 2019 : 2018]),
-            before = moment([2021]);
-        if (!(date.isValid() && date.isBetween(after, before, "d", "[]"))) {
+            before = moment([moment().year() + 3]);
+        if (!(date.isValid() && date.isBetween(after, before, "d", "[)"))) {
             result.error = true;
             result.message = "Invalid `year`, `month`, `day` or `hour`";
         }
@@ -129,10 +133,12 @@ function processData(data, opts) {
         if (type == "HHOT" || type == "HLT" || type == "LHL") {
             m = row.shift();
             d = row.shift();
-            if ("month" in opts) match = match && m == opts.month;
-            if ("day" in opts) match = match && d == opts.day;
-            if (!(m in temp)) temp[m] = {}
-            if (!(d in temp[m])) temp[m][d] = {}
+            if ("month" in opts) match = match && parseInt(m) == parseInt(opts.month);
+            if ("day" in opts) match = match && parseInt(d) == parseInt(opts.day);
+            if (match) {
+                if (!(m in temp)) temp[m] = {}
+                if (!(d in temp[m])) temp[m][d] = {}
+            }
         } else if (type == "SRS" || type == "MRS") {
             date = row.shift();
             m = date.split("-")[1];
@@ -190,7 +196,7 @@ function processData(data, opts) {
                 }
                 for (let t in temp[m][d]) {
                     set.data.push({
-                        time: moment(t, "HHmm").format("HH:mm"),
+                        time: t.replace(/(\d\d)(\d\d)/, '$1:$2'),
                         height: temp[m][d][t]
                     })
                 }
@@ -232,7 +238,7 @@ function processData(data, opts) {
         };
         for (let p in temp) {
             result.data.push({
-                station: p,
+                station: new HKOStation(p),
                 visibility: temp[p]
             })
         }

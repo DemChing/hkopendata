@@ -1,3 +1,4 @@
+const localDataPath = `${process.env.PWD}/.hkopendata/data`;
 let list = {
     stations: "hko-station",
     regions: "hk-location",
@@ -14,8 +15,7 @@ function Get(name) {
         json = {};
     if (name in list) file = list[name];
     try {
-        const fs = require("fs"),
-            localDataPath = `${process.env.PWD}/.hkopendata/data`;
+        const fs = require("fs");
         if (fs.existsSync(`${localDataPath}/${file}.json`)) {
             json = require(`${localDataPath}/${file}.json`);
         } else if (fs.existsSync(`./${file}.json`)) {
@@ -45,7 +45,21 @@ function Get(name) {
     return arr;
 }
 
+function Set(name, data) {
+    const fs = require("fs");
+    const path = require("path");
+    try {
+        let dest = `${localDataPath}/${name}.json`,
+            dir = path.dirname(dest);
+        if (!fs.existsSync(dir)) fs.mkdirSync(dir, {
+            recursive: true
+        });
+        fs.writeFile(dest, JSON.stringify(data), () => {});
+    } catch (e) {}
+}
+
 module.exports = {
     Get,
+    Set,
     list
 };
