@@ -4,6 +4,7 @@ let list = {
     regions: "hk-location",
     legco: "hk-location",
     districts: "hk-location",
+    aqhi: "epd-station",
 }
 let data = {};
 

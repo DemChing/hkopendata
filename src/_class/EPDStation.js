@@ -1,29 +1,18 @@
 const BaseComponent = require("./BaseComponent");
 const cmn = require("../common");
 
-class HKOStation extends BaseComponent {
-    constructor(query, fallbackType) {
+class EPDStation extends BaseComponent {
+    constructor(query) {
         super();
 
         if (typeof query === "string") {
             query = {
-                [/^[A-Z0-9]{2,3}/.test(query) ? 'code' : 'name']: query
+                [/^[A-Z]{2,3}/.test(query) ? 'code' : 'name']: query
             };
         }
 
-        // 20210806: HKO use incorrect simplified chinese
-        if (query.name) {
-            query.name = query.name.trim().replace('鰂鱼涌', '鲗鱼涌');
-        }
-
-        let station = cmn.SearchDataJson("stations", query),
+        let station = cmn.SearchDataJson("aqhi", query),
             type = "u";
-        if (station.length === 0 && fallbackType) {
-            station = cmn.SearchDataJson("stations", {
-                ...query,
-                type: fallbackType,
-            })
-        }
         if (station.length > 0) {
             let {
                 code,
@@ -37,10 +26,10 @@ class HKOStation extends BaseComponent {
                 code,
                 name
             });
-            type = Array.isArray(_type) ? _type[0] : _type;
+            type = _type;
         } else {
             if (typeof query === "string") {
-                if (/^[A-Z0-9]{2,3}$/.test(query)) {
+                if (/^[A-Z]{2,3}$/.test(query)) {
                     this.code = query;
                 } else {
                     this.name = query;
@@ -55,4 +44,4 @@ class HKOStation extends BaseComponent {
     }
 }
 
-module.exports = HKOStation;
+module.exports = EPDStation;

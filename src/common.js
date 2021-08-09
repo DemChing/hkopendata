@@ -129,7 +129,7 @@ function _inRange(val, min, max) {
 function ReplaceURL(url, params) {
     if (typeof params === "object") {
         for (let key in params) {
-            url = url.replace("{" + key + "}", params[key])
+            url = url.replace(new RegExp("{" + key + "}", "g"), params[key])
         }
     }
     return url;

@@ -79,6 +79,25 @@ type EffoSearchHoliday = {
     lang?: AvailableLanguage;
 };
 
+type EpdSearchIndex = {
+    lang?: AvailableLanguage;
+    station?: string;
+    type?: NumberOrNumericString;
+};
+
+type EpdSearchAqhi = EpdSearchIndex & {
+    year?: NumberOrNumericString;
+    month?: NumberOrNumericString;
+    day?: NumberOrNumericString;
+    hour?: NumberOrNumericString;
+};
+
+type EpdSearchApi = EpdSearchAqhi & {
+    lang?: Exclude<AvailableLanguage, "sc">;
+};
+
+type EpdLatestSearchAqhi = EpdSearchIndex;
+
 type GeodataSearch = {
     id: string;
     boundary?: BoundaryLike;
@@ -344,8 +363,8 @@ type MBankInstanceDbs = {
 
 // utils
 export var utils: {
-    ToLocale: (data: any, lang?: AvailableLanguage, package?: AvailableLanguage, html?: boolean) => any,
-    GetLocale: (key: string, lang?: AvailableLanguage, package?: AvailableLanguage) => string,
+    ToLocale: (data: any, lang?: AvailableLanguage, pack?: AvailableLanguage, html?: boolean) => any,
+    GetLocale: (key: string, lang?: AvailableLanguage, pack?: AvailableLanguage) => string,
     CreateAxiosInstance: (opts?: AxiosRequestConfig) => typeof axios,
 }
 
@@ -371,6 +390,13 @@ export var gov: {
         isPublicHoliday: () => GeneralPromise;
         isHoliday: () => GeneralPromise;
         isNonOfficeDay: () => GeneralPromise;
+    };
+    epd: {
+        searchApi: (data?: EpdSearchApi, opts?: any) => GeneralPromise;
+        searchAqhi: (data?: EpdSearchAqhi, opts?: any) => GeneralPromise;
+        latest: {
+            searchAqhi: (data?: EpdLatestSearchAqhi, opts?: any) => GeneralPromise;
+        }
     };
     geo: {
         searchGeo: (data?: GeodataSearch, opts?: any) => GeneralPromise;
@@ -497,8 +523,17 @@ export var org: {
     };
 }
 
+type PromiseThen<T> = T extends PromiseLike<infer U> ? U : T
+type MiddlewareType<T> = T extends (...args: any) => GeneralPromise | SuccessFailPromise ? (...args: Parameters<T>) => Promise<{
+    error: boolean;
+    data: PromiseThen<ReturnType<T>>;
+}> : Middleware<T>;
+type Middleware<T> = {
+    [key in keyof T]: MiddlewareType<T[key]>
+};
+
 export var middleware: {
-    gov: typeof gov;
-    bank: typeof bank;
-    org: typeof org;
+    gov: Middleware<typeof gov>;
+    bank: Middleware<typeof bank>;
+    org: Middleware<typeof org>;
 }

@@ -1,4 +1,4 @@
-module.exports = (request) => {
+const Middleware = (request) => {
     let result = {
         error: false
     };
@@ -24,6 +24,7 @@ module.exports = (request) => {
                         message = `Error ${err.response.status}: ${err.response.statusText}`
                     }
                 }
+                if (!message && err.error && err.message) message = err.message;
                 if (!message) {
                     message = findMessage(err);
                 }
@@ -32,6 +33,26 @@ module.exports = (request) => {
             reject(result);
         });
     });
+}
+
+Middleware.init = (type) => {
+    if (typeof type !== "string" || !/^(bank|gov|org)$/.test(type)) throw "Invalid Middleware configuration";
+    const Config = require(`../${type}`);
+    const Handler = (config) => {
+        let local = {};
+        for (let key in config) {
+            if (typeof config[key] === "object") {
+                local[key] = Handler(config[key]);
+            } else if (typeof config[key] === "function") {
+                local[key] = (...args) => Middleware(config[key](...args));
+            } else {
+                local[key] = config[key];
+            }
+        }
+        return local;
+    }
+
+    return Handler(Config);
 }
 
 function findMessage(obj) {
@@ -54,3 +75,5 @@ function findMessage(obj) {
     }
     return message;
 }
+
+module.exports = Middleware;

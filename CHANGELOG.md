@@ -4,6 +4,7 @@
 ### v1.5.0
 __ADDED__
 - [HKO](src/gov/README.md#hong-kong-observatory-hko) latest weather information
+- [EPD](src/gov/README.md#environmental-protection-department-epd) latest and historical AQHI information
 - [MD](src/gov/README.md#marine-department-md) latest weather information
 - Allow user to customize `axios` request configuration [See](README.md#request-configuration)
 - Locale support: Simplified Chinese (`sc`)

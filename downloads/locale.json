@@ -335,6 +335,11 @@
             "tc": "公司",
             "sc": "公司"
         },
+        "error": {
+            "en": "Error",
+            "tc": "錯誤",
+            "sc": "错误"
+        },
         "every": {
             "en": "Every",
             "tc": "每",
@@ -1905,7 +1910,7 @@
         "wearing": {
             "en": "Wearing",
             "tc": "衣著",
-            "sc": "衣着"
+            "sc": "衣著"
         },
         "persons": {
             "en": "Persons",
@@ -2283,6 +2288,25 @@
             "en": "Title",
             "tc": "稱謂",
             "sc": "称谓"
+        }
+    },
+    "md": {
+        "station": {
+            "en": "Tide Station",
+            "tc": "潮汐站",
+            "sc": "潮汐站"
+        }
+    },
+    "epd": {
+        "station": {
+            "en": "Monitoring Station",
+            "tc": "監測站",
+            "sc": "监测站"
+        },
+        "risk": {
+            "en": "Health Risk",
+            "tc": "健康風險",
+            "sc": "健康风险"
         }
     },
     "post": {
@@ -4320,6 +4344,23 @@
             "en": "Wind Station",
             "tc": "測風站",
             "sc": "测风站"
+        }
+    },
+    "epdstation": {
+        "g": {
+            "en": "General Station",
+            "tc": "一般監測站",
+            "sc": "一般监测站"
+        },
+        "r": {
+            "en": "Roadside Station",
+            "tc": "路邊監測站",
+            "sc": "路边监测站"
+        },
+        "u": {
+            "en": "Unknown",
+            "tc": "未知",
+            "sc": "未知"
         }
     },
     "direction": {

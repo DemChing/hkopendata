@@ -14,4 +14,5 @@ module.exports = {
     hkpf: require("./hkpf"),
     legco: require("./legco"),
     md: require("./md"),
+    epd: require("./epd"),
 }

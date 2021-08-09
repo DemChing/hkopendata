@@ -9,6 +9,7 @@ module.exports = {
     District: require("./District"),
     Direction: require("./Direction"),
     Estate: require("./Estate"),
+    EPDStation: require("./EPDStation"),
     Flat: require("./Flat"),
     Flight: require("./Flight"),
     HKOStation: require("./HKOStation"),

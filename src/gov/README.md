@@ -47,6 +47,30 @@ __Parameters__
 | `params.boundary` | false | string/\[Corrdinate Like\] |  | Bottom-left and top-right coordinate (in WGS84) (longitude & latitude) | [Corrdinate Like Object](/README.md#coordinate-like) |
 | `params.lang` | false | string (`en`/`tc`) | en | Language of the result | not support `sc` |
 
+## Environmental Protection Department (epd)
+- `searchApi(params)` Get historical Air Pollution Index (From 1999-07-01 to 2013-12-29, data after that date could be found using `searchAqhi(params)`)
+- `searchAqhi(params)` Get historical Air Quality Health Index (Since 2013-12-30, data before that date could be found using `searchApi(params)`)(Updated every 6 months)
+
+__Parameters__
+| Name | Required | Accepted | Default | Description | Remarks |
+| --- | --- | --- | --- | --- | --- |
+| `params.lang` | false | string (`en`/`tc`/`sc`) | en | Language of the result | `sc` is not supported for `searchApi(params)` |
+| `params.station` | false | string |  | Target station | Station code can be found in file `/downloads/epd-station.json` |
+| `params.type` | false | number `[0-1]` |  | Type of station | 0 - General Stations<br>1 - Roadside Stations |
+| `params.year` | false | string `YYYY` |  | Year of the result |  |
+| `params.month` | false | string `MM` `[01-12]` |  | Month of the result |  |
+| `params.day` | false | string `DD` `[01-31]` |  | Day of the result |  |
+| `params.hour` | false | string `HH` `[01-24]` |  | Hour of the result |  |
+
+- `latest.searchAqhi(params)` Get current Air Quality Health Index
+
+__Parameters__
+| Name | Required | Accepted | Default | Description | Remarks |
+| --- | --- | --- | --- | --- | --- |
+| `params.lang` | false | string (`en`/`tc`/`sc`) | en | Language of the result |  |
+| `params.station` | false | string |  | Target station | Station code can be found in file `/downloads/epd-station.json` |
+| `params.type` | false | number `[0-1]` |  | Type of station | 0 - General Stations<br>1 - Roadside Stations |
+
 ## Efficiency Office (effo)
 - `searchHoliday(params)` Search public holiday in year. Static files will be generated. [See](/README.md#static-data)
 
@@ -155,44 +179,9 @@ __Parameters__
 > Functions below are added since `v1.5.0`. To validate `params.station`, you need to download the latest `hko-station.json`. You also need to update it if you have an older version.
 
 - `latest.searchGrassTemperature(params)` Get mean grass temperature in latest 1 minute
-
-__Parameters__
-| Name | Required | Accepted | Default | Description | Remarks |
-| --- | --- | --- | --- | --- | --- |
-| `params.lang` | false | string (`en`/`tc`/`sc`) | en | Language of the result |  |
-| `params.station` | false | string |  | Target station | Station code can be found in file `/downloads/hko-station.json` with parameter `type="a"` |
-
 - `latest.searchHumidity(params)` Get relative humidity in latest 1 minute
-
-__Parameters__
-| Name | Required | Accepted | Default | Description | Remarks |
-| --- | --- | --- | --- | --- | --- |
-| `params.lang` | false | string (`en`/`tc`/`sc`) | en | Language of the result |  |
-| `params.station` | false | string |  | Target station | Station code can be found in file `/downloads/hko-station.json` with parameter `type="a"` |
-
-- `latest.searchLightning(params)` Get lightning count in latest 1 hour (Same as `searchAstronomy(type=4)`)
-
-__Parameters__
-| Name | Required | Accepted | Default | Description | Remarks |
-| --- | --- | --- | --- | --- | --- |
-| `params.lang` | false | string (`en`/`tc`/`sc`) | en | Language of the result |  |
-
 - `latest.searchPressure(params)` Get sea mean level pressure in latest 1 minute
-
-__Parameters__
-| Name | Required | Accepted | Default | Description | Remarks |
-| --- | --- | --- | --- | --- | --- |
-| `params.lang` | false | string (`en`/`tc`/`sc`) | en | Language of the result |  |
-| `params.station` | false | string |  | Target station | Station code can be found in file `/downloads/hko-station.json` with parameter `type="a"` |
-
 - `latest.searchSolar(params)` Get solar radiation in latest 1 minute
-
-__Parameters__
-| Name | Required | Accepted | Default | Description | Remarks |
-| --- | --- | --- | --- | --- | --- |
-| `params.lang` | false | string (`en`/`tc`/`sc`) | en | Language of the result |  |
-| `params.station` | false | string |  | Target station | Station code can be found in file `/downloads/hko-station.json` with parameter `type="a"` |
-
 - `latest.searchTemperature(params)` Get mean air temperature in latest 1 minute
 
 __Parameters__
@@ -200,6 +189,14 @@ __Parameters__
 | --- | --- | --- | --- | --- | --- |
 | `params.lang` | false | string (`en`/`tc`/`sc`) | en | Language of the result |  |
 | `params.station` | false | string |  | Target station | Station code can be found in file `/downloads/hko-station.json` with parameter `type="a"` |
+
+- `latest.searchLightning(params)` Get lightning count in latest 1 hour (Same as `searchAstronomy(params.type=4)`)
+- `latest.searchVisibility(params)` Get mean visibility in latest 10 minutes (Same as `searchAstronomy(params.type=5)`)
+
+__Parameters__
+| Name | Required | Accepted | Default | Description | Remarks |
+| --- | --- | --- | --- | --- | --- |
+| `params.lang` | false | string (`en`/`tc`/`sc`) | en | Language of the result |  |
 
 - `latest.searchTide(params)` Get latest tidal information
 
@@ -209,25 +206,18 @@ __Parameters__
 | `params.lang` | false | string (`en`/`tc`/`sc`) | en | Language of the result |  |
 | `params.station` | false | string |  | Target station | Station code can be found in file `/downloads/hko-station.json` with parameter `type="t"` |
 
-- `latest.searchUV()` Get UV index in latest 15 minutes
-
-__Parameters__
-> Nothing
-
-- `latest.searchVisibility(params)` Get mean visibility in latest 10 minutes (Same as `searchAstronomy(type=5)`)
-
-__Parameters__
-| Name | Required | Accepted | Default | Description | Remarks |
-| --- | --- | --- | --- | --- | --- |
-| `params.lang` | false | string (`en`/`tc`/`sc`) | en | Language of the result |  |
-
 - `latest.searchWind(params)` Get wind speed and direction in latest 10 minutes
 
 __Parameters__
 | Name | Required | Accepted | Default | Description | Remarks |
 | --- | --- | --- | --- | --- | --- |
 | `params.lang` | false | string (`en`/`tc`/`sc`) | en | Language of the result |  |
-| `params.station` | false | string |  | Target station | Station code can be found in file `/downloads/hko-station.json` with parameter `type="t"` or `type="w"` |
+| `params.station` | false | string |  | Target station | Station code can be found in file `/downloads/hko-station.json` with parameter `type="a"` or `type="w"` |
+
+- `latest.searchUV()` Get UV index in latest 15 minutes
+
+__Parameters__
+> Nothing
 
 ## Housing Authority (hse)
 - `searchHousing(params)` Search location data of housings or buildings under Housing Authority

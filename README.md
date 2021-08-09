@@ -254,15 +254,16 @@ obj = new Coordinate()
 - [x] Functions to retrieve and process data
 - [ ] Advance process on data (eg. parse CSV/XML data)
     - [x] CSV
-    - [ ] XML
+    - [x] XML
 - [ ] Unify the way of returning data/error
     - [x] Middleware
 - [ ] Increase supported API/endpoints (Never ends)
 
 ## Changelog (Lastest Version)
-### v1.4.0
+### v1.5.0
 __ADDED__
 - [HKO](src/gov/README.md#hong-kong-observatory-hko) latest weather information
+- [EPD](src/gov/README.md#environmental-protection-department-epd) latest and historical AQHI information
 - [MD](src/gov/README.md#marine-department-md) latest weather information
 - Allow user to customize `axios` request configuration [See](#request-configuration)
 - Locale support: Simplified Chinese (`sc`)
