@@ -19,4 +19,6 @@ module.exports = {
     searchNWFB: searchNwfb,
     searchNLB: require("./nlb"),
     searchMTR: require("./mtr"),
+    searchKMB: require("./kmb"),
+    searchGMB: require("./gmb"),
 }

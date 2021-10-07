@@ -1,3 +1,6 @@
+# hkopendata
+> In `v1.6.0`, some responses in `Bus`, `Rail` and `Ferry` are modified. Please make sure to test your code after update your package.
+
 ## Intro
 Open data is a trend in the world. By publishing data to public, companies and citizens could benefit from it eventually. However, HKSAR is doing bad on this. The data provided in [一線通](https://data.gov.hk/) doesn't format well which is a nightmare to developer.
 
@@ -260,13 +263,10 @@ obj = new Coordinate()
 - [ ] Increase supported API/endpoints (Never ends)
 
 ## Changelog (Lastest Version)
-### v1.5.0
+### v1.6.0
 __ADDED__
-- [HKO](src/gov/README.md#hong-kong-observatory-hko) latest weather information
-- [EPD](src/gov/README.md#environmental-protection-department-epd) latest and historical AQHI information
-- [MD](src/gov/README.md#marine-department-md) latest weather information
-- Allow user to customize `axios` request configuration [See](#request-configuration)
-- Locale support: Simplified Chinese (`sc`)
+- [Bus](src/org/README.md#bus-bus) Kowloon Bus (九巴) and Green Minibus (綠色專線小巴) route and ETA information
+- [Rail](src/org/README.md#rail-rail) LRT (輕鐵) ETA information
 
 Full changelog history available [here](/CHANGELOG.md#latest-version).
 

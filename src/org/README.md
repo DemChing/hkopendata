@@ -49,8 +49,41 @@ __Parameters__
 __Parameters__
 | Name | Required | Accepted | Default | Description | Remarks |
 | --- | --- | --- | --- | --- | --- |
-| `params.type` | true | number `[0-2]` | 0 | Type of information | 0 - Route Info<br>1 - Stops of Route<br>2 - Fare |
-| `params.route` | false | string |  | Route | Route __NAME__. Required when `params.type` equals `1` or `2` |
+| `params.type` | true | number `[0-2]` | 0 | Type of information | 0 - Route Info<br>1 - Stops of Route<br>2 - Fare<br>3 - Estimated Time Arrival (Currently no data available) |
+| `params.route` | false | string |  | Route | Route __NAME__. Required when `params.type` equals `1`, `2` or `3` |
+
+- `searchKMB(params)` Bus information from Kowloon Bus (九巴)
+
+| Name | Required | Accepted | Default | Description | Remarks |
+| --- | --- | --- | --- | --- | --- |
+| `params.type` | true | number `[0-5]` | 0 | Type of information | 0 - Route Info<br>1 - Stops of Route<br>2 - Stop Info<br>3 - ETA (specific stop of route)<br>4 - ETA (specific stop of all routes)<br>5 - ETA (all stops of specific route) |
+| `params.route` | false | string |  | Route | Route __NAME__. Required when `params.type` equals `1`, `3` or `5` |
+| `params.service` | false | string |  | Route Service Type | Required when `params.type` equals `1`, `3` or `5` |
+| `params.dir` | false | number `[0-1]` |  | Direction | 0 - Inbound<br>1 - Outbound<br><br>Required when `params.type` equals `1` |
+| `params.stop` | false | string |  | Stop | Stop __ID__. Required when `params.type` equals `2`, `3` or `4` |
+
+- `searchGMB(params)` Bus information from Green Minibus (綠色專線小巴)
+
+| Name | Required | Accepted | Default | Description | Remarks |
+| --- | --- | --- | --- | --- | --- |
+| `params.type` | true | number `[0-5]` | 0 | Type of information | 0 - Route Info<br>1 - Routes of Stop<br>2 - Stops of Route<br>3 - Stop Info<br>4 - ETA (specific stop of route)<br>5 - ETA (specific stop of all routes) |
+| `params.region` | false | string |  | Region | 0 - Hong Kong Island<br>1 - Kowloon<br>2 - New Territories |
+| `params.route` | false | string |  | Route | Route __NAME__. |
+| `params.routeId` | false | string |  | Route | Route __ID__. |
+| `params.routeSeq` | false | string |  | Route | Route __SEQUENCE__. |
+| `params.stop` | false | string |  | Stop | Stop __ID__. |
+| `params.stopSeq` | false | string |  | Stop | Stop __SEQUENCE__. |
+
+| Purpose | `params.type` | Requirement |
+| --- | --- | --- |
+| All route name in specific region | `0` | `params.region` |
+| Specific route info in specific region | `0` | Provide either set of data:<br>1. `params.region` and `params.route`<br>2. `params.routeId` |
+| All routes in specific stop | `1` | `params.stop` |
+| All stops in specific direction of route | `2` | `params.routeId` and `params.routeSeq` |
+| Stop Info | `3` | `params.stop` |
+| ETA of a specific stop of a specific direction of a route | `4` | `params.routeId`, `params.routeSeq` and `params.stopSeq` |
+| ETA of a specific stop of a __ALL__ directions of a route | `4` | `params.routeId` and `params.stop` |
+| ETA of a specific stop of a __ALL__ routes | `5` | `params.stop` |
 
 ## Rail (rail)
 __IMPORTANT:__ Please be careful when specifying `params.route` and `params.stop`. Some search types require __ID__ while some require __NAME/CODE__ (eg. WRL, 614P).
@@ -75,11 +108,12 @@ __Parameters__
 __Parameters__
 | Name | Required | Accepted | Default | Description | Remarks |
 | --- | --- | --- | --- | --- | --- |
-| `params.type` | true | number `[0-2]` | 0 | Type of information | 0 - Route Info<br>1 - Stops of Route<br>2 - Fares |
+| `params.type` | true | number `[0-2]` | 0 | Type of information | 0 - Route Info<br>1 - Stops of Route<br>2 - Fares<br>3 - Estimated Time Arrival |
 | `params.route` | false | string |  | Route | Route __NAME__. Required when `params.type` equals `1` |
 | `params.from` | false | string |  | Origin Stop | Stop __ID__. Required when `params.type` equals `2` |
 | `params.to` | false | string |  | Destination Stop | Stop __ID__. Required when `params.type` equals `2` |
 | `params.dir` | false | number `[0-1]` | 0 | Direction | 0 - Down<br>1 - UP<br>2 - Down (branch)<br>3 - Up (branch)<br><br>Accepted when `params.type` equals `0` or `1` |
+| `params.stop` | false | string |  | Stop | Stop __ID__. Required when `params.type` equals `3` |
 
 - `searchTram(params)` Rail information from Tramways (電車)
 
@@ -124,5 +158,5 @@ __Parameters__
 | Name | Required | Accepted | Default | Description | Remarks |
 | --- | --- | --- | --- | --- | --- |
 | `params.type` | true | number `[0-3]` | 0 | Type of information | 0 - Route Info<br>1 - Stops of Route<br>2 - Timetable<br>3 - Fare |
-| `params.route` | true | number `[0-11]` | 0 | Route | 0 - Central to Sok Kwu Wan<br>1 - Central to Yung Shue Wan<br>2 - Central to Peng Chau<br>3 - Central to Mui Wo<br>4 - Peng Chau to Mui Wo to Chi Ma Wan to Cheung Chau<br>5 - Central to Cheung Chau<br>6 - Central to Discovery Bay<br>7 - Ma Wan to Central<br>8 - Ma Wan to Tsuen Wan<br>9 - North Point to Hung Hum<br>10 - North Point to Kowloon City<br>11 - North Point to Kwun Tong to Kai Tak<br>12 - Sai Wan Ho to Kwun Tong<br>13 - Sai Wan Ho to Sam Ka Tsuen |
+| `params.route` | true | number `[0-23]` | 0 | Route | 0 - Central to Sok Kwu Wan<br>1 - Central to Yung Shue Wan<br>2 - Central to Peng Chau<br>3 - Central to Mui Wo<br>4 - Peng Chau to Cheung Chau<br>5 - Central to Cheung Chau<br>6 - Central to Discovery Bay<br>7 - Ma Wan to Central<br>8 - Ma Wan to Tsuen Wan<br>9 - North Point to Hung Hom<br>10 - North Point to Kowloon City<br>11 - North Point to Kwun Tong<br>12 - Sai Wan Ho to Kwun Tong<br>13 - Sai Wan Ho to Sam Ka Tsuen<br>14 - Discovery Bay to Mui Wo<br>15 - Tuen Mun to Tai O<br>16 - Aberdeen to Sok Kwu Wan<br>17 - Aberdeen to Yung Shue Wan<br>18 - Central to Hung Hom<br>19 - Ma Liu Shui to Tap Mun<br>20 - Ma Liu Shui to Tung Ping Chau<br>21 - Tap Mun to Wong Shek<br>22 - Kwun Tong to Mui Wo<br>23 - North Point to Kwun Tong |
 | `params.lang` | false | string (`en`/`tc`/`sc`) | en | Language of the result |  |

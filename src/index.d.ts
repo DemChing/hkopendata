@@ -330,6 +330,24 @@ type TransportSearch = {
     lang?: AvailableLanguage;
 };
 
+type BusSearchKMB = {
+    type: NumberOrNumericString;
+    route?: string;
+    service?: NumberOrNumericString;
+    dir?: NumberOrNumericString;
+    stop?: string;
+}
+
+type BusSearchGMB = {
+    type: NumberOrNumericString;
+    region?: NumberOrNumericString;
+    route?: string;
+    routeId?: NumberOrNumericString;
+    routeSeq?: NumberOrNumericString;
+    stop?: string;
+    stopSeq?: NumberOrNumericString;
+}
+
 type MTRSearchRail = TransportSearch & {
     from?: NumberOrNumericString;
     to?: NumberOrNumericString;
@@ -501,6 +519,8 @@ export var org: {
         searchMTR: (data?: TransportSearch, opts?: any) => GeneralPromise;
         searchNLB: (data?: TransportSearch, opts?: any) => GeneralPromise;
         searchNWFB: (data?: TransportSearch, opts?: any) => GeneralPromise;
+        searchKMB: (data?: BusSearchKMB, opts?: any) => GeneralPromise;
+        searchGMB: (data?: BusSearchGMB, opts?: any) => GeneralPromise;
     };
     ferry: {
         searchCB: (data?: TransportSearch, opts?: any) => GeneralPromise;

@@ -1,3 +1,6 @@
+// https://opendata.mtr.com.hk/doc/Next_Train_DataDictionary.pdf // eta
+// https://opendata.mtr.com.hk/doc/Next_Train_API_Spec.pdf // eta
+
 const cmn = require("../../common");
 const BASE_URL = "https://opendata.mtr.com.hk/data/{data}.csv";
 const BASE_URL2 = "https://rt.data.gov.hk/v1/transport/mtr/getSchedule.php";
@@ -17,7 +20,7 @@ const VALID_OPT = {
     dir: /^[0-3]$/,
     from: /^[0-9]+$/,
     to: /^[0-9]+$/,
-    lang: /^en|tc$/,
+    lang: /^(en|tc)$/,
 }
 const FIELDS = {
     regex: {

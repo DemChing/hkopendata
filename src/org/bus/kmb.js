@@ -1,25 +1,27 @@
-// https://www.nwstbus.com.hk/datagovhk/bus_eta_spi_specifications.pdf
+// https://data.etabus.gov.hk/datagovhk/kmb_eta_data_dictionary.pdf
+// https://data.etabus.gov.hk/datagovhk/kmb_eta_api_specification.pdf
 
 const cmn = require("../../common");
 const moment = require("../../moment");
 const Coordinate = require("../../_class").Coordinate;
-const BASE_URL = "https://rt.data.gov.hk/v1/transport/citybus-nwfb/{type}/{data}";
+const BASE_URL = "https://data.etabus.gov.hk/v1/transport/kmb/{type}/{data}";
 
 const ENDPOINT = {
-    "company": "{company}",
-    "route": "{company}/{route}",
-    "route-stop": "{company}/{route}/{dir}",
+    "route": "{route}/{dir}/{service}",
+    "route-stop": "{route}/{dir}/{service}",
     "stop": "{stop}",
-    "eta": "{company}/{stop}/{route}",
+    "eta": "{stop}/{route}/{service}",
+    "stop-eta": "{stop}",
+    "route-eta": "{route}/{service}",
 }
 const VALID = {
-    type: /^(company|route|route-stop|stop|eta)$/
+    type: /^(route|route-stop|stop|eta|stop-eta|route-eta)$/
 }
 const VALID_OPT = {
-    company: /^(CTB|NWFB)$/,
-    stop: /^[A-z0-9]{6}$/,
+    stop: /^[A-z0-9]{16}$/,
     route: /^[A-z0-9]+$/,
     dir: /^(inbound|outbound)$/,
+    service: /^\d+$/,
 }
 const PARAMS = {
     type: "route"
@@ -28,7 +30,12 @@ const FIELDS = {
     regex: {
         "^orig": "origin",
         "^dest": "destination",
-        "^rmk": "remarks"
+        "^rmk": "remarks",
+        "^(bound|dir)$": "direction",
+    },
+    number: {
+        "service_type": "service",
+        "seq": "seq",
     },
     text: {
         "co": "companyCode",
@@ -41,7 +48,7 @@ const FIELDS = {
 const SEARCH_CONFIG = {
     value: {
         type: {
-            accepted: ["route", "route-stop", "eta", "stop", "company"]
+            accepted: ["route", "route-stop", "stop", "eta", "stop-eta", "route-eta"]
         },
         dir: {
             accepted: ["inbound", "outbound"]
@@ -53,25 +60,28 @@ function validateParameters(params) {
     params = cmn.ParseSearchFields(params, SEARCH_CONFIG);
     let result = cmn.ValidateParameters(params, VALID, VALID_OPT);
 
-    if (!result.error && /^(stop|eta)$/.test(params.type) && !("stop" in params)) {
+    if (!result.error && /^(stop|eta|stop-eta)$/.test(params.type) && !("stop" in params)) {
         result.error = true;
         result.message = "Missing stop";
     }
-    if (!result.error && /^route|^eta$/.test(params.type) && !("route" in params)) {
-        if (params.type == "route") {
-            params.route = "";
-        } else {
+    if (!result.error && /^route|^eta$/.test(params.type)) {
+        if (!("route" in params)) {
+            if (params.type === "route") {
+                params.route = "";
+                params.service = "";
+                params.dir = "";
+            } else {
+                result.error = true;
+                result.message = "Missing route";
+            }
+        } else if (!("service" in params)) {
             result.error = true;
-            result.message = "Missing route";
+            result.message = "Missing service";
         }
     }
-    if (!result.error && params.type == "route-stop" && !("dir" in params)) {
+    if (!result.error && /^(route|route-stop)$/.test(params.type) && !("dir" in params)) {
         result.error = true;
         result.message = "Missing dir";
-    }
-    if (!result.error && params.type != "stop" && !("company" in params)) {
-        result.error = true;
-        result.message = "Missing company";
     }
     if (!result.error) {
         if ("route" in params) params.route = params.route.toUpperCase();
@@ -117,6 +127,8 @@ function processData(data, type) {
             if (m = key.match(/^(.+)_(en|tc|sc)$/)) {
                 if (!(m[1] in temp)) temp[m[1]] = {};
                 temp[m[1]][m[2]] = item[key];
+            } else if (key === "direction") {
+                temp[key] = item[key] === "I" ? 0 : 1;
             } else if (key == "eta") {
                 temp[key] = moment(item[key]);
             } else if (!/data_timestamp|eta_seq/.test(key)) {
@@ -131,23 +143,32 @@ function processData(data, type) {
     })
 
     if (type == "route-stop") {
-        result = result.sort((a, b) => a.seq - b.seq).map(v => ({
-            id: v._id,
-            seq: v.seq,
-        }));
-    } else if (type == "eta") {
-        result = result.sort((a, b) => a.eta.isBefore(b.eta))
-            .map(v => {
-                let t = {
-                    eta: v.eta.format("YYYY-MM-DD HH:mm:ss"),
-                    lowFloor: true,
-                    gps: true
-                };
-                if ("remarks" in v) {
-                    t.remarks = v.remarks;
-                }
-                return t;
-            });
+        result = result.sort((a, b) => a.seq - b.seq)
+            .map(v => ({
+                id: v._id,
+                seq: v.seq,
+            }));
+    } else if (/eta/.test(type)) {
+        let handleETA = arr => {
+            return arr.sort((a, b) => a.eta.isBefore(b.eta))
+                .map(v => {
+                    v.eta = v.eta.format("YYYY-MM-DD HH:mm:ss");
+                    return v;
+                });
+        }
+
+        if (type === "route-eta") {
+            let seqs = {};
+            result.map(item => {
+                if (!seqs[item.seq]) seqs[item.seq] = [];
+                seqs[item.seq].push(item);
+            })
+            result = Object.keys(seqs)
+                .sort((a, b) => parseInt(a) - parseInt(b))
+                .map(seq => handleETA(seqs[seq]))
+        } else {
+            result = handleETA(result);
+        }
     }
     return result;
 }

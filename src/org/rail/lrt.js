@@ -1,5 +1,9 @@
+// https://opendata.mtr.com.hk/doc/LR_Next_Train_DataDictionary_v1.0.pdf //eta
+// https://opendata.mtr.com.hk/doc/LR_Next_Train_API_Spec_v1.1.pdf //eta
+
 const cmn = require("../../common");
 const BASE_URL = "https://opendata.mtr.com.hk/data/{data}.csv";
+const BASE_URL2 = "https://rt.data.gov.hk/v1/transport/mtr/lrt/getSchedule";
 
 const ENDPOINT = {
     "route": "light_rail_routes_and_stops",
@@ -7,25 +11,29 @@ const ENDPOINT = {
     "fare": "light_rail_fares",
 }
 const VALID = {
-    type: /^(route|route-stop|fare)$/
+    type: /^(route|route-stop|fare|eta)$/
 }
 const VALID_OPT = {
     route: /^[A-z0-9]+$/,
     dir: /^(0|1)$/,
     from: /^[0-9]+$/,
     to: /^[0-9]+$/,
+    stop: /^[0-9]+$/,
 }
 const FIELDS = {
     regex: {
-        "^fare_": ""
+        "^fare_": "",
+        "^dest_": "destination_",
     },
     text: {
         "sequence": "seq",
         "line code": "route",
+        "route_no": "route",
         "stop code": "stop",
         "direction": "dir",
         "from_station_id": "from",
         "to_station_id": "to",
+        "train_length": "trainNumber",
     }
 }
 const PARAMS = {
@@ -35,7 +43,7 @@ const PARAMS = {
 const SEARCH_CONFIG = {
     value: {
         type: {
-            accepted: ["route", "route-stop", "fare"]
+            accepted: ["route", "route-stop", "fare", "eta"]
         }
     },
 }
@@ -47,6 +55,14 @@ function validateParameters(params) {
     if (/^route-stop$/.test(params.type) && !("route" in params)) {
         result.error = true;
         result.message = "Missing route";
+    }
+    if (/^eta$/.test(params.type)) {
+        if ("stop" in params) {
+            params.station_id = params.stop;
+        } else {
+            result.error = true;
+            result.message = "Missing stop";
+        }
     }
     if (/^fare$/.test(params.type) && (!("from" in params) || !("to" in params))) {
         result.error = true;
@@ -78,11 +94,23 @@ function search(data, opts) {
             reject(processed);
         } else {
             params = processed.data;
-            cmn.CSVFetch(cmn.ReplaceURL(BASE_URL, params))
-                .then((res) => {
-                    resolve(processData(res, params))
-                })
-                .catch((err) => reject(err))
+            if (params.type == "eta") {
+                cmn.APIRequest(BASE_URL2, params)
+                    .then((res) => {
+                        try {
+                            resolve(processData2(res, params))
+                        } catch (e) {
+                            reject(e);
+                        }
+                    })
+                    .catch((err) => reject(err))
+            } else {
+                cmn.CSVFetch(cmn.ReplaceURL(BASE_URL, params))
+                    .then((res) => {
+                        resolve(processData(res, params))
+                    })
+                    .catch((err) => reject(err))
+            }
         }
     })
 }
@@ -142,6 +170,7 @@ function processData(data, params) {
                     route: result[0].route,
                     origin: result[0].name,
                     destination: result[result.length - 1].name,
+                    direction: parseInt(params.dir),
                     companyCode: "MTR"
                 }];
             } else {
@@ -153,7 +182,20 @@ function processData(data, params) {
                     }
                 });
             }
-        };
+        } else {
+            for (let route in temp) {
+                for (let dir in temp[route]) {
+                    let stops = temp[route][dir];
+                    result.push({
+                        route,
+                        origin: stops[0].name,
+                        destination: stops[stops.length - 1].name,
+                        direction: parseInt(dir),
+                        companyCode: "MTR"
+                    })
+                }
+            }
+        }
 
     } else if (type == "fare") {
         result = result.filter(v => v.from == params.from && v.to == params.to)
@@ -164,6 +206,46 @@ function processData(data, params) {
             });
     }
     return result;
+}
+
+function processData2(data, params) {
+    if (data.status == "0") {
+        let message = data.message;
+        switch (data.message) {
+            case "File No Exist!":
+            case undefined:
+                message = "Invalid route/stop";
+        }
+        throw message;
+    } else {
+        data = data.platform_list || [];
+        let results = [];
+        data.map(platform => {
+            (platform.route_list || []).map(item => {
+                item = cmn.RenameFields(item, FIELDS);
+
+                let temp = {},
+                    eta = 'eta';
+                for (let key in item) {
+                    let m, ckey = key.toCamelCase();
+                    if (m = key.match(/(.+)_(en|ch)/)) {
+                        if (!(m[1] in temp)) temp[m[1]] = {};
+                        temp[m[1]][m[2] === 'ch' ? 'tc' : m[2]] = item[key];
+                    } else if (key === "arrival_departure") {
+                        eta = `et${item[key].toLowerCase()}`;
+                    } else if (key !== "stop") {
+                        temp[ckey] = item[key];
+                    }
+                }
+                temp[eta] = temp.time;
+                delete temp.time;
+                temp.platform = platform.platform_id;
+                results.push(temp);
+            })
+        })
+
+        return results;
+    }
 }
 
 module.exports = search;

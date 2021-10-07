@@ -2,10 +2,10 @@
 const cmn = require("../../common");
 const moment = require("../../moment");
 const UnitValue = require("../../_class").UnitValue;
-const BASE_URL = "https://www.td.gov.hk/filemanager/{lang}/content_1408/opendata/ferry_{route}_{type}table_{langFile}.csv";
+const BASE_URL = "https://www.td.gov.hk/filemanager/{lang}/content_{cid}/opendata/ferry_{route}_{type}table_{langFile}.csv";
 const FERRY = {};
 
-const ROUTES = ["central_skw", "central_ysw", "central_pc", "central_mw", "pc_mw_cmw_cc", "central_cc", "central_db", "mawan_c", "mawan_tw", "np_hh", "np_klnc", "np_ktak", "swh_kt", "swh_skt"]
+const ROUTES = ["central_skw", "central_ysw", "central_pc", "central_mw", "pc_mw_cmw_cc", "central_cc", "central_db", "mawan_c", "mawan_tw", "np_hh", "np_klnc", "np_ktak", "swh_kt", "swh_skt", "db_mw", "tm_tc_slw_to", "abd_skw", "abd_ysw", "c_hh", "mls_tm", "mls_tpc", "tm_wsp", "npkt_mw", "np_kt"]
 
 const VALID = {
     type: /^(route|route-stop|time|fare)$/,
@@ -17,6 +17,7 @@ const VALID_OPT = {
 const PARAMS = {
     type: "route",
     lang: "en",
+    cid: "1408"
 }
 const SEARCH_CONFIG = {
     value: {
@@ -34,7 +35,7 @@ const SEARCH_CONFIG = {
 }
 
 function beforeSearch() {
-    if (Object.keys(FERRY).length === 0) {
+    if (Object.keys(FERRY).length === 0 && (!VALID_OPT.route || !SEARCH_CONFIG.value.route)) {
         let _ferry = cmn.GetDataJson("hk-ferry");
         for (let key in _ferry) FERRY[key] = _ferry[key];
 
@@ -60,6 +61,9 @@ function validateParameters(params) {
     if (params.type != "route" && !("route" in params)) {
         result.error = true;
         result.message = "Missing route";
+    }
+    if (params.route && /^(mls_tm|mls_tpc|tm_wsp)$/.test(params.route)) {
+        params.cid = "4912";
     }
     if (!result.error) {
         result.data = {
@@ -206,7 +210,7 @@ function processData(data, params) {
         let temp = {},
             temp2 = {},
             route = convert("route", params.route),
-            stops = route.stops.map(code => {
+            stops = (route.stops || []).map(code => {
                 let pier = convert("pier", code);
                 delete pier.loc;
                 let str = Object.keys(pier).map(k => pier[k]).join("|");
@@ -218,17 +222,19 @@ function processData(data, params) {
             let dir = row[0].replace("Chueung Chau", "Cheung Chau");
             if (!(dir in temp)) temp[dir] = {};
             if (!(row[1] in temp[dir])) temp[dir][row[1]] = [];
-            temp[dir][row[1]].push(moment(row[2].replace(/\./g, ""), ["HH:mm A", "Hmm A"]).format("HH:mm") + (row[3].trim() == "" ? "" : `[${row[3]}]`))
+            temp[dir][row[1]].push(moment(row[2].replace(/(\d+)\.(\d+)/, '$1:$2').replace(/\./g, ""), ["HH:mm A", "Hmm A"]).format("HH:mm") + (row[3].trim() == "" ? "" : `[${row[3]}]`))
             remarks.push(row[3]);
         })
-        remarks = remarks.filter((v, i, l) => v != "" && l.indexOf(v) == i).sort()
-            .map(v => {
+        remarks = remarks.filter((v, i, l) => v != "" && l.indexOf(v) == i).sort();
+        if (route.remarks && route.remarks.time) {
+            remarks = remarks.map(v => {
                 let t = {};
                 for (let lang in route.remarks.time[v]) {
                     t[lang] = `[${v}] ${route.remarks.time[v][lang]}`;
                 }
                 return t;
             });
+        }
         for (let dir in temp) {
             let arr = stops.filter(v => dir.search(v.regexp) != -1)
                 .sort((a, b) => dir.search(a.regexp) - dir.search(b.regexp)),
@@ -236,7 +242,7 @@ function processData(data, params) {
                     ...arr[0]
                 },
                 destination = {
-                    ...arr[1]
+                    ...arr[arr.length - 1]
                 },
                 timetable = {
                     mon: [],
@@ -297,6 +303,11 @@ function processData(data, params) {
                 } else if (params.route == "central_db") {
                     payment = row.splice(2, 1)[0];
                     point = row.splice(3, 1)[0];
+                } else if (/^(db_mw|abd_skw|abd_ysw|mls_tm|tm_wsp|npkt_mw)$/.test(params.route)) {
+                    routePart = row.splice(1, 1)[0];
+                } else if (params.route == "tm_tc_slw_to") {
+                    routePart = row.splice(1, 1)[0];
+                    ferryType = row.splice(2, 1)[0].trim();
                 }
                 let type = row[0].split("-").map(v => v.trim()),
                     ticket = type.shift(),
@@ -304,9 +315,12 @@ function processData(data, params) {
                     amount = {
                         fare: parseFloat(point) || parseFloat(row[2].replace("$", "")) || 0
                     },
+                    ticketRemark = ticket.match(/[(（](.+)[）)]/),
                     passCheck = (str) => {
                         if (/65|elderly|長者|长者/i.test(str)) {
                             str = "elderly";
+                        } else if (/child|小童/i.test(str) && /adult|成人/i.test(str)) {
+                            str = "allPassenger";
                         } else if (/child|小童/i.test(str)) {
                             str = /12/i.test(str) ? "child" : "baby";
                         } else if (/adult|成人/i.test(str)) {
@@ -323,12 +337,12 @@ function processData(data, params) {
                     row[3] = "";
                 }
                 if (ferryType && ferryType != "-") amount.ferryType = ferryType;
-                if (!routePart) {
+                if (!routePart && typeof route !== "string") {
                     let o = convert("pier", route.origin),
                         d = convert("pier", route.destination)
                     routePart = `${o[params.lang]}${params.lang == "en" ? " - " : "—"}${d[params.lang]}`;
                 }
-                amount.routePart = routePart;
+                amount.routePart = routePart || "";
                 if (/bicycle|單車|单车/i.test(ticket)) {
                     ticket = "bicycle";
                 } else if (/freight|貨物|货物/i.test(ticket)) {
@@ -340,6 +354,7 @@ function processData(data, params) {
                     ticket = passCheck(ticket)
                 }
 
+                ticket = ticket.replace(/[(（](.+)[）)]/, '');
                 if (passenger) {
                     amount.passenger = passCheck(passenger);
                 }
@@ -359,7 +374,7 @@ function processData(data, params) {
                 if (row[3]) {
                     amount.remarks = row[3].split(",").map(v => {
                         let r = v.trim();
-                        if (/^\d+$/.test(r) && r in route.remarks.fare) {
+                        if (route.remarks && route.remarks.fare && /^\d+$/.test(r) && r in route.remarks.fare) {
                             let remark = {};
                             for (let lang in route.remarks.fare[r]) {
                                 remark[lang] = `[${r}] ${route.remarks.fare[r][lang]}`;
@@ -378,6 +393,7 @@ function processData(data, params) {
                         })
                     }
                 }
+                if (ticketRemark) amount.remarks = (amount.remarks || []).concat(ticketRemark[1]);
                 temp[ticket][row[1]].push(amount);
             })
 

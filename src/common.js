@@ -108,31 +108,47 @@ function XMLToJson(data, opts) {
     return xmlParser.parse(data, opts);
 }
 
+function _processMatchText(input) {
+    return input.toString().toLowerCase().replace(/\s/g, "")
+}
+
 function _identical(src, val) {
     if (src && typeof src === "object") {
         return Object.keys(src).reduce((p, c) => p || _identical(src[c], val), false)
     }
-    return src && val && src.toString().toLowerCase().replace(/ /g, "") == val.toString().toLowerCase().replace(/ /g, "")
+    return src && val && _processMatchText(src) == _processMatchText(val)
 }
 
 function _contains(src, val) {
     if (src && typeof src === "object") {
         return Object.keys(src).reduce((p, c) => p || _contains(src[c], val), false)
     }
-    return src && val && src.toString().toLowerCase().replace(/ /g, "").indexOf(val.toString().toLowerCase().replace(/ /g, "")) != -1
+    return src && val && _processMatchText(src).indexOf(_processMatchText(val)) != -1
 }
 
 function _inRange(val, min, max) {
     return parseFloat(val) >= (max > min ? min : max) && parseFloat(val) <= (max > min ? max : min)
 }
 
+function _replaceKey(input, params) {
+    if (typeof input !== 'string') return input;
+
+    for (let key in params) {
+        input = input.replace(new RegExp("{" + key + "}", "g"), params[key]);
+    }
+    return input;
+}
+
 function ReplaceURL(url, params) {
     if (typeof params === "object") {
         for (let key in params) {
-            url = url.replace(new RegExp("{" + key + "}", "g"), params[key])
+            params[key] = _replaceKey(params[key], params);
         }
+        url = _replaceKey(url, params);
     }
-    return url;
+    return url.replace(/\{[a-z_-]+\}/g, '')
+        .replace(/\/+/g, '/')
+        .replace(/:\//, '://');
 }
 
 function MatchData(src, opts, partial) {
@@ -217,7 +233,7 @@ function parseRenameRegexp(key) {
 }
 
 function RenameFields(data, config) {
-    if (Array.isArray(data)) return data.map(v => RenameFields(v))
+    if (Array.isArray(data)) return data.map(v => RenameFields(v, config))
     else if (typeof data !== "object" || data === null) return data;
 
     let result = {},
@@ -270,6 +286,8 @@ function RenameFields(data, config) {
                         min: parseFloat(m[0]),
                         max: parseFloat(m[1]),
                     };
+                } else if (type == "boolean") {
+                    result[config[type][key]] = data[key] === "0" ? false : Boolean(data[key]);
                 } else {
                     result[config[type][key]] = data[key];
                 }

@@ -3574,6 +3574,11 @@
             "tc": "預計到達時間",
             "sc": "预计到达时间"
         },
+        "etd": {
+            "en": "Estimated Time of Departure",
+            "tc": "預計出發時間",
+            "sc": "预计出发时间"
+        },
         "gps": "GPS",
         "companyCode": {
             "en": "Company Code",
@@ -3615,6 +3620,11 @@
             "tc": "上層",
             "sc": "上层"
         },
+        "headway": {
+            "en": "Headway",
+            "tc": "班次",
+            "sc": "班次"
+        },
         "frequency": {
             "en": "Frequency",
             "tc": "班次密度",
@@ -3639,6 +3649,16 @@
             "en": "Delayed",
             "tc": "延遲",
             "sc": "延迟"
+        },
+        "scheduled": {
+            "en": "Scheduled",
+            "tc": "原定班次",
+            "sc": "原定班次"
+        },
+        "suspended": {
+            "en": "Suspended",
+            "tc": "暫停服務",
+            "sc": "暂停服务"
         },
         "departed": {
             "en": "Departed",
@@ -3719,6 +3739,36 @@
             "en": "Child",
             "tc": "小童",
             "sc": "小童"
+        },
+        "allPassenger": {
+            "en": "All Passengers",
+            "tc": "所有乘客",
+            "sc": "所有乘客"
+        },
+        "direction": {
+            "en": "Direction",
+            "tc": "方向",
+            "sc": "方向"
+        },
+        "seq": {
+            "en": "Sequence",
+            "tc": "次序",
+            "sc": "次序"
+        },
+        "trainNumber": {
+            "en": "Train Number",
+            "tc": "車卡數目",
+            "sc": "车卡数目"
+        },
+        "service": {
+            "en": "Service Type",
+            "tc": "服務類別",
+            "sc": "服务类别"
+        },
+        "applicableDay": {
+            "en": "Applicable Days",
+            "tc": "適用日期",
+            "sc": "适用日期"
         }
     },
     "coordinate": {

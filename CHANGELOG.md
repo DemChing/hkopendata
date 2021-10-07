@@ -1,6 +1,18 @@
 ## Changelog
 
 ## Latest Version
+### v1.6.0
+__ADDED__
+- [Bus](src/org/README.md#bus-bus) Kowloon Bus (九巴) and Green Minibus (綠色專線小巴) route and ETA information
+
+__MODIFIED__
+- [Bus](src/org/README.md#bus-bus) LRT Feeder (港鐵巴士) add ETA information (Currently no data available)
+- [Rail](src/org/README.md#rail-rail) LRT (輕鐵) added ETA information
+- [Ferry](src/org/README.md#ferry-ferry) local licensed ferry added 10 routes
+
+__NOTICE__
+
+In `v1.6.0`, some responses in `Bus`, `Rail` and `Ferry` are modified. Please make sure to test your code after update your package.
 ### v1.5.0
 __ADDED__
 - [HKO](src/gov/README.md#hong-kong-observatory-hko) latest weather information
@@ -49,7 +61,7 @@ __REMOVED__
 __NOTICE__
 
 Here are the information about the update on supplementary data.
-- Since v1.2.0, directory `data` should only contains `index.js` for fresh install. All JSON files in that directory are either deleted or moved to directory `downloads`.
+- Since `v1.2.0`, directory `data` should only contains `index.js` for fresh install. All JSON files in that directory are either deleted or moved to directory `downloads`.
 - JSON files will still be generated and saved to directory `data` at runtime which is the same as previous version.
 - Files in directory `downloads` are not required for this repository to work. They are just supplementary data to enhance the function or performamce.
 
