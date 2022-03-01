@@ -87,10 +87,10 @@ hsbc.init([params])
 
 Most of the banks requires these fields.
 | Name | Description | Accepted | Remarks |
-| --- | --- | --- |
+| --- | --- | --- | --- |
 | id | Client ID | string | May refer to developer or app credential |
 | secret | Client Secret | string | May refer to developer or app credential |
-| lang | Language of result | `en`|`tc`|`sc` | Not every bank requires, some may need to specify in search request. Not all languages are supported. |
+| lang | Language of result | `en`\|`tc`\|`sc` | Not every bank requires, some may need to specify in search request. Not all languages are supported. |
 
 ```
 // Applicable to most banks.
@@ -153,6 +153,7 @@ bank.search(searchType, {
 ### Search Types
 Different banks support different search type. Here list the general types:
 | Type | Description |
+| --- | --- |
 | `branch` | Branch information |
 | `atm` | ATM information |
 | `depositBox` | Safe deposit box information |
@@ -161,7 +162,7 @@ Different banks support different search type. Here list the general types:
 | `creditCard` | Credit card information. Some may accept `commercialCard` |
 | `fx` | Foreign currency exchange information. Some may accept `fx-{subType}` |
 | `insurance` | Insurance information. Some may accept `insurance-{subType}` |
-| `investment`|`security` | Investment/Securities information. Some may accept `{type}-{subType}` |
+| `investment`\|`security` | Investment/Securities information. Some may accept `{type}-{subType}` |
 | `loan` | Loan information. Some may accept `(un)securedLoan` and `(un)securedLend`. Some may accept `loan-{subType}`. |
 
 For general information, you can check supported type of [HSBC Group](#hsbc-group-search), [BOCHK](#bochk-search) and [JETCO](#jetco-search) below.
