@@ -128,7 +128,7 @@
     },
     "DBS": {
         "domain": {
-            "production": "https://api.sc.com",
+            "production": "https://www.dbs.com",
             "development": "https://www.dbs.com/sandbox"
         },
         "endpoints": {
@@ -144,6 +144,50 @@
             "securedLoan": "/api/hk/v1/products/securedLoans",
             "creditCard": "/api/hk/v1/products/creditCards",
             "fx": "/api/hk/v1/rates/exchangeRates"
+        }
+    },
+    "LIVI": {
+        "domain": {
+            "development": "https://api.livibank.com/saving-product-info-sandbox/mock",
+            "production": "https://api.livibank.com/savingprdinfo"
+        },
+        "endpoints": {
+            "saving": "/products/v1/savingDeposits/account",
+            "interest": "/products/v1/savingDeposits/interest"
+        }
+    },
+    "ANT": {
+        "endpoints": {
+            "saving": "/open-banking/v1.0/personal-saving-account"
+        }
+    },
+    "FUSION": {
+        "domain": "https://openapi.fusionbank.com/openapi_node",
+        "endpoints": {
+            "list": "/product/list",
+            "saving": "/account/products",
+            "timeDeposit": "/deposit/products"
+        }
+    },
+    "PAOB": {
+        "domain": "https://openapi.paob.com.hk",
+        "endpoints": {
+            "saving": "/api/ibp/deposit/product/{product}"
+        }
+    },
+    "WELAB": {
+        "domain": "https://api.welab.bank",
+        "endpoints": {
+            "product": "/v1/products[/{id}]"
+        }
+    },
+    "ZA": {
+        "domain": "https://apisandbox.bank.za.group",
+        "endpoints": {
+            "saving": "/api/casaProducts",
+            "timeDeposit": "/api/timeDepositProducts",
+            "loan": "/api/personalLoanProducts",
+            "loanRate": "/api/personalLoanRateTable"
         }
     }
 }

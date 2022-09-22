@@ -18,15 +18,17 @@ function init(code) {
     let BANK = {
         _type: code.toUpperCase(),
         bank: false,
+        production: false,
         code: code
     }
-    BANK.init = (id, secret, lang) => {
+    BANK.setProduction = (state) => BANK.production = Boolean(state);
+    BANK.init = (id, secret, lang, debug) => {
         return BANK.connect({
             id: id,
             secret: secret,
-        }, lang);
+        }, lang, debug);
     }
-    BANK.connect = (credential, lang) => {
+    BANK.connect = (credential, lang, debug) => {
         return new Promise((resolve, reject) => {
             let {
                 id,
@@ -42,9 +44,11 @@ function init(code) {
                     "ClientID": id,
                     "ClientSecret": secret,
                     "Accept-Language": ACCEPT_LANG[lang]
-                }
+                },
+                production: BANK.production,
+                debug,
             });
-            return BANK.bank ? resolve() : reject();
+            return BANK.bank ? resolve("Bank initiation success") : reject(`No configuration found for bank code "${BANK._type}"`);
         })
     }
     BANK.search = (target, type) => {

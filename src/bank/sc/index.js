@@ -10,15 +10,17 @@ function init() {
     let BANK = {
         _type: "SC",
         bank: false,
+        production: false,
         code: "sc"
     }
-    BANK.init = (id, secret, lang) => {
+    BANK.setProduction = (state) => BANK.production = Boolean(state);
+    BANK.init = (id, secret, lang, debug) => {
         return BANK.connect({
             id: id,
             secret: secret,
-        }, lang);
+        }, lang, debug);
     }
-    BANK.connect = (credential, lang) => {
+    BANK.connect = (credential, lang, debug) => {
         return new Promise((resolve, reject) => {
             let {
                 id,
@@ -31,7 +33,9 @@ function init() {
             BANK.bank = bankInit(BANK._type, {
                 headers: {
                     "Content-Type": "application/x-www-form-urlencoded"
-                }
+                },
+                production: BANK.production,
+                debug,
             });
 
             if (BANK.bank) {

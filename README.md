@@ -1,5 +1,10 @@
 # hkopendata
-> In `v1.6.0`, some responses in `Bus`, `Rail` and `Ferry` are modified. Please make sure to test your code after update your package.
+## Important Notes
+Please check if you are going to update your package:
+> In `v1.6.0`, some responses in `Bus`, `Rail` and `Ferry` are modified.
+> In `v1.7.0`, the environment setup for `Bank` has been updated.
+
+Please make sure to test your code after updating the package.
 
 ## Intro
 Open data is a trend in the world. By publishing data to public, companies and citizens could benefit from it eventually. However, HKSAR is doing bad on this. The data provided in [一線通](https://data.gov.hk/) doesn't format well which is a nightmare to developer.
@@ -203,6 +208,8 @@ utils.ToLocale(result, "en", "carparkrule");
 
 This repo uses NPM package `axios` to handle all the request. Sometimes you may need to override the default configuration.
 
+Please keep in mind that all requests in `Bank` __AREN'T__ affected by this config.
+
 ```
 const utils = require("hkopendata").utils;
 utils.CreateAxiosInstance(AxiosRequestConfig);
@@ -263,10 +270,9 @@ obj = new Coordinate()
 - [ ] Increase supported API/endpoints (Never ends)
 
 ## Changelog (Lastest Version)
-### v1.6.0
+### v1.7.0
 __ADDED__
-- [Bus](src/org/README.md#bus-bus) Kowloon Bus (九巴) and Green Minibus (綠色專線小巴) route and ETA information
-- [Rail](src/org/README.md#rail-rail) LRT (輕鐵) ETA information
+- [Bank](src/bank/README.md) API support for Airstar Bank Limited (天星銀行有限公司), Livi Bank Limited (理慧銀行有限公司), Fusion Bank Limited (富融銀行有限公司), Ant Bank (Hong Kong) Limited (螞蟻銀行(香港)有限公司), Ping An OneConnect Bank (Hong Kong) Limited (平安壹賬通銀行(香港)有限公司), WeLab Bank Limited (匯立銀行有限公司) and ZA Bank Limited (眾安銀行有限公司).
 
 Full changelog history available [here](/CHANGELOG.md#latest-version).
 

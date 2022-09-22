@@ -11,18 +11,29 @@ function init(org, params) {
     if (!org || !(org in CONFIG)) return false;
     params = params || {};
     let production = params.production || false,
+        domain,
         instance = {
             baseURL: "",
             headers: {
                 ...params.headers
             }
         };
-    if (typeof CONFIG[org].domain === "object") {
-        instance.baseURL = CONFIG[org].domain[production ? "production" : "development"];
-    } else if (typeof CONFIG[bank].domain !== "undefined") {
-        instance.baseURL = CONFIG[bank].domain[production ? "production" : "development"];
-    } else {
-        instance.baseURL = CONFIG[org].domain;
+    if (CONFIG[org] && CONFIG[org].domain) {
+        domain = CONFIG[org].domain;
+    }
+    if (!domain && bank && CONFIG[bank] && CONFIG[bank].domain) {
+        domain = CONFIG[bank].domain;
+    }
+    if (typeof domain === "object") {
+        instance.baseURL = domain[production ? "production" : "development"] ||
+            domain.production ||
+            domain.development;
+    } else if (typeof domain === "string") {
+        instance.baseURL = domain;
+    }
+
+    if (params.transformRequest) {
+        instance.transformRequest = params.transformRequest;
     }
 
     let endpoints;
@@ -39,6 +50,8 @@ function init(org, params) {
         instance: instance,
         endpoints: endpoints,
         uuid: params.uuid || false,
+        timestamp: params.timestamp || false,
+        debug: Boolean(params.debug),
     })
 }
 

@@ -4,9 +4,15 @@ let banks = {
         hsbcgp: require("./hsbcgp"),
         jetco: require("./jetco"),
         bochk: require("./bochk"),
+        livi: require("./livi")(),
+        ant: require("./ant")(),
+        fusion: require("./fusion")(),
+        paob: require("./paob")(),
+        welab: require("./welab")(),
+        za: require("./za")(),
     },
     hsbcgp = ["hsbc", "hs"],
-    jetco = ["bch", "bea", "cal", "cbi", "chb", "ctn", "dsb", "fbb", "icb", "pbl", "scb", "whb", "wlb"],
+    jetco = ["bch", "bea", "cal", "cbi", "chb", "ctn", "dsb", "fbb", "icb", "pbl", "scb", "whb", "wlb", "vab"],
     bochk = ["boc", "chiyu", "ncb"];
 
 hsbcgp.map(v => banks[v] = require("./hsbcgp")(v))

@@ -14,17 +14,19 @@ function init() {
     let BANK = {
         _type: "DBS",
         bank: false,
+        production: false,
         code: "dbs",
     }
-    BANK.init = (id, secret, app, jwt, lang) => {
+    BANK.setProduction = (state) => BANK.production = Boolean(state);
+    BANK.init = (id, secret, app, jwt, lang, debug) => {
         return BANK.connect({
             id: id,
             secret: secret,
             app: app,
             jwt: jwt,
-        }, lang);
+        }, lang, debug);
     }
-    BANK.connect = (credential, lang) => {
+    BANK.connect = (credential, lang, debug) => {
         return new Promise((resolve, reject) => {
             let {
                 id,
@@ -45,7 +47,9 @@ function init() {
                     servicingCountry: "HK",
                     "Content-Type": "application/json"
                 },
-                uuid: true
+                uuid: true,
+                production: BANK.production,
+                debug,
             });
 
             if (BANK.bank) {
@@ -58,7 +62,7 @@ function init() {
                     })
                     .then(res => {
                         BANK.bank._instance.defaults.headers.common.accessToken = res.accessToken;
-                        return resolve();
+                        return resolve("Bank initiation success");
                     })
                     .catch((err) => {
                         return reject(err);

@@ -14,15 +14,17 @@ function init(code) {
     let BANK = {
         _type: "JETCO",
         bank: false,
+        production: false,
         code: code,
     }
-    BANK.init = (id, secret, lang) => {
+    BANK.setProduction = (state) => BANK.production = Boolean(state);
+    BANK.init = (id, secret, lang, debug) => {
         return BANK.connect({
             id: id,
             secret: secret,
-        }, lang);
+        }, lang, debug);
     }
-    BANK.connect = (credential, lang) => {
+    BANK.connect = (credential, lang, debug) => {
         return new Promise((resolve, reject) => {
             let {
                 id,
@@ -38,9 +40,11 @@ function init(code) {
                     "X-IBM-Client-Id": id,
                     "X-IBM-Client-Secret": secret,
                     "Accept-Language": ACCEPT_LANG[lang],
-                }
+                },
+                production: BANK.production,
+                debug,
             });
-            return BANK.bank ? resolve() : reject();
+            return BANK.bank ? resolve("Bank initiation success") : reject(`No configuration found for bank code "${BANK._type}"`);
         })
     }
     BANK.search = (target, queryData) => {
@@ -127,7 +131,10 @@ function validEndpoint(bank, target) {
         "investment-stock": ["bea", "cbi", "ctn"],
         "investment-metal": ["bch", "bea", "cbi", "chb", "fbb", "icb", "pbl", "ctn"]
     }
-    return !(target in invalid) || !(target in invalid && invalid[target].indexOf(bank) != -1);
+    let limited = {
+        "vab": ["saving", "timeDeposit", "unsecuredLoan"]
+    }
+    return bank in limited ? limited[bank].indexOf(target) != -1 : !(target in invalid) || !(target in invalid && invalid[target].indexOf(bank) != -1);
 }
 
 module.exports = init;

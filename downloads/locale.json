@@ -2522,6 +2522,11 @@
             "tc": "還款頻率",
             "sc": "还款频率"
         },
+        "daysInYear": {
+            "en": "Days in a Year",
+            "tc": "每年日數",
+            "sc": "每年日数"
+        },
         "interestFrequency": {
             "en": "Interest Frequency",
             "tc": "派息頻率",
@@ -3067,6 +3072,16 @@
             "tc": "現金存款",
             "sc": "现金存款"
         },
+        "demandDeposit": {
+            "en": "Demand Deposit",
+            "tc": "活期存款",
+            "sc": "活期存款"
+        },
+        "timeDeposit": {
+            "en": "Time Deposit",
+            "tc": "定期存款",
+            "sc": "定期存款"
+        },
         "billPayment": {
             "en": "Bill Payment",
             "tc": "賬單繳付",
@@ -3204,8 +3219,13 @@
         },
         "overdue": {
             "en": "Overdue",
-            "tc": "逾期費用",
-            "sc": "逾期费用"
+            "tc": "逾期手續費",
+            "sc": "逾期手续费"
+        },
+        "overdueRate": {
+            "en": "Overdue Interest Rate",
+            "tc": "逾期還款利率",
+            "sc": "逾期还款利率"
         },
         "feesCharge": {
             "en": "Fees",
@@ -3226,6 +3246,16 @@
             "en": "Early Uplift Fee",
             "tc": "提前終止收費",
             "sc": "提前终止收费"
+        },
+        "earlySettlementFee": {
+            "en": "Early Settlement Fee",
+            "tc": "提前清償收費",
+            "sc": "提前清偿收费"
+        },
+        "repaymentPeriod": {
+            "en": "Repayment Period",
+            "tc": "還款期",
+            "sc": "还款期"
         },
         "premiumPaymentPeriod": {
             "en": "Premium Payment Period",
@@ -3331,6 +3361,11 @@
             "en": "Promotion",
             "tc": "推廣優惠",
             "sc": "推广优惠"
+        },
+        "example": {
+            "en": "Example",
+            "tc": "示例",
+            "sc": "示例"
         },
         "deposit": {
             "en": "Deposit",

@@ -12,21 +12,22 @@ type GeneralResponse = {
     [name: string]: any
 };
 type SuccessResponse = {
-    error: true;
+    error: false;
     data: any;
 }
 type FailResponse = {
-    error: false;
+    error: true;
     message: any;
 }
 type GeneralPromise = Promise<GeneralResponse | GeneralResponse[]>;
 type SuccessFailPromise = Promise<SuccessResponse | FailResponse>;
 
 type BankCredential = {
-    id: string;
-    secret: string;
+    id?: string;
+    secret?: string;
     app?: string;
     jwt?: string;
+    sign?: (input: string) => string;
 };
 
 type EnglishOrChinese = "en" | "tc";
@@ -357,27 +358,19 @@ type PostSearchRate = {
     type: NumberOrNumericString;
 };
 
-type BankInstance = {
-    init: (id: string, secret: string, lang?: AvailableLanguage) => Promise<any>;
-    connect: (credential: BankCredential, lang?: AvailableLanguage) => Promise<any>;
-    search: (target: string, queryData: any) => GeneralPromise;
-};
-type BankInstanceDbs = {
-    init: (id: string, secret: string, app: string, jwt: string, lang?: AvailableLanguage) => Promise<any>;
-    connect: (credential: BankCredential, lang?: AvailableLanguage) => Promise<any>;
+type BankInit = (id: string, secret: string, lang?: AvailableLanguage, debug?: boolean) => Promise<any>;
+type BankInitDbs = (id: string, secret: string, app: string, jwt: string, lang?: AvailableLanguage, debug?: boolean) => Promise<any>;
+type BankInitLivi = (secret: string, lang?: AvailableLanguage, debug?: boolean) => Promise<any>;
+type BankInitPaob = (id: string, sign: BankCredential['sign'], lang?: AvailableLanguage, debug?: boolean) => Promise<any>;
+type BaseBankInstance<T> = {
+    init: T;
+    connect: (credential: BankCredential, lang?: AvailableLanguage, debug?: boolean) => Promise<any>;
     search: (target: string, queryData: any) => GeneralPromise;
 }
-
-type MBankInstance = {
-    init: (id: string, secret: string, lang?: AvailableLanguage) => SuccessFailPromise;
-    connect: (credential: BankCredential, lang?: AvailableLanguage) => SuccessFailPromise;
-    search: (target: string, queryData: any) => SuccessFailPromise;
-};
-type MBankInstanceDbs = {
-    init: (id: string, secret: string, app: string, jwt: string, lang?: AvailableLanguage) => SuccessFailPromise;
-    connect: (credential: BankCredential, lang?: AvailableLanguage) => SuccessFailPromise;
-    search: (target: string, queryData: any) => SuccessFailPromise;
-};
+type BankInstance = BaseBankInstance<BankInit>;
+type BankInstanceDbs = BaseBankInstance<BankInitDbs>;
+type BankInstanceLivi = BaseBankInstance<BankInitLivi>;
+type BankInstancePaob = BaseBankInstance<BankInitPaob>;
 
 // utils
 export var utils: {
@@ -507,6 +500,11 @@ export var bank: {
     scb: BankInstance;
     whb: BankInstance;
     wlb: BankInstance;
+    vab: BankInstance;
+    livi: BankInstanceLivi;
+    fusion: BankInstance;
+    ant: BankInstance;
+    paob: BankInstancePaob;
     bochk: (code: BochkGroup) => BankInstance;
     hsbcgp: (code: HsbcGroup) => BankInstance;
     jetco: (code: JetcoGroup) => BankInstance;

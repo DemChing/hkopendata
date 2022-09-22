@@ -50,12 +50,25 @@ Developer Portal [LINK](https://sandboxportal.apix.com.hk/jetco/sb)
 | Shanghai Commercial Bank Limited | 上海商業銀行有限公司 | scb |
 | OCBC Wing Hang Bank Limited | 華僑永亨銀行有限公司 | whb |
 | CMB Wing Lung Bank Limited | 招商永隆銀行有限公司 | wlb |
+| Airstar Bank Limited | 天星銀行有限公司 | vab[^1] |
 
 __Others__
 | Name (EN) | Name (TC) | Code | Developer Portal |
 | --- | --- | --- | --- |
 | DBS Bank (Hong Kong) Limited | 星展銀行（香港）有限公司 | dbs | [LINK](https://www.dbs.com/dbsdevelopers/hk/index.html) |
 | Standard Chartered Bank (Hong Kong) Limited | 渣打銀行（香港）有限公司 | sc | [LINK](https://axess.sc.com) |
+| Livi Bank Limited | 理慧銀行有限公司 | livi[^1] | [LINK](https://developer.livibank.com) |
+| Fusion Bank Limited | 富融銀行有限公司 | fusion[^1] | [LINK](https://developer.fusionbank.com) |
+| Ant Bank (Hong Kong) Limited | 螞蟻銀行(香港)有限公司 | ant[^1][^2] | [LINK](https://developer.antbank.hk/docs) |
+| Ping An OneConnect Bank (Hong Kong) Limited | 平安壹賬通銀行(香港)有限公司 | paob[^1][^3] | [LINK](https://openbankapiportal-vb.paob.com.hk/portal/main.html) |
+| WeLab Bank Limited | 匯立銀行有限公司 | welab[^1] | [LINK](https://developers.welab.bank) |
+| ZA Bank Limited | 眾安銀行有限公司 | za[^1][^4] | [LINK](https://developer.bank.za.group) |
+
+
+[^1]: Available since `v1.7.0`
+[^2]: Feature currently disabled as I can neither create a developer account nor retrieve the base url of the API. No response for requesting an invitation code since March 2022. Contact me if you can access the developer portal.
+[^3]: This API require to sign the request but I'm not eligible to apply for sandbox testing. Function may not work as expected.
+[^4]: Feature currently disabled as I can neither create a developer account nor figure out the authentication way of the API. Contact me if you can access the developer portal.
 
 ## Usage
 First, include the relevant module.
@@ -69,7 +82,7 @@ const { hsbc, hs } = require("hkopendata").bank;
 
 Next, initiate with credentials and do the searching. All the methods return a promise. You should handle the result or error properly.
 ```
-hsbc.init([params])
+hsbc.connect([params])
     .then(() => {
         // Initiate Success
         return hsbc.search([params])
@@ -81,6 +94,22 @@ hsbc.init([params])
         // Initiate error / Search error
     })
 ```
+
+### Environment
+> Before `v1.7.0`, this package always use `sandbox` setup. You need to update the package and follow the setup below to enable `production` environment.
+
+By default, if the API provides a sandbox environment, this package would try to access it.
+
+You need to use the correct credential and configuration for authorizing the API.
+
+Use the following code to set current environment to `Production`:
+```js
+// The following line should be invoked for production only
+// and MUST BE placed before `bank.connect` or `bank.init`
+bank.setProduction(true);
+```
+
+Even though some API won't seperate the production and sandbox environment, it is __RECOMMENDED__ to include the above code for later compatibility.
 
 ## Initiation
 > __WARNING__: The initiation method below is deprecated since `v1.4.0`. Check [this](#initiation-v140) for latest method.
@@ -97,18 +126,43 @@ Most of the banks requires these fields.
 bank.init(id, secret, lang)
 ```
 
-:warning: DBS Initiation :warning:
+#### :warning: DBS Initiation :warning:
 
-DBS uses a different way to authorize. Follow these steps to authorize correctly:
+DBS uses a different way to authorize. You need to use the credentials in [*My Apps*](https://www.dbs.com/developers/#/my-apps) and generate your own `JWT`.
+
+```js
+/**
+ * @params {string} id          Partner Client Id
+ * @params {string} secrect     Partner Client Secret
+ * @params {string} user        App Username
+ * @params {string} jwt         Your JWT
+ */
+
+// use `dbs.connect`
+dbs.connect({ id, secret, user, jwt }, lang)
+// or `dbs.init` for v1.3 or before
+dbs.init(id, secret, user, jwt, lang)
+```
+
+If you are __*TESTING ONLY*__ and don't want to worry about the x509 certificate or JWT token, follow these steps to authorize correctly:
 
 1. Go to `Documentation` page and try one of the API.
 2. In the `API Playground` page, select the __*Demo App*__
-3. Get the `ID`, `Secret`, App `Username` and `JWT Token`.
+3. Get the `id`(Client ID), `secret`(Client Secret), `app`(App Username) and `jwt`(App JWT token).
 4. Start initiation.
 
-```
-// Use the credentials obtained above to initiate
-dbs.init(id, secret, user, jwt, lang)
+The token will be valid for 1 day. You will need to repeat the above steps for a new token.
+
+#### :warning: PAOB Initiation :warning:
+PAOB uses a different way to authorize. You need to sign each request using your private key. Visit the [*Official Guide*](https://openbankapiportal-vb.paob.com.hk/portal/main.html#/./guide?id=15) and go to section __`4. SDK usage guide`__ for how to generate the key and use it to sign the request.
+
+```js
+/**
+ * @params                   {string}   id      App ID
+ * @params {(data: string) => string}   sign    Your signing function
+ */
+// use `pabo.connect`
+pabo.connect({ id, sign }, lang)
 ```
 
 ### Initiation v1.4.0+
@@ -126,6 +180,20 @@ let credential = {
     secret: YOUR_SECRET,
     app: YOUR_USERNAME,
     jwt: YOUR_JWT,
+}
+
+// For LIVI
+let credential = {
+    secret: YOUR_SECRET,
+}
+
+// For PAOB
+let credential = {
+    id: YOUR_ID,
+    sign: (DATA_TO_SIGN) => {
+        // your function to sign the data
+        return SIGNED_STRING;
+    }
 }
 
 bank.connect(credential, lang)
@@ -157,7 +225,7 @@ Different banks support different search type. Here list the general types:
 | `branch` | Branch information |
 | `atm` | ATM information |
 | `depositBox` | Safe deposit box information |
-| `saving`|`current`|`timeDeposit`|`foreignCurrency` | Different types of account |
+| `saving`\|`current`\|`timeDeposit`\|`foreignCurrency` | Different types of account |
 | `mortgage` | Mortgage information |
 | `creditCard` | Credit card information. Some may accept `commercialCard` |
 | `fx` | Foreign currency exchange information. Some may accept `fx-{subType}` |
@@ -202,3 +270,7 @@ bank.search(type)
     })
     .catch(() => {})
 ```
+
+## Useful Links
+[HKMA - Stage of 4 Open API Phases](https://www.hkma.gov.hk/chi/key-functions/international-financial-centre/fintech/open-application-programming-interface-api-for-the-banking-sector/phase-approach/)
+[HKSTP - Data Studio of Open API for all banks](https://openapi.hkstp.org/banking/zh-hk/provider-list/)

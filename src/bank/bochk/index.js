@@ -16,15 +16,17 @@ function init(code) {
     let BANK = {
         _type: "BOCHK",
         bank: false,
+        production: false,
         code: code
     }
-    BANK.init = (id, secret, lang) => {
+    BANK.setProduction = (state) => BANK.production = Boolean(state);
+    BANK.init = (id, secret, lang, debug) => {
         return BANK.connect({
             id: id,
             secret: secret,
-        }, lang);
+        }, lang, debug);
     }
-    BANK.connect = (credential, lang) => {
+    BANK.connect = (credential, lang, debug) => {
         return new Promise((resolve, reject) => {
             let {
                 id,
@@ -36,13 +38,16 @@ function init(code) {
             if (!(lang in ACCEPT_LANG)) lang = "en";
             BANK._lang = ACCEPT_LANG[lang];
 
-            BANK.bank = bankInit(`${BANK._type}-${code}`);
+            BANK.bank = bankInit(`${BANK._type}-${code}`, { 
+                production: BANK.production,
+                debug,
+             });
 
             if (BANK.bank) {
                 BANK.auth(`client_id=${id}&client_secret=${secret}&grant_type=client_credentials`)
                     .then(res => {
                         BANK.bank._instance.defaults.headers.common.Authorization = `${res.token_type} ${res.access_token}`
-                        return resolve();
+                        return resolve("Bank initiation success");
                     })
                     .catch((err) => {
                         return reject(err);

@@ -364,7 +364,7 @@ function processCurrencyAmount(data) {
     } else if (typeof data === "object" && data !== null) {
         let temp = {};
         for (let key in data) {
-            if (/^amount|min|max^/.test(key)) {
+            if (/^(amount|min|max)$/.test(key)) {
                 let r = processCurrencyAmount(data[key]);
                 if ("amount" in r) temp[key] = r.amount;
                 if ("currency" in r) temp.currency = r.currency;

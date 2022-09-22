@@ -1,6 +1,15 @@
 ## Changelog
 
 ## Latest Version
+### v1.7.0
+__ADDED__
+- [Bank](src/bank/README.md) API support for Airstar Bank Limited (天星銀行有限公司), Livi Bank Limited (理慧銀行有限公司), Fusion Bank Limited (富融銀行有限公司), Ant Bank (Hong Kong) Limited (螞蟻銀行(香港)有限公司), Ping An OneConnect Bank (Hong Kong) Limited (平安壹賬通銀行(香港)有限公司), WeLab Bank Limited (匯立銀行有限公司) and ZA Bank Limited (眾安銀行有限公司).
+
+__MODIFIED__
+- [Bank](src/bank/README.md) bugs fixed and change request configuration.
+
+__NOTICE__
+> In `v1.7.0`, the environment setup for `Bank` has been updated. Please make sure to test your code after update your package.
 ### v1.6.0
 __ADDED__
 - [Bus](src/org/README.md#bus-bus) Kowloon Bus (九巴) and Green Minibus (綠色專線小巴) route and ETA information
@@ -11,7 +20,6 @@ __MODIFIED__
 - [Ferry](src/org/README.md#ferry-ferry) local licensed ferry added 10 routes
 
 __NOTICE__
-
 In `v1.6.0`, some responses in `Bus`, `Rail` and `Ferry` are modified. Please make sure to test your code after update your package.
 ### v1.5.0
 __ADDED__
