@@ -4,6 +4,22 @@ function GetAvailableLang(item) {
     return Object.keys(item).filter(v => /^(en|tc|sc)$/i.test(v));
 }
 
+function GetRaw(name) {
+    name = name || "common";
+    let locale = {};
+    try {
+        name = name.replace(/\.\.\/|\.\//g, "");
+        let LANG = _LANG[name];
+        if (!LANG) {
+            LANG = require(`./${name}.json`);
+            _LANG[name] = LANG;
+        }
+        locale = LANG;
+    } catch (e) {}
+
+    return locale;
+}
+
 function Get(name, lang) {
     name = name || "common";
     lang = lang || "en";
@@ -52,6 +68,7 @@ function GetMulti(arr, lang) {
 
 module.exports = {
     Get,
+    GetRaw,
     GetPackage,
     GetMulti,
     GetAvailableLang,

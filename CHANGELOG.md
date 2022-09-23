@@ -8,6 +8,9 @@ __ADDED__
 
 __MODIFIED__
 - [Bank](src/bank/README.md) bugs fixed and change request configuration.
+- [LCSD](src/gov/README.md#leisure-and-cultural-services-department-lcsd) add some datasets of facilities.
+- [GEO](src/gov/README.md#geodata-geo) updated the list of supported datasets. Check [here](downloads/geodata.json) or use `hkopendata-cli` to download it.
+- Some ancient code with bugs are fixed
 
 __NOTICE__
 > In `v1.7.0`, the environment setup for `Bank` has been updated. Please make sure to test your code after update your package.

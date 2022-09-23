@@ -5,17 +5,27 @@ const cmn = require("../../common");
 const {
     Coordinate,
 } = require("../../_class");
-const LOCALE = require("../../locale").week;
+const LOCALE = require("../../locale").GetRaw('week');
 const BASE_URL = "https://www.lcsd.gov.hk/datagovhk/facility/facility-{type}.json";
 const VENUE_URL = "https://www.lcsd.gov.hk/datagovhk/venue/venue.json";
 
 const VALID = {
-    type: /^(bbqs|scf|cgf|fw|fitrm|fiteqmt|mcpa|(cp|rs)r|(b|dgp|s|sb)g|hssp(5|7)|(bb|mb|s|(hga|cg(a|n)|(sp(7|11)|rp)(a|n))t)p|(bbq|w)s|ctg|ar|(jtf|rs|o(a|tt))t|(pefa|rh|s|t|tp|(bk|bv|h|n|v|g)b)c|venue)$/
+    type: /^(bbqs|beaches|scf|cgf|fw|fitrm|fiteqmt|mcpa|ipfp|ofe|(cp|rs)r|(b|dgp|s|sb)g|hssp(5|7)|(bb|mb|s|(hga|cg(a|n)|(sp(7|11)|rp)(a|n))t)p|(bbq|w)s|ctg|ar|(jtf|rs|o(a|tt))t|(pefa|r?h|w?s|t|tp|(bk|bv|h|n|v|g)b)c|venue)$/
 };
 const PARAMS = {
     type: "rst"
 }
 const FIELDS = {
+    regex: {
+        "^SEARCH01_(EN|TC|SC)$$f-i": "District_$1",
+        "^SEARCH02_(EN|TC|SC)$$f-i": "Type_$1",
+        "^NSEARCH01_(EN|TC|SC)$$f-i": "Opening_hours_$1",
+        "^NSEARCH02_(EN|TC|SC)$$f-i": "Tel_$1",
+        "^NSEARCH03_(EN|TC|SC)$$f-i": "Fax_$1",
+        "^NSEARCH04_(EN|TC|SC)$$f-i": "Email_$1",
+        "^NSEARCH05_(EN|TC|SC)$$f-i": "Website_$1",
+        "^NSEARCH06_(EN|TC|SC)$$f-i": "FacilityDetail_$1",
+    },
     text: {
         "Phone": "tel",
         "Enquiry_no": "tel",
@@ -27,6 +37,8 @@ const FIELDS = {
     },
     latitude: ["Latitude"],
     longitude: ["Longitude"],
+    easting: ["Easting"],
+    northing: ["Northing"],
     others: {
         "facilities": "facility",
         "category": "type",
@@ -40,7 +52,7 @@ const FIELDS = {
 const SEARCH_CONFIG = {
     value: {
         type: {
-            accepted: ["venue", "rst", "fw", "fitrm", "fiteqmt", "cpr", "pefac", "ws", "bbqs", "dgpg", "jtft", "oat", "scf", "hssp5", "hssp7", "sp7atp", "sp11atp", "sp7ntp", "sp11ntp", "cgatp", "cgntp", "cgf", "vbc", "bvbc", "rpatp", "rpntp", "hgatp", "bbp", "ottt", "hbc", "nbc", "ctg", "ar", "sbg", "rsr", "rhc", "sp", "bkbc", "tc", "tpc", "bmtc", "bg", "sg", "gbc", "sc", "mbp", "mcpa", ]
+            accepted: ["venue", "rst", "fw", "fitrm", "fiteqmt", "cpr", "pefac", "ws", "bbqs", "dgpg", "jtft", "oat", "scf", "hssp5", "hssp7", "sp7atp", "sp11atp", "sp7ntp", "sp11ntp", "cgatp", "cgntp", "cgf", "vbc", "bvbc", "rpatp", "rpntp", "hgatp", "bbp", "ottt", "hbc", "nbc", "ctg", "ar", "sbg", "rsr", "rhc", "sp", "bkbc", "tc", "tpc", "bmtc", "bg", "sg", "gbc", "sc", "mbp", "mcpa", "ipfp", "hc", "ofe", "wsc", "beaches",]
         },
     },
 }
@@ -81,11 +93,27 @@ function search(data, opts) {
     })
 }
 
+function convertGeoJson(data) {
+    if ("type" in data && data.type === "FeatureCollection" && "features" in data) {
+        data = data.features
+            .filter(({ type }) => type === "Feature")
+            .map(({ properties }) => {
+                let temp = {};
+                for (let key in properties) {
+                    temp[key.toCapitalCase()] = properties[key];
+                }
+                return temp;
+            });
+    }
+    return data;
+}
+
 function processData(data) {
     let result = [];
-    data.map((item) => {
+    convertGeoJson(data).map((item) => {
         let temp = cmn.RenameFields(item, FIELDS),
-            facility = {};
+            facility = {},
+            langKey = [];
         if ("Opening_hours_start" in temp && "Opening_hours_end" in temp) {
             temp.opening = `${temp.Opening_hours_start}-${temp.Opening_hours_end}`
             delete temp.Opening_hours_start;
@@ -93,7 +121,7 @@ function processData(data) {
         }
         for (let key in temp) {
             let m;
-            if (temp[key] == "") delete temp[key];
+            if ((typeof temp[key] === "string" && temp[key].trim() === "") || temp[key] == "") delete temp[key];
             else if (/^(GIHS|tel|opening|fax|email)$/i.test(key)) {
                 facility[key.toCamelCase()] = temp[key];
             } else if (m = key.match(/Opening_hours_(en|cn|b5|tc|sc)$/)) {
@@ -114,11 +142,12 @@ function processData(data) {
                     else lang = m[2];
                     if (!(name in facility)) facility[name] = {}
                     facility[name][lang] = temp[key];
+                    if (!langKey.includes(name)) langKey.push(name);
                 }
             } else if (/^Types$/.test(key) && /^(I|O)$/.test(temp[key])) {
                 facility.indoorFacility = temp[key] == "I";
             } else if (!/photo|capacity|fax/i.test(key)) {
-                facility[key] = temp[key];
+                facility[key.toCamelCase()] = temp[key];
             }
         }
         if ("openingHour" in facility) {
@@ -137,6 +166,24 @@ function processData(data) {
             delete facility.publicHolidayOpeningHour;
         }
         if ("coordinate" in facility) facility.coordinate = new Coordinate(facility.coordinate);
+        if ("coordinateHK" in facility) facility.coordinateHK = new Coordinate(facility.coordinateHK);
+
+        for (const key of langKey) {
+            if (!(key in facility) || typeof facility[key] !== "object") continue;
+            let same = true,
+                prev;
+            for (let lang in facility[key]) {
+                let val = facility[key][lang];
+                if (typeof val === "object") val = JSON.stringify(val);
+                if (typeof prev === "undefined") prev = val;
+                else if (prev !== val) {
+                    same = false;
+                    break;
+                }
+            }
+
+            if (same) facility[key] = Object.values(facility[key])[0];
+        }
 
         result.push(cmn.RenameFields(facility, FIELDS));
     })

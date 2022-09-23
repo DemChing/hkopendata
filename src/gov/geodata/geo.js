@@ -20,8 +20,8 @@ const VALID_OPT = {
     hk80MaxY: /^[0-9.]+$/,
 }
 const LANG = {
-    ...LOCALE.common,
-    ...LOCALE.geo
+    ...LOCALE.GetRaw('common'),
+    ...LOCALE.GetRaw('geo')
 };
 const PARAMS = {
     lang: "ALL",
@@ -43,9 +43,12 @@ for (let key in LANG) {
                 val = key + "_" + lang
             }
             if (typeof LANG[key][lang] === "string") {
+                if (LANG[key][lang] in FIELDS[type]) continue;
                 FIELDS[type][LANG[key][lang]] = val
             } else if (Array.isArray(LANG[key][lang])) {
-                LANG[key][lang].map(v => FIELDS[type][v] = val)
+                LANG[key][lang].map(v => {
+                    if (!(v in FIELDS[type])) FIELDS[type][v] = val
+                })
             }
         }
     }
@@ -176,6 +179,17 @@ function processData(data) {
                 longitude: v.geometry.coordinates[0],
                 latitude: v.geometry.coordinates[1],
             })
+        }
+
+        if ("Northing" in prop && "Easting" in prop) {
+            temp.coordinateHK = new Coordinate({
+                _type: "tmerc",
+                _system: "hk1980",
+                northing: prop.Northing,
+                easting: prop.Easting,
+            });
+            delete prop.Northing;
+            delete prop.Easting;
         }
 
         // Pre-process prop

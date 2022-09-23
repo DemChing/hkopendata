@@ -1,7 +1,7 @@
 // https://www.als.ogcio.gov.hk/docs/Data_Dictionary_for_ALS_TC.pdf
 
 const cmn = require("../../common");
-const Location = require("../../_class").Location;
+const { Location, Coordinate } = require("../../_class");
 const BASE_URL = "https://www.als.ogcio.gov.hk/lookup";
 
 const VALID = {
@@ -63,14 +63,16 @@ function processData(data) {
             let i = item.Address.PremisesAddress[key],
                 m;
             if (key == "GeospatialInformation") {
-                temp.coordinate = {
+                temp.coordinate = new Coordinate({
                     latitude: i.Latitude,
                     longitude: i.Longitude
-                };
-                temp.coordinateHK = {
+                });
+                temp.coordinateHK = new Coordinate({
+                    _type: "tmerc",
+                    _system: "hk1980",
                     northing: i.Northing,
                     easting: i.Easting
-                };
+                });
             } else if (m = key.match(/(Eng|Chi)PremisesAddress/)) {
                 let l = m[1],
                     lang = l == "Eng" ? "en" : "tc";

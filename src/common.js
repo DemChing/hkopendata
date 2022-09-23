@@ -242,7 +242,7 @@ function RenameFields(data, config) {
     for (let type in config) {
         if (type == "regex") {
             Object.keys(config[type]).map(v => regexs.push(parseRenameRegexp(v)))
-        } else if (/latitude|longitude/.test(type)) {
+        } else if (/latitude|longitude|easting|northing/.test(type)) {
             keys = keys.concat(config[type])
         } else {
             keys = keys.concat(Object.keys(config[type]))
@@ -271,6 +271,15 @@ function RenameFields(data, config) {
                     const CoordinateValue = require("./_class/CoordinateValue");
                     if (!("coordinate" in result)) result.coordinate = {}
                     result.coordinate[type] = new CoordinateValue(data[config[type][key]]).toCoor();
+                }
+            } else if (type == "easting" || type == "northing") {
+                if (config[type][key] in data) {
+                    const CoordinateValue = require("./_class/CoordinateValue");
+                    if (!("coordinateHK" in result)) result.coordinateHK = {
+                        _type: "tmerc",
+                        _system: "hk1980",
+                    }
+                    result.coordinateHK[type] = new CoordinateValue(data[config[type][key]]).toCoor();
                 }
             } else if (key in data && (data[key] === null || data[key].toString().trimChar(" -") != "")) {
                 if (type == "number") {

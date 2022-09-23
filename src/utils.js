@@ -21,7 +21,8 @@ function ToLocale(data, lang, package, html) {
                 let val = data[key];
                 if (/^(tel|fax)$/.test(key)) {
                     if (typeof val === "string") val = val.split(/[,;，；]/);
-                    val = val.filter(v => v.trim() != "")
+                    else if (!Array.isArray(val) && val !== null && typeof val === "object") val = [... new Set(Object.values(val))];
+                    val = val.filter(v => typeof v === "string" && /\d/.test(v))
                         .map(v => {
                             let digits = v.match(/\d/g);
                             if (digits.length > 8 && digits.join("").substr(0, 3) == 852) v = digits.join("").substr(3);
