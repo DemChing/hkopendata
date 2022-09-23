@@ -1,4 +1,9 @@
-const localDataPath = `${process.env.PWD}/.hkopendata/data`;
+const Path = require('path');
+const localDataPath = Path.join(process.cwd(), '.hkopendata/data');
+const localDataPathFallback = [
+    Path.join(process.cwd(), 'data'),
+    __dirname
+];
 let list = {
     stations: "hko-station",
     regions: "hk-location",
@@ -17,10 +22,12 @@ function Get(name) {
     if (name in list) file = list[name];
     try {
         const fs = require("fs");
-        if (fs.existsSync(`${localDataPath}/${file}.json`)) {
-            json = require(`${localDataPath}/${file}.json`);
-        } else if (fs.existsSync(`./${file}.json`)) {
-            json = require(`./${file}.json`);
+        for (const dir of [localDataPath, ...localDataPathFallback]) {
+            let filename = Path.join(dir, `${file}.json`);
+            if (fs.existsSync(filename)) {
+                json = require(filename);
+                break;
+            }
         }
     } catch (e) {};
     if (name == "regions") {
@@ -48,10 +55,9 @@ function Get(name) {
 
 function Set(name, data) {
     const fs = require("fs");
-    const path = require("path");
     try {
-        let dest = `${localDataPath}/${name}.json`,
-            dir = path.dirname(dest);
+        let dest = Path.join(localDataPath, `${name}.json`),
+            dir = Path.dirname(dest);
         if (!fs.existsSync(dir)) fs.mkdirSync(dir, {
             recursive: true
         });

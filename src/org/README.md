@@ -140,6 +140,7 @@ __Parameters__
 | `params.lang` | false | string (`en`/`tc`/`sc`) | en | Language of the result |  |
 
 - `searchCB(params)` Ferry information of cross border ferry
+
 __IMPORTANT:__ This method uses data in `/downloads/hk-ferry.json`. It is not compulsory but recommended to download the file.
 
 __Parameters__
@@ -157,6 +158,26 @@ __IMPORTANT:__ The route information does not update automatically as it is copi
 __Parameters__
 | Name | Required | Accepted | Default | Description | Remarks |
 | --- | --- | --- | --- | --- | --- |
-| `params.type` | true | number `[0-3]` | 0 | Type of information | 0 - Route Info<br>1 - Stops of Route<br>2 - Timetable<br>3 - Fare |
-| `params.route` | true | number `[0-23]` | 0 | Route | 0 - Central to Sok Kwu Wan<br>1 - Central to Yung Shue Wan<br>2 - Central to Peng Chau<br>3 - Central to Mui Wo<br>4 - Peng Chau to Cheung Chau<br>5 - Central to Cheung Chau<br>6 - Central to Discovery Bay<br>7 - Ma Wan to Central<br>8 - Ma Wan to Tsuen Wan<br>9 - North Point to Hung Hom<br>10 - North Point to Kowloon City<br>11 - North Point to Kwun Tong<br>12 - Sai Wan Ho to Kwun Tong<br>13 - Sai Wan Ho to Sam Ka Tsuen<br>14 - Discovery Bay to Mui Wo<br>15 - Tuen Mun to Tai O<br>16 - Aberdeen to Sok Kwu Wan<br>17 - Aberdeen to Yung Shue Wan<br>18 - Central to Hung Hom<br>19 - Ma Liu Shui to Tap Mun<br>20 - Ma Liu Shui to Tung Ping Chau<br>21 - Tap Mun to Wong Shek<br>22 - Kwun Tong to Mui Wo<br>23 - North Point to Kwun Tong |
+| `params.type` | true | number `[0-4]` | 0 | Type of information | 0 - Route Info<br>1 - Stops of Route<br>2 - Timetable<br>3 - Fare<br>4 - ETA[^1] |
+| `params.route` | true | number `[0-23]` | 0 | Route | 0 - Central to Sok Kwu Wan<br>1 - Central to Yung Shue Wan<br>2 - Central to Peng Chau<br>3 - Central to Mui Wo<br>4 - Peng Chau to Cheung Chau<br>5 - Central to Cheung Chau<br>6 - Central to Discovery Bay<br>7 - Ma Wan to Central<br>8 - Ma Wan to Tsuen Wan<br>9 - North Point to Hung Hom<br>10 - North Point to Kowloon City<br>11 - North Point to Kwun Tong<br>12 - Sai Wan Ho to Kwun Tong<br>13 - Sai Wan Ho to Sam Ka Tsuen<br>14 - Discovery Bay to Mui Wo<br>15 - Tuen Mun to Tai O<br>16 - Aberdeen to Sok Kwu Wan<br>17 - Aberdeen to Yung Shue Wan<br>18 - Central to Hung Hom<br>19 - Ma Liu Shui to Tap Mun<br>20 - Ma Liu Shui to Tung Ping Chau<br>21 - Tap Mun to Wong Shek<br>22 - Kwun Tong to Mui Wo[^2]<br>23 - North Point to Kwun Tong[^2]<br>24 - Water Taxi[^1] |
 | `params.lang` | false | string (`en`/`tc`/`sc`) | en | Language of the result |  |
+| `params.section` | false | number |  | Specific section of the route | Only work with `ETA`. Find the full section list [here](#section-list). |
+
+##### Section List
+| Route | Route Name | Sections |
+| --- | --- | --- |
+| `0` | Central to Sok Kwu Wan | 0 - Central to Sok Kwu Wan<br>1 - Sok Kwu Wan to Central
+| `1` | Central to Yung Shue Wan | 0 - Central to Yung Shue Wan<br>1 - Yung Shue Wan to Central
+| `2` | Central to Peng Chau | 0 - Central to Peng Chau<br>1 - Peng Chau to Central<br>2 - Peng Chau to Hei Ling Chau<br>3 - Hei Ling Chau to Peng Chau
+| `3` | Central to Mui Wo | 0 - Central to Mui Wo<br>1 - Mui Wo to Central
+| `4` | Peng Chau to Cheung Chau | 0 - Peng Chau to Mui Wo<br>1 - Mui Wo to Peng Chau<br>2 - Mui Wo to Chi Ma Wan<br>3 - Chi Ma Wan to Mui Wo<br>4 - Chi Ma Wan to Cheung Chau<br>5 - Cheung Chau to Chi Ma Wan<br>6 - Cheung Chau to Mui Wo<br>7 - Mui Wo to Cheung Chau
+| `5` | Central to Cheung Chau | 0 - Central to Cheung Chau<br>1 - Cheung Chau to Central
+| `9` | North Point to Hung Hom | 0 - North Point to Hung Hom<br>1 - Hung Hom to North Point
+| `10` | North Point to Kowloon City | 0 - North Point to Kowloon City<br>1 - Kowloon City to North Point
+| `11` | North Point to Kwun Tong | 0 - North Point to Kwun Tong<br>1 - Kwun Tong to North Point<br>2 - Kwun Tong to Kai Tak<br>3 - Kai Tak to Kwun Tong
+| `15` | Tuen Mun to Tai O | 0 - Tuen Mun to Tung Chung<br>1 - Tung Chung to Tuen Mun<br>2 - Tuen Mun to Sha Lo Wan<br>3 - Sha Lo Wan to Tuen Mun<br>4 - Tung Chung to Sha Lo Wan<br>5 - Sha Lo Wan to Tung Chung<br>6 - Tung Chung to Tai O<br>7 - Tai O to Tung Chung<br>8 - Sha Lo Wan to Tai O<br>9 - Tai O to Sha Lo Wan<br>10 - Tuen Mun to Tai O<br>11 - Tai O to Tuen Mun
+| `18` | Central to Hung Hom | 0 - Central to Hung Hom<br>1 - Hung Hom to Central
+| `24` | Water Taxi | 0 - Whole Trip
+
+[^1]: Available since `v1.7.0`.
+[^2]: For Dangerous Goods Vehicles.

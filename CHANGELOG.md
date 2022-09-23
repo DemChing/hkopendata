@@ -4,6 +4,7 @@
 ### v1.7.0
 __ADDED__
 - [Bank](src/bank/README.md) API support for Airstar Bank Limited (天星銀行有限公司), Livi Bank Limited (理慧銀行有限公司), Fusion Bank Limited (富融銀行有限公司), Ant Bank (Hong Kong) Limited (螞蟻銀行(香港)有限公司), Ping An OneConnect Bank (Hong Kong) Limited (平安壹賬通銀行(香港)有限公司), WeLab Bank Limited (匯立銀行有限公司) and ZA Bank Limited (眾安銀行有限公司).
+- [Ferry](src/org/README.md#ferry-ferry) some routes provide `ETA` information.
 
 __MODIFIED__
 - [Bank](src/bank/README.md) bugs fixed and change request configuration.

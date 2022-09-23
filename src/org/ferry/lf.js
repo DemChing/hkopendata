@@ -1,14 +1,23 @@
 // https://www.td.gov.hk/filemanager/en/content_1408/opendata/franchised_and_licensed_ferry_time_and_fare_tables_dataspec_eng.pdf
+// https://www.hkkfeta.com/datagovhk/HKKF_ETA_API_Specification.pdf
+// https://www.hongkongwatertaxi.com.hk/csv/Watertaxi_FortuneFerry_ETA_API_Specification_and_Data_Dictionary.pdf
+// https://www.sunferry.com.hk/eta/SunFerry_ETA_API_Specification_and_Data_Dictionary.pdf
 const cmn = require("../../common");
 const moment = require("../../moment");
 const UnitValue = require("../../_class").UnitValue;
 const BASE_URL = "https://www.td.gov.hk/filemanager/{lang}/content_{cid}/opendata/ferry_{route}_{type}table_{langFile}.csv";
+const FFCL_BASE_URL = "https://www.hongkongwatertaxi.com.hk/csv/{route}{type}table_{langFile}.csv";
+const ETA_BASE_URL = {
+    HKKF: "https://www.hkkfeta.com/opendata/eta/{section}",
+    SUNF: "https://www.sunferry.com.hk/eta/?route={section}",
+    FFCL: "https://www.hongkongwatertaxi.com.hk/eta/?route={section}",
+}
 const FERRY = {};
 
-const ROUTES = ["central_skw", "central_ysw", "central_pc", "central_mw", "pc_mw_cmw_cc", "central_cc", "central_db", "mawan_c", "mawan_tw", "np_hh", "np_klnc", "np_ktak", "swh_kt", "swh_skt", "db_mw", "tm_tc_slw_to", "abd_skw", "abd_ysw", "c_hh", "mls_tm", "mls_tpc", "tm_wsp", "npkt_mw", "np_kt"]
+const ROUTES = ["central_skw", "central_ysw", "central_pc", "central_mw", "pc_mw_cmw_cc", "central_cc", "central_db", "mawan_c", "mawan_tw", "np_hh", "np_klnc", "np_ktak", "swh_kt", "swh_skt", "db_mw", "tm_tc_slw_to", "abd_skw", "abd_ysw", "c_hh", "mls_tm", "mls_tpc", "tm_wsp", "npkt_mw", "np_kt", "WaterTaxi"]
 
 const VALID = {
-    type: /^(route|route-stop|time|fare)$/,
+    type: /^(route|route-stop|time|fare|eta)$/,
     lang: /^(en|tc|sc)$/,
 }
 const VALID_OPT = {
@@ -22,7 +31,7 @@ const PARAMS = {
 const SEARCH_CONFIG = {
     value: {
         type: {
-            accepted: ["route", "route-stop", "time", "fare"]
+            accepted: ["route", "route-stop", "time", "fare", "eta"]
         },
         lang: {
             accepted: {
@@ -54,23 +63,62 @@ function validateParameters(params) {
     params = cmn.ParseSearchFields(params, SEARCH_CONFIG);
     let result = cmn.ValidateParameters(params, VALID, VALID_OPT);
 
-    if (Object.keys(FERRY).length == 0) {
+    if (!result.error && Object.keys(FERRY).length == 0) {
         result.error = true;
-        result.message = "Please download and place `hk-ferry.json` to `/data` correctly."
+        result.message = "Please download and place `hk-ferry.json` to `/.hkopendata/data` correctly."
     }
-    if (params.type != "route" && !("route" in params)) {
+    if (!result.error && params.type != "route" && !("route" in params)) {
         result.error = true;
         result.message = "Missing route";
     }
-    if (params.route && /^(mls_tm|mls_tpc|tm_wsp)$/.test(params.route)) {
+    if (!result.error && (!FERRY.route || !FERRY.route.find(v => v.code === params.route))) {
+        result.error = true;
+        result.message = "Invalid route";
+    }
+    if (!result.error && params.route && /^(mls_tm|mls_tpc|tm_wsp)$/.test(params.route)) {
         params.cid = "4912";
     }
+    if (!result.error && params.type === "eta") {
+        if ("section" in params) {
+            let route = FERRY.route.find(v => v.code === params.route);
+            if (!("direction" in route) || !route.direction[params.section]) {
+                result.error = true;
+                result.message = "Invalid route section";
+            } else {
+                params.section = route.direction[params.section];
+
+                let company = FERRY.company.find(v => v.code === route.company);
+                if ("eta" in company && company.eta in ETA_BASE_URL) {
+                    params.baseUrl = ETA_BASE_URL[company.eta];
+                } else {
+                    result.error = true;
+                    result.message = "No ETA info for this route";
+                }
+            }
+        } else {
+            result.error = true;
+            result.message = "Missing route section";
+        }
+    }
     if (!result.error) {
+        let temp = {};
+        if (params.route === "WaterTaxi" && (params.type === "fare" || params.type === "time")) {
+            temp.langFile = params.lang == "sc" ? "chs" : params.lang == "tc" ? temp.langFile = "cht" : "eng";
+            temp.type = params.type.toCapitalCase();
+            temp.baseUrl = FFCL_BASE_URL;
+            temp.csvOpts = {
+                delimiter: "\t",
+                from_line: 2,
+                encoding: "utf-16"
+            };
+        } else {
+            temp.langFile = params.lang == "en" ? "eng" : "chi";
+            temp.baseUrl = params.baseUrl || BASE_URL;
+        }
+
         result.data = {
-            ...{
-                langFile: params.lang == "en" ? "eng" : "chi"
-            },
-            ...params
+            ...params,
+            ...temp,
         }
     }
     return result;
@@ -82,17 +130,18 @@ function search(data, opts) {
         let processed = validateParameters({
                 ...PARAMS,
                 ...data
-            }),
-            params;
+            });
         if (processed.error) {
             reject(processed);
         } else {
-            params = processed.data;
+            let { baseUrl, csvOpts, ...params } = processed.data;
             let promise;
             if (/route/.test(params.type)) {
                 promise = getRouteData(params);
+            } else if (params.type === "eta") {
+                promise = cmn.APIRequest(cmn.ReplaceURL(baseUrl, params));
             } else {
-                promise = cmn.CSVFetch(cmn.ReplaceURL(BASE_URL, params));
+                promise = cmn.CSVFetch(cmn.ReplaceURL(baseUrl, params), csvOpts);
             }
             promise
                 .then((res) => {
@@ -206,7 +255,7 @@ function processData(data, params) {
         })
     } else if (params.type == "route-stop") {
         result = data[0].stops;
-    } else if (params.type == "time") {
+    } else if (params.type.toLowerCase() == "time") {
         let temp = {},
             temp2 = {},
             route = convert("route", params.route),
@@ -219,11 +268,12 @@ function processData(data, params) {
             }),
             remarks = [];
         data.body.map(row => {
-            let dir = row[0].replace("Chueung Chau", "Cheung Chau");
+            let dir = row[0].replace("Chueung Chau", "Cheung Chau"),
+                noRemark = typeof row[3] === "undefined" || row[3].trim() === "";
             if (!(dir in temp)) temp[dir] = {};
             if (!(row[1] in temp[dir])) temp[dir][row[1]] = [];
-            temp[dir][row[1]].push(moment(row[2].replace(/(\d+)\.(\d+)/, '$1:$2').replace(/\./g, ""), ["HH:mm A", "Hmm A"]).format("HH:mm") + (row[3].trim() == "" ? "" : `[${row[3]}]`))
-            remarks.push(row[3]);
+            temp[dir][row[1]].push(moment(row[2].replace(/(\d+)\.(\d+)/, '$1:$2').replace(/\./g, ""), ["HH:mm A", "Hmm A"]).format("HH:mm") + (noRemark ? "" : `[${row[3]}]`))
+            if (!noRemark) remarks.push(row[3]);
         })
         remarks = remarks.filter((v, i, l) => v != "" && l.indexOf(v) == i).sort();
         if (route.remarks && route.remarks.time) {
@@ -284,7 +334,7 @@ function processData(data, params) {
         for (let tkey in temp2) {
             result.push(temp2[tkey]);
         }
-    } else if (params.type == "fare") {
+    } else if (params.type.toLowerCase() == "fare") {
         let temp = {},
             temp2 = {},
             route = convert("route", params.route);
@@ -306,12 +356,16 @@ function processData(data, params) {
                 } else if (/^(db_mw|abd_skw|abd_ysw|mls_tm|tm_wsp|npkt_mw)$/.test(params.route)) {
                     routePart = row.splice(1, 1)[0];
                 } else if (params.route == "tm_tc_slw_to") {
-                    routePart = row.splice(1, 1)[0];
+                    routePart = row.splice(1, 1)[0].trim();
                     ferryType = row.splice(2, 1)[0].trim();
+                } else if (params.route == "WaterTaxi") {
+                    routePart = row.splice(2, 1)[0].split(/\s+(or|或)\s+/i)[0].trim();
+                    ferryType = row.splice(1, 1)[0].trim();
+                    row.splice(1, 0, '')
                 }
-                let type = row[0].split("-").map(v => v.trim()),
-                    ticket = type.shift(),
-                    passenger = type.join("-"),
+                let type = row[0].replace(/(multi)-/ig, "$1_").split("-").map(v => v.trim()),
+                    ticket = type.shift().replace(/(multi)_/ig, "$1-"),
+                    passenger = type.join("-").replace(/(multi)_/ig, "$1-"),
                     amount = {
                         fare: parseFloat(point) || parseFloat(row[2].replace("$", "")) || 0
                     },
@@ -319,7 +373,7 @@ function processData(data, params) {
                     passCheck = (str) => {
                         if (/65|elderly|長者|长者/i.test(str)) {
                             str = "elderly";
-                        } else if (/child|小童/i.test(str) && /adult|成人/i.test(str)) {
+                        } else if (/child|小童/i.test(str) && /adult|成人/i.test(str) && !/陪同|accompan(ied|y)/i.test(str)) {
                             str = "allPassenger";
                         } else if (/child|小童/i.test(str)) {
                             str = /12/i.test(str) ? "child" : "baby";
@@ -334,6 +388,9 @@ function processData(data, params) {
                     };
                 if (/^(mawan_c|mawan_tw)$/.test(params.route)) {
                     payment = row[3] == "1" ? "八達通" : "非登記八達通";
+                    row[3] = "";
+                } else if (params.route === "WaterTaxi" && row[3]) {
+                    payment = row[3];
                     row[3] = "";
                 }
                 if (ferryType && ferryType != "-") amount.ferryType = ferryType;
@@ -359,14 +416,17 @@ function processData(data, params) {
                     amount.passenger = passCheck(passenger);
                 }
                 if (payment) {
+                    let types = [];
                     if (/cash|現金|现金/i.test(payment)) {
-                        payment = "cash";
-                    } else if (/octopus|八達通|八达通/i.test(payment)) {
-                        payment = /non-registered|非登記|非登记/i.test(payment) ? "octopus" : "regedOctopus";
-                    } else if (/transport card|T卡|per single journey|外籍家庭傭工|外籍家庭佣工/i.test(payment)) {
+                        types.push("cash");
+                    }
+                    if (/octopus|八達通|八达通/i.test(payment)) {
+                        types.push(/non-registered|非登記|非登记/i.test(payment) ? "octopus" : "regedOctopus");
+                    }
+                    if (/transport card|T卡|per single journey|外籍家庭傭工|外籍家庭佣工/i.test(payment)) {
                         payment = "";
                     }
-                    amount.payment = payment;
+                    amount.payment = types.length === 1 ? types[0] : payment;
                 }
                 if (!(ticket in temp)) temp[ticket] = {};
                 if (!(row[1] in temp[ticket])) temp[ticket][row[1]] = [];
@@ -454,6 +514,23 @@ function processData(data, params) {
                 }
             })
         }
+    } else if (params.type === "eta") {
+        result = data.data.map(item => {
+            let temp = {};
+            for (let key in item) {
+                if (!item[key]) continue;
+                let m;
+                if (/eta/i.test(key)) {
+                    temp.eta = item[key].length === 5 ? moment(item[key], "HH:mm") : moment(item[key]);
+                } else if (key === "depart_time") {
+                    temp.etd = item[key].length === 5 ? moment(item[key], "HH:mm") : moment(item[key]);
+                } else if ((m = key.match(/^([a-z_]+)_(en|tc|sc)/i))) {
+                    if (!(m[1] in temp)) temp[m[1]] = {};
+                    temp[m[1]][m[2]] = item[key];
+                }
+            }
+            return temp;
+        })
     }
     return result;
 }

@@ -241,5 +241,22 @@ module.exports = function (grunt) {
         // console.log(grunt.file.expand(DOWNLOADS[0].name))
     })
 
-    grunt.registerTask('build', ['translate', 'break', 'minify', 'digest'])
+    grunt.registerTask('changelog', 'Copy latest changelog to main readme', function () {
+        let readme = grunt.file.read('README.md'),
+            changelog = grunt.file.read('CHANGELOG.md'),
+            tags = [
+                '## Changelog (Lastest Version)',
+                '## Support'
+            ],
+            logStart = changelog.indexOf("###"),
+            logEnd = changelog.indexOf('###', logStart + 1) - 1;
+        grunt.file.write('README.md', `${readme.substr(0, readme.indexOf(tags[0]) + tags[0].length)}
+${changelog.substring(logStart, logEnd)}
+
+Full changelog history available [here](/CHANGELOG.md#latest-version).
+
+${readme.substr(readme.indexOf(tags[1]))}`)
+    })
+
+    grunt.registerTask('build', ['translate', 'break', 'minify', 'digest', 'changelog'])
 }

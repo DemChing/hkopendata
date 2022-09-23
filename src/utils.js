@@ -34,7 +34,9 @@ function ToLocale(data, lang, package, html) {
                 } else if (Array.isArray(val)) {
                     val = ToLocale(val, lang, package, key == "available")
                 } else if (typeof val === "object" && val !== null) {
-                    if (val.constructor && val.toLocale) val = val.toLocale(lang);
+                    if (val.constructor && (val.toLocale || val.constructor.name === "Moment")) {
+                        val = val.toLocale ? val.toLocale(lang) : val.format('YYYY-MM-DD HH:mm:ss');
+                    }
                     else if (lang in val) {
                         val = val[lang];
                     } else {
