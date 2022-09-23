@@ -15,6 +15,7 @@
   "scripts": {
     "build": "grunt build",
     "dev": "grunt watch",
+    "update": "grunt update",
     "release": "np --yolo"
   },
   "author": "Dem Ching",

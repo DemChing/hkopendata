@@ -49,7 +49,7 @@ function search(data, opts) {
             let result = [],
                 complete = false;
             params = processed.data;
-            if (params.year in HOLIDAY) {
+            if (!opts.update && params.year in HOLIDAY) {
                 for (let date in HOLIDAY[params.year]) {
                     if (params.lang in HOLIDAY[params.year][date]) {
                         result.push({
@@ -80,7 +80,7 @@ function search(data, opts) {
 
 function processData(data, opts) {
     let result = {},
-        updated = false,
+        updated = Boolean(opts.update),
         lang = opts.lang;
     data.vcalendar[0].vevent.map((item) => {
         let date = moment(item.dtstart[0], "YYYYMMDD"),
@@ -108,6 +108,11 @@ function processData(data, opts) {
         })
     })
     if (updated) {
+        if (opts.history) {
+            for (let year in opts.history) {
+                if (!(year in HOLIDAY)) HOLIDAY[year] = opts.history[year];
+            }
+        }
         cmn.UpdateDataJson("hk-holiday", HOLIDAY);
     }
     return result;

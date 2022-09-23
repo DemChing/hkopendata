@@ -82,6 +82,7 @@ const DOWNLOADS = [{
     },
 ]
 
+const AVAILABLE_LANGUAGES = ['en', 'tc', 'sc'];
 module.exports = function (grunt) {
     grunt.initConfig({
         downloadFiles: 'downloads/**/*.json',
@@ -237,8 +238,6 @@ module.exports = function (grunt) {
                 return done();
             })
             .catch(console.trace)
-
-        // console.log(grunt.file.expand(DOWNLOADS[0].name))
     })
 
     grunt.registerTask('changelog', 'Copy latest changelog to main readme', function () {
@@ -257,6 +256,52 @@ Full changelog history available [here](/CHANGELOG.md#latest-version).
 
 ${readme.substr(readme.indexOf(tags[1]))}`)
     })
+
+    grunt.registerTask('pull:flat', 'Get latest data for downloads/flats/*.json', function () {
+        const done = this.async(),
+            { hse } = require('./src/gov'),
+            fetch = (type = 0) => hse.searchFlat({ type }, { update: true })
+                .then(() => ++type < 18 ? fetch(type) : true)
+
+        fetch()
+            .then(() => done(true))
+            .catch(() => done(false))
+    })
+    grunt.registerTask('pull:holiday', 'Get latest data for downloads/hk-holiday.json', function () {
+        const done = this.async(),
+            { effo } = require('./src/gov'),
+            fetch = (type = 0) => effo.searchHoliday(
+                {
+                    year: (new Date()).getFullYear(),
+                    lang: AVAILABLE_LANGUAGES[type]
+                },
+                {
+                    update: true,
+                    history: grunt.file.readJSON('downloads/hk-holiday.json')
+                }
+            )
+                .then(() => ++type < AVAILABLE_LANGUAGES.length ? fetch(type) : true)
+
+        fetch()
+            .then(() => done(true))
+            .catch(() => done(false))
+    })
+
+    const Copy = (pattern) => {
+        const SRC = '.hkopendata/data/';
+        grunt.file.expand({ cwd: SRC }, pattern)
+            .map(file => grunt.file.copy(`${SRC}/${file}`, `downloads/${file}`))
+    }
+    grunt.registerTask('copy:flat', 'Copy latest data to downloads/flats', function () {
+        Copy('flats/*.json')
+    })
+    grunt.registerTask('copy:holiday', 'Copy latest data to downloads', function () {
+        Copy('hk-holiday.json')
+    })
+
+    grunt.registerTask('update:flat', ['pull:flat', 'copy:flat', 'translate:other'])
+    grunt.registerTask('update:holiday', ['pull:holiday', 'copy:holiday'])
+    grunt.registerTask('udpate', ['pull:flat', 'pull:holiday', 'copy:flat', 'copy:holiday', 'translate:other'])
 
     grunt.registerTask('build', ['translate', 'break', 'minify', 'digest', 'changelog'])
 }

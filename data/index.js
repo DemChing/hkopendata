@@ -61,7 +61,7 @@ function Set(name, data) {
         if (!fs.existsSync(dir)) fs.mkdirSync(dir, {
             recursive: true
         });
-        fs.writeFile(dest, JSON.stringify(data), () => {});
+        fs.writeFileSync(dest, JSON.stringify(data));
     } catch (e) {}
 }
 
