@@ -44,7 +44,7 @@
     "awesome-phonenumber": "^2.27.0",
     "axios": "^0.21.1",
     "csv-parse": "^4.8.8",
-    "fast-xml-parser": "^3.16.0",
+    "fast-xml-parser": "^4.2.4",
     "moment": "^2.24.0",
     "proj4": "^2.6.0"
   }
